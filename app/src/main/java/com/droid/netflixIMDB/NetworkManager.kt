@@ -20,6 +20,7 @@ interface NetworkManager {
         @Query("y") year: String? = null
     ): Deferred<Response<OMDBResponse>>
 
+
     companion object HTTPService {
 
         private var create: NetworkManager? = null

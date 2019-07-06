@@ -12,10 +12,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import android.os.Looper
 import org.greenrobot.eventbus.EventBus
+import retrofit2.Response
 
 
 @Suppress("IMPLICIT_CAST_TO_ANY")
 class ReaderService : AccessibilityService() {
+
 
     private val TAG: String = javaClass.simpleName
     private val NETFLIX_PACKAGE_NAME = "com.netflix.mediaclient"
@@ -33,6 +35,8 @@ class ReaderService : AccessibilityService() {
     private var lastTitleRequested: String? = null
     private var lastYearRequested: String? = null
 
+    private var response: Response<OMDBResponse>? = null
+
     override fun onInterrupt() {
         Log.i(TAG, "Accessibility service interrupted")
     }
@@ -45,7 +49,7 @@ class ReaderService : AccessibilityService() {
     override fun onServiceConnected() {
         Log.i(TAG, "Accessibility service connected")
 
-        var info = AccessibilityServiceInfo()
+        val info = AccessibilityServiceInfo()
 
         info.eventTypes = AccessibilityEvent.TYPES_ALL_MASK
 
@@ -123,30 +127,40 @@ class ReaderService : AccessibilityService() {
 
         val netflixPayload = NetflixPayload(title, year)
 
-        if (netflixPayload.title.equals(lastTitleRequested) && netflixPayload.year.equals(lastYearRequested)) {
+        if (netflixPayload.title.equals(lastTitleRequested, true) &&
+            netflixPayload.year.equals(lastYearRequested, true)
+        ) {
             Log.d(TAG, "Already requested ${netflixPayload.title} - ${netflixPayload.year}")
             return
         }
 
         netflixPayload.title?.let { title ->
             runBlocking(Dispatchers.IO) {
-                Log.d(TAG, "Requesting rating for title $title -  $year - $type")
-                val response = NetworkManager.getInstance()?.getRatingAsync(title, type, year)?.await()
-                response?.let { it ->
+                Log.i(TAG, "Requesting rating for title $title -  $year - $type")
+
+                if (type == null) {
+                    response = NetworkManager.getInstance()?.getRatingAsync(title, null, year)?.await()
+                } else {
+                    type?.let {
+                        if (it == "series" && year != null) {
+                            response = NetworkManager.getInstance()?.getRatingAsync(title, type, null)?.await()
+                        }
+                    }
+                }
+
+                response?.let { response ->
                     if (response.isSuccessful) {
                         when (response.code()) {
                             200 -> {
 
-                                val rating = it.body()?.imdbRating
-                                val itemYear = it.body()?.Year
-                                val itemTitle = it.body()?.Title
+                                val rating = response.body()?.imdbRating
 
-                                lastTitleRequested = itemTitle ?: title
-                                lastYearRequested = itemYear ?: year
+                                lastTitleRequested = title
+                                lastYearRequested = year
 
-                                Log.d(TAG, "Title: $lastTitleRequested - Year: $itemYear - Rating: $rating")
+                                Log.d(TAG, "Title: $lastTitleRequested - Year: $lastYearRequested - Rating: $rating")
 
-                                EventBus.getDefault().post(MessageEvent(rating, lastTitleRequested, itemYear))
+                                EventBus.getDefault().post(MessageEvent(rating, lastTitleRequested, lastYearRequested))
                             }
                             500 -> {
                                 Log.e(TAG, "OMDB server error ${response.message()}")

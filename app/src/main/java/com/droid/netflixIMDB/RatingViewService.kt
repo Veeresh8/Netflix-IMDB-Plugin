@@ -77,8 +77,12 @@ class RatingViewService : Service() {
             rating = rating ?: "NA"
             year = year ?: ""
 
+            if (year.isNotEmpty()) {
+                year = "($year)"
+            }
+
             tvRating.text = rating
-            tvTitle.text = String.format(event.title + " " + year)
+            tvTitle.text = "${event.title} $year"
 
             if (timer != null) {
                 timer?.cancel()
