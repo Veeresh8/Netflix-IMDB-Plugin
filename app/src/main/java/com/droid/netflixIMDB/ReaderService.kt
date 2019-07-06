@@ -116,10 +116,11 @@ class ReaderService : AccessibilityService() {
                         when (response.code()) {
                             200 -> {
 
-                                val rating = response.body().let { it?.imdbRating }
-                                val year = response.body().let { it?.Year }
+                                val rating = it.body()?.imdbRating
+                                val year = it.body()?.Year
+                                val itemTitle = it.body()?.Title
 
-                                lastTitleRequested = it.body()?.Title
+                                lastTitleRequested = itemTitle ?: title
 
                                 Log.d(TAG, "Title: $lastTitleRequested - Year: $year - Rating: $rating")
 

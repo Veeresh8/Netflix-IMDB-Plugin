@@ -5,14 +5,12 @@ import android.content.Intent
 import android.graphics.PixelFormat
 import android.os.Build
 import android.os.CountDownTimer
-import android.os.Handler
 import android.os.IBinder
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
-import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import org.greenrobot.eventbus.EventBus
@@ -21,7 +19,6 @@ import org.greenrobot.eventbus.ThreadMode
 
 
 class RatingViewService : Service() {
-
 
     private val TAG: String = javaClass.simpleName
     private var mWindowManager: WindowManager? = null
@@ -74,12 +71,13 @@ class RatingViewService : Service() {
             if (mRatingView?.windowToken == null)
                 mWindowManager?.addView(mRatingView, params)
 
-            val aniSlide = AnimationUtils.loadAnimation(applicationContext, R.anim.slide_down)
-            mRatingView?.startAnimation(aniSlide)
+            var year = event.year
+            var rating = event.rating
 
-            val year = event.year
+            rating = rating ?: "NA"
+            year = year ?: ""
 
-            tvRating.text = event.rating
+            tvRating.text = rating
             tvTitle.text = String.format(event.title + " " + year)
 
             if (timer != null) {
@@ -92,7 +90,6 @@ class RatingViewService : Service() {
                 timer = object : CountDownTimer(4000, 1000) {
                     override fun onTick(millisUntilFinished: Long) {
                         Log.d(TAG, "On tick $millisUntilFinished")
-
                     }
 
                     override fun onFinish() {
@@ -101,7 +98,6 @@ class RatingViewService : Service() {
                 }
                 timer?.start()
             }
-
 
         } else {
             Log.e(TAG, "Views not initialized")
