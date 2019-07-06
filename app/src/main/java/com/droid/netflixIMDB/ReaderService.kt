@@ -21,12 +21,15 @@ class ReaderService : AccessibilityService() {
     private val NETFLIX_PACKAGE_NAME = "com.netflix.mediaclient"
     private val NETFLIX_TITLE_ID = "com.netflix.mediaclient:id/video_details_title"
     private val NETFLIX_YEAR_ID = "com.netflix.mediaclient:id/video_details_basic_info_year"
+    private val NETFLIX_MOVIE_SERIES_ID = "com.netflix.mediaclient:id/video_details_basic_info_num_seasons_or_duration"
 
     private var hasTitle = false
     private var hasYear = false
+    private var hasTypeDetails = false
 
     private var title: String? = null
     private var year: String? = null
+    private var type: String? = null
     private var lastTitleRequested: String? = null
 
     override fun onInterrupt() {
@@ -78,6 +81,7 @@ class ReaderService : AccessibilityService() {
         if (event.eventType == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED) {
             hasTitle = false
             hasYear = false
+            hasTypeDetails = false
         }
 
         val nodeTitle = event.source.findAccessibilityNodeInfosByViewId(NETFLIX_TITLE_ID)
@@ -100,6 +104,22 @@ class ReaderService : AccessibilityService() {
             }
         }
 
+        val nodeMovieSeriesDetails = event.source.findAccessibilityNodeInfosByViewId(NETFLIX_MOVIE_SERIES_ID)
+        nodeMovieSeriesDetails.forEach { child ->
+            child?.let {
+                if (!hasTypeDetails) {
+                    type = child.text as String?
+                    type?.let {
+                        if (it.toLowerCase().contains("season"))
+                            type = "series"
+                        else
+                            type = null
+                    }
+                    hasTypeDetails = true
+                }
+            }
+        }
+
         var netflixPayload = NetflixPayload(title, year)
 
         if (netflixPayload.title.equals(lastTitleRequested)) {
@@ -109,8 +129,8 @@ class ReaderService : AccessibilityService() {
 
         netflixPayload.title?.let { title ->
             runBlocking(Dispatchers.IO) {
-                Log.d(TAG, "Requesting rating for title $title -  $year")
-                val response = NetworkManager.getInstance()?.getRatingAsync(title)?.await()
+                Log.d(TAG, "Requesting rating for title $title -  $year $type")
+                val response = NetworkManager.getInstance()?.getRatingAsync(title, type)?.await()
                 response?.let { it ->
                     if (response.isSuccessful) {
                         when (response.code()) {
