@@ -14,7 +14,11 @@ import java.util.concurrent.TimeUnit
 interface NetworkManager {
 
     @GET("?apikey=d5d13670")
-    open fun getRatingAsync(@Query("t") title: String, @Query("type") type: String? = null): Deferred<Response<OMDBResponse>>
+    open fun getRatingAsync(
+        @Query("t") title: String,
+        @Query("type") type: String? = null,
+        @Query("y") year: String? = null
+    ): Deferred<Response<OMDBResponse>>
 
     companion object HTTPService {
 
@@ -41,7 +45,8 @@ interface NetworkManager {
             builder.readTimeout(60, TimeUnit.SECONDS)
             builder.writeTimeout(60, TimeUnit.SECONDS)
 
-            builder.addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            if (BuildConfig.DEBUG)
+                builder.addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
 
             return builder.build()
         }

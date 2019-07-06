@@ -31,6 +31,7 @@ class ReaderService : AccessibilityService() {
     private var year: String? = null
     private var type: String? = null
     private var lastTitleRequested: String? = null
+    private var lastYearRequested: String? = null
 
     override fun onInterrupt() {
         Log.i(TAG, "Accessibility service interrupted")
@@ -120,31 +121,32 @@ class ReaderService : AccessibilityService() {
             }
         }
 
-        var netflixPayload = NetflixPayload(title, year)
+        val netflixPayload = NetflixPayload(title, year)
 
-        if (netflixPayload.title.equals(lastTitleRequested)) {
-            Log.d(TAG, "Already requested ${netflixPayload.title}")
+        if (netflixPayload.title.equals(lastTitleRequested) && netflixPayload.year.equals(lastYearRequested)) {
+            Log.d(TAG, "Already requested ${netflixPayload.title} - ${netflixPayload.year}")
             return
         }
 
         netflixPayload.title?.let { title ->
             runBlocking(Dispatchers.IO) {
-                Log.d(TAG, "Requesting rating for title $title -  $year $type")
-                val response = NetworkManager.getInstance()?.getRatingAsync(title, type)?.await()
+                Log.d(TAG, "Requesting rating for title $title -  $year - $type")
+                val response = NetworkManager.getInstance()?.getRatingAsync(title, type, year)?.await()
                 response?.let { it ->
                     if (response.isSuccessful) {
                         when (response.code()) {
                             200 -> {
 
                                 val rating = it.body()?.imdbRating
-                                val year = it.body()?.Year
+                                val itemYear = it.body()?.Year
                                 val itemTitle = it.body()?.Title
 
                                 lastTitleRequested = itemTitle ?: title
+                                lastYearRequested = itemYear ?: year
 
-                                Log.d(TAG, "Title: $lastTitleRequested - Year: $year - Rating: $rating")
+                                Log.d(TAG, "Title: $lastTitleRequested - Year: $itemYear - Rating: $rating")
 
-                                EventBus.getDefault().post(MessageEvent(rating, lastTitleRequested, year))
+                                EventBus.getDefault().post(MessageEvent(rating, lastTitleRequested, itemYear))
                             }
                             500 -> {
                                 Log.e(TAG, "OMDB server error ${response.message()}")
