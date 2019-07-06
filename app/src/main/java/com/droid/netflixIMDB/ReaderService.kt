@@ -11,6 +11,7 @@ import android.widget.Toast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import android.os.Looper
+import org.greenrobot.eventbus.EventBus
 
 
 @Suppress("IMPLICIT_CAST_TO_ANY")
@@ -114,20 +115,15 @@ class ReaderService : AccessibilityService() {
                     if (response.isSuccessful) {
                         when (response.code()) {
                             200 -> {
+
+                                val rating = response.body().let { it?.imdbRating }
+                                val year = response.body().let { it?.Year }
+
                                 lastTitleRequested = it.body()?.Title
 
-                                var rating = response.body().let { it?.imdbRating }
+                                Log.d(TAG, "Title: $lastTitleRequested - Year: $year - Rating: $rating")
 
-                                Log.d(TAG, "Rating: $rating")
-
-                                Handler(Looper.getMainLooper()).post {
-                                    Toast.makeText(
-                                        this@ReaderService,
-                                        "${it.body()?.Title} - $rating",
-                                        Toast.LENGTH_LONG
-                                    ).show()
-                                }
-
+                                EventBus.getDefault().post(MessageEvent(rating, lastTitleRequested, year))
                             }
                             500 -> {
                                 Log.e(TAG, "OMDB server error ${response.message()}")

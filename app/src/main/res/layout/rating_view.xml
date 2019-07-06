@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   xmlns:tools="http://schemas.android.com/tools"
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent" android:id="@+id/linearLayout">
 
@@ -11,12 +10,13 @@
             android:id="@+id/constraintLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-            android:background="#221F1F">
+            android:background="#E50914">
 
         <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/round_cancel_white_24dp"
+                android:alpha="0.8"
+                android:src="@drawable/ic_round_cancel_24px"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" android:id="@+id/ivClose"
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"/>
@@ -29,9 +29,10 @@
                 android:id="@+id/tvTitle" android:layout_marginStart="16dp"
                 app:layout_constraintStart_toEndOf="@+id/ivClose" app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="16dp"
-                tools:text="Random title here"
+                android:text="Random title here"
                 android:textColor="@android:color/white"
-                android:fontFamily="@font/alegreya_sans_sc_extrabold"
+                android:fontFamily="sans-serif-smallcaps"
+                android:textStyle="bold"
                 android:layout_marginEnd="8dp" app:layout_constraintEnd_toStartOf="@+id/guideline"
                 android:textAlignment="textStart"/>
         <androidx.constraintlayout.widget.Guideline
@@ -46,7 +47,8 @@
                 android:layout_marginTop="13dp" android:id="@+id/tvRating"
                 app:layout_constraintStart_toEndOf="@+id/tvTitle" android:layout_marginStart="16dp"
                 app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"
-                android:textColor="@android:color/white" android:fontFamily="@font/alegreya_sans_sc_extrabold"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1" android:textSize="18sp"/>
+                android:textColor="@android:color/white" android:fontFamily="sans-serif-smallcaps"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" android:textSize="18sp"
+                android:textStyle="bold"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
