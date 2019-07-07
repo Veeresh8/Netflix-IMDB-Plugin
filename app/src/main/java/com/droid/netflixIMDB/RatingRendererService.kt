@@ -18,7 +18,7 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 
-class RatingViewService : Service() {
+class RatingRendererService : Service() {
 
     private val TAG: String = javaClass.simpleName
     private var mWindowManager: WindowManager? = null
@@ -33,10 +33,16 @@ class RatingViewService : Service() {
         return null
     }
 
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        if (!EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().register(this)
+        return START_STICKY
+    }
+
     override fun onCreate() {
         super.onCreate()
+
         Log.d(TAG, "onCreate")
-        EventBus.getDefault().register(this)
 
         mRatingView = LayoutInflater.from(this).inflate(R.layout.rating_view, null)
 
@@ -84,8 +90,8 @@ class RatingViewService : Service() {
             tvRating.text = rating
             tvTitle.text = "${event.title} $year"
 
-            if (timer != null) {
-                timer?.cancel()
+            timer?.let {
+                it.cancel()
                 timer = null
                 Log.d(TAG, "Reset timer")
             }
@@ -108,16 +114,8 @@ class RatingViewService : Service() {
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun mustDismissView(event: RemoveRatingViewEvent) {
-        if (event.mustRemoveView) {
-            removeRatingView()
-        }
-    }
-
     override fun onDestroy() {
         super.onDestroy()
-        EventBus.getDefault().unregister(this)
         Log.d(TAG, "onDestroy")
         removeRatingView()
     }

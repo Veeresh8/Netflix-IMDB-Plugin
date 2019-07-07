@@ -3,14 +3,12 @@ package com.droid.netflixIMDB
 import android.accessibilityservice.AccessibilityService
 import android.accessibilityservice.AccessibilityServiceInfo
 import android.content.Intent
-import android.os.Handler
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
 import android.widget.Toast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
-import android.os.Looper
 import org.greenrobot.eventbus.EventBus
 import retrofit2.Response
 
@@ -37,12 +35,17 @@ class ReaderService : AccessibilityService() {
 
     private var response: Response<OMDBResponse>? = null
 
+    companion object {
+        var isConnected: Boolean = false
+    }
+
     override fun onInterrupt() {
         Log.i(TAG, "Accessibility service interrupted")
     }
 
     override fun onUnbind(intent: Intent?): Boolean {
         Log.i(TAG, "Accessibility service un-bind")
+        isConnected = false
         return super.onUnbind(intent)
     }
 
@@ -60,6 +63,8 @@ class ReaderService : AccessibilityService() {
         info.notificationTimeout = 100
 
         this.serviceInfo = info
+
+        isConnected = true
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
@@ -135,43 +140,51 @@ class ReaderService : AccessibilityService() {
         }
 
         netflixPayload.title?.let { title ->
-            runBlocking(Dispatchers.IO) {
-                Log.i(TAG, "Requesting rating for title $title -  $year - $type")
+            try {
+                fetchRating(title)
+            } catch (exception: Exception) {
+                Toast.makeText(this, "Failed to fetch rating ${exception.message}", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
 
-                if (type == null) {
-                    response = NetworkManager.getInstance()?.getRatingAsync(title, null, year)?.await()
-                } else {
-                    type?.let {
-                        if (it == "series" && year != null) {
-                            response = NetworkManager.getInstance()?.getRatingAsync(title, type, null)?.await()
-                        }
+    private fun fetchRating(title: String) {
+        runBlocking(Dispatchers.IO) {
+            Log.i(TAG, "Requesting rating for title $title -  $year - $type")
+
+            if (type == null) {
+                response = NetworkManager.getInstance()?.getRatingAsync(title, null, year)?.await()
+            } else {
+                type?.let {
+                    if (it == "series" && year != null) {
+                        response = NetworkManager.getInstance()?.getRatingAsync(title, type, null)?.await()
                     }
                 }
+            }
 
-                response?.let { response ->
-                    if (response.isSuccessful) {
-                        when (response.code()) {
-                            200 -> {
+            response?.let { response ->
+                if (response.isSuccessful) {
+                    when (response.code()) {
+                        200 -> {
 
-                                val rating = response.body()?.imdbRating
+                            val rating = response.body()?.imdbRating
 
-                                lastTitleRequested = title
-                                lastYearRequested = year
+                            lastTitleRequested = this@ReaderService.title
+                            lastYearRequested = year
 
-                                Log.d(TAG, "Title: $lastTitleRequested - Year: $lastYearRequested - Rating: $rating")
+                            Log.d(TAG, "Title: $lastTitleRequested - Year: $lastYearRequested - Rating: $rating")
 
-                                EventBus.getDefault().post(MessageEvent(rating, lastTitleRequested, lastYearRequested))
-                            }
-                            500 -> {
-                                Log.e(TAG, "OMDB server error ${response.message()}")
-                            }
-                            else -> {
-                                Log.e(TAG, "Failed to fetch rating for $title")
-                            }
+                            EventBus.getDefault().post(MessageEvent(rating, lastTitleRequested, lastYearRequested))
                         }
-                    } else {
-                        Log.e(TAG, "Response was not successful ${response.message()}")
+                        500 -> {
+                            Log.e(TAG, "OMDB server error ${response.message()}")
+                        }
+                        else -> {
+                            Log.e(TAG, "Failed to fetch rating for ${this@ReaderService.title}")
+                        }
                     }
+                } else {
+                    Log.e(TAG, "Response was not successful ${response.message()}")
                 }
             }
         }
