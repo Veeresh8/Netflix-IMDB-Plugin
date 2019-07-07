@@ -11,6 +11,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.greenrobot.eventbus.EventBus
 import retrofit2.Response
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 
 
 @Suppress("IMPLICIT_CAST_TO_ANY")
@@ -143,9 +145,35 @@ class ReaderService : AccessibilityService() {
             try {
                 fetchRating(title)
             } catch (exception: Exception) {
-                Toast.makeText(this, "Failed to fetch rating ${exception.message}", Toast.LENGTH_LONG).show()
+                when (exception) {
+                    is SocketTimeoutException -> {
+                        showConnectionErrorToast()
+                    }
+                    is UnknownHostException -> {
+                        showConnectionErrorToast()
+                    }
+                    else -> {
+                        showGenericErrorToast()
+                    }
+                }
             }
         }
+    }
+
+    private fun showConnectionErrorToast() {
+        Toast.makeText(
+            this,
+            "Failed to fetch ratings, check your network connectivity",
+            Toast.LENGTH_LONG
+        ).show()
+    }
+
+    private fun showGenericErrorToast() {
+        Toast.makeText(
+            this,
+            "Failed to fetch ratings, try again!",
+            Toast.LENGTH_LONG
+        ).show()
     }
 
     private fun fetchRating(title: String) {
@@ -197,7 +225,7 @@ class ReaderService : AccessibilityService() {
 
         if (node.childCount > 0) {
             (0 until node.childCount).forEach { index ->
-                var child = node.getChild(index)
+                val child = node.getChild(index)
                 if (child != null && child.isVisibleToUser) {
                     checkNodeRecursively(child)
                     child.recycle()

@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Netflix IMDb Rater</string>
-    <string name="app_name_accessibility_service">Netflix IMDb Rater Accessibility Service</string>
-    <string name="accessibility_service_description">Netflix IMDb Rater</string>
+    <string name="app_name">Netflix IMDb Plugin</string>
+    <string name="app_name_accessibility_service">Netflix IMDb Plugin Accessibility Service</string>
+    <string name="accessibility_service_description">Netflix IMDb Plugin</string>
     <string name="overlay_hint">Grant overlay permission</string>
     <string name="battery_optimization_hint">Add app to whitelist</string>
     <string name="accessibility_hint">Enable accessibility settings</string>
