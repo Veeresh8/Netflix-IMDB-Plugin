@@ -202,17 +202,20 @@ class ReaderService : AccessibilityService() {
 
                             Log.d(TAG, "Title: $lastTitleRequested - Year: $lastYearRequested - Rating: $rating")
 
-                            EventBus.getDefault().post(MessageEvent(rating, lastTitleRequested, lastYearRequested))
+                            EventBus.getDefault().post(MessageEvent(rating, lastTitleRequested, lastYearRequested, response.body()?.Type))
                         }
                         500 -> {
                             Log.e(TAG, "OMDB server error ${response.message()}")
+                            showGenericErrorToast()
                         }
                         else -> {
-                            Log.e(TAG, "Failed to fetch rating for ${this@ReaderService.title}")
+                            Log.e(TAG, "Failed to fetch rating for ${this@ReaderService.title} - ${response.message()}")
+                            showGenericErrorToast()
                         }
                     }
                 } else {
                     Log.e(TAG, "Response was not successful ${response.message()}")
+                    showGenericErrorToast()
                 }
             }
         }

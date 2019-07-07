@@ -79,12 +79,19 @@ class RatingRendererService : Service() {
 
             var year = event.year
             var rating = event.rating
+            val type = event.type
 
             rating = rating ?: "NA"
             year = year ?: ""
 
             if (year.isNotEmpty()) {
                 year = "($year)"
+            }
+
+            type?.let {
+                if (it.toLowerCase() == "series") {
+                    year = "(Series)"
+                }
             }
 
             tvRating.text = rating
