@@ -9,6 +9,7 @@ import android.os.PowerManager
 import android.provider.Settings
 import android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS
 import android.provider.Settings.canDrawOverlays
+import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -39,6 +40,22 @@ class MainActivity : AppCompatActivity() {
 
         tvGrantOverlay.setOnClickListener {
             checkOverlayPermission()
+        }
+
+        btnOpenNetflix.setOnClickListener {
+            if (btnOpenNetflix.tag == "disabled") {
+                Toast.makeText(this, "Please make sure all settings are enabled to proceed", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+
+            val pm = packageManager
+            try {
+                val packageName = "com.netflix.mediaclient"
+                val launchIntent = pm.getLaunchIntentForPackage(packageName)
+                startActivity(launchIntent)
+            } catch (exception: Exception) {
+                Log.e(TAG, "Exception launching Netflix - ${exception.message}")
+            }
         }
     }
 
@@ -84,8 +101,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun setIconToTextView(textView: TextView, isEnabled: Boolean) {
         val drawable: Int = if (isEnabled) {
+            textView.tag = "enabled"
             R.drawable.round_check_circle_outline_24px
         } else {
+            textView.tag = "disabled"
             R.drawable.round_navigate_next_24px
         }
 
@@ -109,6 +128,14 @@ class MainActivity : AppCompatActivity() {
         checkOverlaySettings()
         checkBatterySettings()
         checkAccessibilitySettings()
+
+        if (tvAddToWhitelist.tag == "enabled" && tvGrantOverlay.tag == "enabled" && tvEnableAccessibility.tag == "enabled") {
+            btnOpenNetflix.alpha = 1F
+            btnOpenNetflix.tag = "enabled"
+        } else {
+            btnOpenNetflix.alpha = 0.3F
+            btnOpenNetflix.tag = "disabled"
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
