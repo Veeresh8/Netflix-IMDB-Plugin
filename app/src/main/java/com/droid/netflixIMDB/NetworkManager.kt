@@ -42,9 +42,9 @@ interface NetworkManager {
         private fun getHTTPClient(): OkHttpClient {
             val builder = OkHttpClient.Builder()
 
-            builder.connectTimeout(30, TimeUnit.SECONDS)
-            builder.readTimeout(60, TimeUnit.SECONDS)
-            builder.writeTimeout(60, TimeUnit.SECONDS)
+            builder.connectTimeout(10, TimeUnit.SECONDS)
+            builder.readTimeout(10, TimeUnit.SECONDS)
+            builder.writeTimeout(10, TimeUnit.SECONDS)
 
             if (BuildConfig.DEBUG)
                 builder.addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
