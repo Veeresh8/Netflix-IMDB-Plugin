@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity() {
         tvEnableAccessibility.setOnClickListener {
             val intent = Intent(ACTION_ACCESSIBILITY_SETTINGS)
             startActivity(intent)
-            startRatingViewService()
         }
 
         tvAddToWhitelist.setOnClickListener {
@@ -74,14 +73,9 @@ class MainActivity : AppCompatActivity() {
                 Uri.parse("package:$packageName")
             )
             startActivityForResult(intent, CODE_DRAW_OVER_OTHER_APP_PERMISSION)
-        } else {
-            startRatingViewService()
         }
     }
 
-    private fun startRatingViewService() {
-        startService(Intent(this@MainActivity, RatingRendererService::class.java))
-    }
 
     private fun checkOverlaySettings() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && canDrawOverlays(this)) {

@@ -2,14 +2,25 @@ package com.droid.netflixIMDB
 
 import android.accessibilityservice.AccessibilityService
 import android.accessibilityservice.AccessibilityServiceInfo
+import android.app.Service
 import android.content.Intent
+import android.graphics.PixelFormat
+import android.os.Build
+import android.os.CountDownTimer
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.WindowManager
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
-import org.greenrobot.eventbus.EventBus
 import retrofit2.Response
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
@@ -37,8 +48,58 @@ class ReaderService : AccessibilityService() {
 
     private var response: Response<OMDBResponse>? = null
 
+    private var mWindowManager: WindowManager? = null
+    private var mRatingView: View? = null
+    private var timer: CountDownTimer? = null
+
+    private lateinit var tvTitle: TextView
+    private lateinit var params: WindowManager.LayoutParams
+    private lateinit var tvRating: TextView
+
     companion object {
         var isConnected: Boolean = false
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        initRatingView()
+    }
+
+
+    private fun initRatingView() {
+        mRatingView = LayoutInflater.from(this).inflate(R.layout.rating_view, null)
+
+        val layoutFlag =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY else WindowManager.LayoutParams.TYPE_PHONE
+
+        params = WindowManager.LayoutParams(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            resources.getDimensionPixelOffset(R.dimen.rating_view_width),
+            layoutFlag,
+            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+            PixelFormat.TRANSLUCENT
+        )
+
+        params.gravity = Gravity.TOP
+
+        mWindowManager = getSystemService(Service.WINDOW_SERVICE) as WindowManager?
+
+        val closeButton = mRatingView?.findViewById(R.id.ivClose) as ImageView
+        tvTitle = mRatingView?.findViewById(R.id.tvTitle) as TextView
+        tvRating = mRatingView?.findViewById(R.id.tvRating) as TextView
+
+        closeButton.setOnClickListener {
+            removeRatingView()
+        }
+    }
+
+
+    private fun removeRatingView() {
+        Log.d(TAG, "Removing rating view")
+        mRatingView?.let {
+            if (mRatingView?.windowToken != null)
+                mWindowManager?.removeView(mRatingView)
+        }
     }
 
     override fun onInterrupt() {
@@ -49,6 +110,11 @@ class ReaderService : AccessibilityService() {
         Log.i(TAG, "Accessibility service un-bind")
         isConnected = false
         return super.onUnbind(intent)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        removeRatingView()
     }
 
     override fun onServiceConnected() {
@@ -202,7 +268,10 @@ class ReaderService : AccessibilityService() {
 
                             Log.d(TAG, "Title: $lastTitleRequested - Year: $lastYearRequested - Rating: $rating")
 
-                            EventBus.getDefault().post(MessageEvent(rating, lastTitleRequested, lastYearRequested, response.body()?.Type))
+                            val messageEvent =
+                                MessageEvent(rating, lastTitleRequested, lastYearRequested, response.body()?.Type)
+
+                            showRatingInfo(messageEvent)
                         }
                         500 -> {
                             Log.e(TAG, "OMDB server error ${response.message()}")
@@ -218,6 +287,61 @@ class ReaderService : AccessibilityService() {
                     showGenericErrorToast()
                 }
             }
+        }
+    }
+
+    private fun showRatingInfo(event: MessageEvent) {
+        Handler(Looper.getMainLooper()).post {
+            setRatingInfo(event)
+        }
+    }
+
+    private fun setRatingInfo(event: MessageEvent) {
+        if (::tvRating.isInitialized && ::tvTitle.isInitialized) {
+
+            if (mRatingView?.windowToken == null)
+                mWindowManager?.addView(mRatingView, params)
+
+            var year = event.year
+            var rating = event.rating
+            val type = event.type
+
+            rating = rating ?: "NA"
+            year = year ?: ""
+
+            if (year.isNotEmpty()) {
+                year = "($year)"
+            }
+
+            type?.let {
+                if (it.toLowerCase() == "series") {
+                    year = "(Series)"
+                }
+            }
+
+            tvRating.text = rating
+            tvTitle.text = "${event.title} $year"
+
+            timer?.let {
+                it.cancel()
+                timer = null
+                Log.d(TAG, "Reset timer")
+            }
+
+            if (timer == null) {
+                timer = object : CountDownTimer(4000, 1000) {
+                    override fun onTick(millisUntilFinished: Long) {
+                        Log.d(TAG, "On tick $millisUntilFinished")
+                    }
+
+                    override fun onFinish() {
+                        removeRatingView()
+                    }
+                }
+                timer?.start()
+            }
+        } else {
+            Log.e(TAG, "Views not initialized")
         }
     }
 

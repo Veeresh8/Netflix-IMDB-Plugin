@@ -13,11 +13,6 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-        <service
-                android:name=".RatingRendererService"
-                android:enabled="true"
-                android:exported="false">
-        </service>
 
         <activity
                 android:name=".MainActivity"
