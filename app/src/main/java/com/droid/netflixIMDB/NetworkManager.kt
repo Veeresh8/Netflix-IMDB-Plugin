@@ -13,9 +13,9 @@ import java.util.concurrent.TimeUnit
 
 interface NetworkManager {
 
-    @GET("?apikey=d5d13670")
+    @GET("?apikey=38dc3955")
     open fun getRatingAsync(
-        @Query("t") title: String,
+        @Query("t") title: String?,
         @Query("type") type: String? = null,
         @Query("y") year: String? = null
     ): Deferred<Response<OMDBResponse>>

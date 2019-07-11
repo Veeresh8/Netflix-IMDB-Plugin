@@ -7,7 +7,3 @@ data class MessageEvent(
     var type: String? = null
 )
 
-data class RemoveRatingViewEvent(
-    var mustRemoveView: Boolean
-)
-

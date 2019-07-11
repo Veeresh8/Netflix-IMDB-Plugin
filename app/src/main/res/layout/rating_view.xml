@@ -10,7 +10,7 @@
             android:id="@+id/constraintLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-            android:background="#E50914">
+            android:background="#ff1b2d">
 
         <ImageView
                 android:layout_width="24dp"
