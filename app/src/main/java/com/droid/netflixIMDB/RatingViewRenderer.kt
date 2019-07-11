@@ -13,7 +13,7 @@ import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
 
-class RatingView {
+class RatingViewRenderer {
 
     private val TAG: String = javaClass.simpleName
 

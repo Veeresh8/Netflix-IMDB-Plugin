@@ -24,9 +24,7 @@ class ReaderService : AccessibilityService() {
 
     private val readers = HashMap<String, Reader>()
 
-    private var ratingView: RatingView? = null
-
-    private var lastRequestedPayload: Payload? = null
+    private var ratingView: RatingViewRenderer? = null
 
     companion object {
         var isConnected: Boolean = false
@@ -41,10 +39,11 @@ class ReaderService : AccessibilityService() {
     private fun initReaders() {
         readers.clear()
         readers[ReaderConstants.NETFLIX] = NetflixReader()
+        readers[ReaderConstants.HOTSTAR] = HotstarReader()
     }
 
     private fun initRatingView() {
-        ratingView = RatingView()
+        ratingView = RatingViewRenderer()
         ratingView?.init(this)
     }
 
@@ -118,7 +117,8 @@ class ReaderService : AccessibilityService() {
         }
 
         if (payload.title.equals(RatingRequester.lastTitle, true) &&
-            payload.year.equals(RatingRequester.lastYear, true)) {
+            payload.year.equals(RatingRequester.lastYear, true)
+        ) {
             Log.i(TAG, "Already requested $payload")
             return
         }

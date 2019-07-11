@@ -2,7 +2,7 @@ package com.droid.netflixIMDB
 
 import android.view.accessibility.AccessibilityNodeInfo
 
-class NetflixReader : Reader() {
+class NetflixReader : Reader {
 
     private val NETFLIX_TITLE_ID = "com.netflix.mediaclient:id/video_details_title"
     private val NETFLIX_YEAR_ID = "com.netflix.mediaclient:id/video_details_basic_info_year"
