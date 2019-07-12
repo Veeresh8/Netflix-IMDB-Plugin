@@ -14,10 +14,16 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+    flavorDimensions "default"
+
+    productFlavors {
+        dev {
+            applicationId "com.droid.netflixIMDB.dev"
+        }
+
+        prod {
+            applicationId "com.droid.netflixIMDB"
         }
     }
 }
@@ -52,4 +58,8 @@ dependencies {
     /*EventBus*/
     implementation 'org.greenrobot:eventbus:3.1.1'
 
+    /*Firebase Analytics*/
+    implementation 'com.google.firebase:firebase-core:17.0.1'
+
 }
+apply plugin: 'com.google.gms.google-services'
