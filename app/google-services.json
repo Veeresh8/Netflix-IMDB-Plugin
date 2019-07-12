@@ -1,0 +1,85 @@
+{
+  "project_info": {
+    "project_number": "150740837364",
+    "firebase_url": "https://netflix-imdb-plugin-dev.firebaseio.com",
+    "project_id": "netflix-imdb-plugin-dev",
+    "storage_bucket": "netflix-imdb-plugin-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150740837364:android:d8ee01d382962e4d",
+        "android_client_info": {
+          "package_name": "com.droid.netflixIMDB"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150740837364-a6esmv2bp4or6oistpkfgfsr12phdocv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.droid.netflixIMDB",
+            "certificate_hash": "799809d885013e7f8c36d9f8d6c44e189800a232"
+          }
+        },
+        {
+          "client_id": "150740837364-cdsmqhcfq6ngpkp5ao3q86rfnq6mt9ts.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBI-b6kqb-IjCvzG8r_9Cc2n4dRvlBN74g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "150740837364-cdsmqhcfq6ngpkp5ao3q86rfnq6mt9ts.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150740837364:android:12ff602d1da4eb66",
+        "android_client_info": {
+          "package_name": "com.droid.netflixIMDB.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150740837364-7kg1f5052f341hpsqee3n55bn9gv3j2i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.droid.netflixIMDB.dev",
+            "certificate_hash": "799809d885013e7f8c36d9f8d6c44e189800a232"
+          }
+        },
+        {
+          "client_id": "150740837364-cdsmqhcfq6ngpkp5ao3q86rfnq6mt9ts.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBI-b6kqb-IjCvzG8r_9Cc2n4dRvlBN74g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "150740837364-cdsmqhcfq6ngpkp5ao3q86rfnq6mt9ts.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
