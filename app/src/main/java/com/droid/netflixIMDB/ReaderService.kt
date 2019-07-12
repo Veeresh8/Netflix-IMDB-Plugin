@@ -9,6 +9,9 @@ import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
 import android.widget.Toast
+import com.droid.netflixIMDB.reader.HotstarReader
+import com.droid.netflixIMDB.reader.NetflixReader
+import com.droid.netflixIMDB.reader.Reader
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
@@ -103,9 +106,11 @@ class ReaderService : AccessibilityService() {
 
         val reader = readers[event.source.packageName]
 
-        title = reader?.getTitle(event.source)
-        year = reader?.getYear(event.source)
-        type = reader?.getType(event.source)
+        val readerPayload = reader?.payload(event.source)
+
+        title = readerPayload?.title
+        year = readerPayload?.year
+        type = readerPayload?.type
 
         val payload = Payload(title, year, type)
 

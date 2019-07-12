@@ -1,5 +1,7 @@
-package com.droid.netflixIMDB
+package com.droid.netflixIMDB.network
 
+import com.droid.netflixIMDB.BuildConfig
+import com.droid.netflixIMDB.OMDBResponse
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
@@ -34,7 +36,8 @@ interface NetworkManager {
                     .addCallAdapterFactory(CoroutineCallAdapterFactory())
                     .client(getHTTPClient())
                     .build()
-                create = retrofit?.create(NetworkManager::class.java)
+                create = retrofit?.create(
+                    NetworkManager::class.java)
             }
             return create
         }

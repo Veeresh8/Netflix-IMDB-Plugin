@@ -1,6 +1,7 @@
 package com.droid.netflixIMDB
 
 import android.util.Log
+import com.droid.netflixIMDB.network.NetworkManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import retrofit2.Response
