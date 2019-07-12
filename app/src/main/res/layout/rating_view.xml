@@ -6,11 +6,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:id="@+id/constraintLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-            android:background="#ff1b2d">
+            android:background="@color/netflixRed">
 
         <ImageView
                 android:layout_width="24dp"
@@ -19,7 +19,8 @@
                 android:src="@drawable/ic_round_cancel_24px"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" android:id="@+id/ivClose"
-                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"/>
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
+                android:layout_marginTop="2dp"/>
         <TextView
                 android:singleLine="true"
                 android:ellipsize="marquee"
@@ -28,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tvTitle" android:layout_marginStart="16dp"
                 app:layout_constraintStart_toEndOf="@+id/ivClose" app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="22dp"
                 android:text="Random title here"
                 android:textColor="@android:color/white"
                 android:fontFamily="sans-serif-smallcaps"
@@ -44,7 +45,7 @@
                 android:text="8.6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="13dp" android:id="@+id/tvRating"
+                android:layout_marginTop="20dp" android:id="@+id/tvRating"
                 app:layout_constraintStart_toEndOf="@+id/tvTitle" android:layout_marginStart="16dp"
                 app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"
                 android:textColor="@android:color/white" android:fontFamily="sans-serif-smallcaps"

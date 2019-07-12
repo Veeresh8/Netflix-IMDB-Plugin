@@ -33,7 +33,7 @@ class RatingViewRenderer {
 
         params = WindowManager.LayoutParams(
             WindowManager.LayoutParams.MATCH_PARENT,
-            context.resources.getDimensionPixelOffset(R.dimen.rating_view_width),
+            WindowManager.LayoutParams.WRAP_CONTENT,
             layoutFlag,
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
             PixelFormat.TRANSLUCENT
@@ -96,6 +96,10 @@ class RatingViewRenderer {
                 timer = object : CountDownTimer(4500, 1000) {
                     override fun onTick(millisUntilFinished: Long) {
                         Log.d(TAG, "On tick $millisUntilFinished")
+                        if (mRatingView?.windowToken == null) {
+                            Log.i(TAG, "Rating view was removed, adding again!")
+                            mWindowManager?.addView(mRatingView, params)
+                        }
                     }
 
                     override fun onFinish() {
