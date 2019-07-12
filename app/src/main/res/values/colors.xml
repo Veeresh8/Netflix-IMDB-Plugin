@@ -4,5 +4,6 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="netflixRed">#E50914</color>
+    <color name="hotstarYellow">#D4D60D</color>
     <color name="netflixBackground">#221F1F</color>
 </resources>

@@ -2,6 +2,7 @@ package com.droid.netflixIMDB
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Typeface.BOLD
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -9,7 +10,16 @@ import android.os.PowerManager
 import android.provider.Settings
 import android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS
 import android.provider.Settings.canDrawOverlays
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.text.style.ForegroundColorSpan
+import android.text.style.RelativeSizeSpan
+import android.text.style.StyleSpan
 import android.util.Log
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -40,21 +50,16 @@ class MainActivity : AppCompatActivity() {
         tvGrantOverlay.setOnClickListener {
             checkOverlayPermission()
         }
+    }
 
-        btnOpenNetflix.setOnClickListener {
-            if (btnOpenNetflix.tag == "disabled") {
-                Toast.makeText(this, "Please make sure all settings are enabled to proceed", Toast.LENGTH_LONG).show()
-                return@setOnClickListener
-            }
-
-            val pm = packageManager
-            try {
-                val packageName = "com.netflix.mediaclient"
-                val launchIntent = pm.getLaunchIntentForPackage(packageName)
-                startActivity(launchIntent)
-            } catch (exception: Exception) {
-                Log.e(TAG, "Exception launching Netflix - ${exception.message}")
-            }
+    private fun launchApp(packageName: String) {
+        val pm = packageManager
+        try {
+            val launchIntent = pm.getLaunchIntentForPackage(packageName)
+            startActivity(launchIntent)
+        } catch (exception: Exception) {
+            Log.e(TAG, "Exception launching Netflix - ${exception.message}")
+            Toast.makeText(this, "App not installed", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -124,12 +129,81 @@ class MainActivity : AppCompatActivity() {
         checkAccessibilitySettings()
 
         if (tvAddToWhitelist.tag == "enabled" && tvGrantOverlay.tag == "enabled" && tvEnableAccessibility.tag == "enabled") {
-            btnOpenNetflix.alpha = 1F
-            btnOpenNetflix.tag = "enabled"
+            val spannable = getSpan()
+            tvAllDone.text = spannable
+            tvAllDone.movementMethod = LinkMovementMethod.getInstance()
+            tvAllDone.visible()
         } else {
-            btnOpenNetflix.alpha = 0.3F
-            btnOpenNetflix.tag = "disabled"
+            tvAllDone.gone()
         }
+    }
+
+    private fun getSpan(): SpannableString {
+        val spannable = SpannableString(tvAllDone.text.toString())
+
+        /*Netflix Span*/
+        spannable.setSpan(
+            ForegroundColorSpan(resources.getColor(R.color.netflixRed)),
+            7, 14,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        spannable.setSpan(
+            StyleSpan(BOLD),
+            7, 14,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        spannable.setSpan(
+            RelativeSizeSpan(1.1f),
+            7, 14,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        val clickSpanNetflix = object : ClickableSpan() {
+            override fun onClick(p0: View) {
+                launchApp("com.netflix.mediaclient")
+            }
+
+            override fun updateDrawState(ds: TextPaint) {
+                ds.color = ds.linkColor
+                ds.isUnderlineText = true
+            }
+        }
+
+        spannable.setSpan(clickSpanNetflix, 7, 14, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        /*Hotstar Span*/
+        spannable.setSpan(
+            ForegroundColorSpan(resources.getColor(R.color.hotstarYellow)),
+            18, 25,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        spannable.setSpan(
+            StyleSpan(BOLD),
+            18, 25,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        spannable.setSpan(
+            RelativeSizeSpan(1.1f),
+            18, 25,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        val clickSpanHotstar = object : ClickableSpan() {
+            override fun onClick(p0: View) {
+                launchApp("in.startv.hotstar")
+            }
+
+            override fun updateDrawState(ds: TextPaint) {
+                ds.isUnderlineText = true
+            }
+        }
+
+        spannable.setSpan(clickSpanHotstar, 18, 25, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        return spannable
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
