@@ -17,4 +17,13 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
+    <style name="NavigationTheme" parent="AppTheme">
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_marginBottom">18dp</item>
+    </style>
+
+    <style name="navFontStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">sans-serif-smallcaps</item>
+    </style>
+
 </resources>

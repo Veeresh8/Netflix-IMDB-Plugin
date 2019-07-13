@@ -19,22 +19,61 @@ import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import com.airbnb.lottie.LottieAnimationView
+import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private val TAG: String = this.javaClass.simpleName
     private val CODE_DRAW_OVER_OTHER_APP_PERMISSION = 2084
+
+    private lateinit var drawer: DrawerLayout
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setupClickListeners()
+        setUpNavDrawer()
+    }
+
+    private fun setUpNavDrawer() {
+        drawer = findViewById(R.id.drawerLayout)
+
+        val navigationView: NavigationView = findViewById(R.id.navigationView)
+        navigationView.setNavigationItemSelectedListener(this)
+
+        val headerView = navigationView.getHeaderView(0)
+
+        val lottieAnimation: LottieAnimationView = headerView.findViewById(R.id.lottieAnimation)
+        lottieAnimation.playAnimation()
+        lottieAnimation.loop(true)
+    }
+
+    override fun onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.customizeRatingView -> Toast.makeText(this, "Clicked item one", Toast.LENGTH_SHORT).show()
+            R.id.feedback -> Toast.makeText(this, "Clicked item two", Toast.LENGTH_SHORT).show()
+            R.id.rateApp -> Toast.makeText(this, "Clicked item three", Toast.LENGTH_SHORT).show()
+        }
+        return true
     }
 
     private fun setupClickListeners() {
@@ -49,6 +88,14 @@ class MainActivity : AppCompatActivity() {
 
         tvGrantOverlay.setOnClickListener {
             checkOverlayPermission()
+        }
+
+        ivMenu.setOnClickListener {
+            if (drawer.isDrawerOpen(GravityCompat.START)) {
+                drawer.closeDrawer(GravityCompat.START)
+            } else {
+                drawer.openDrawer(GravityCompat.START)
+            }
         }
     }
 

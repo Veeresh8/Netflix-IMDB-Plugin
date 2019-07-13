@@ -140,9 +140,9 @@ class ReaderService : AccessibilityService() {
 
         val bundle = Bundle()
         bundle.putString(ReaderConstants.PACKAGE_NAME, event.source.packageName.toString())
-        bundle.putString(ReaderConstants.TITLE, payload.title)
-        bundle.putString(ReaderConstants.TYPE, payload.type)
-        bundle.putString(ReaderConstants.YEAR, payload.year)
+        bundle.putString(ReaderConstants.TITLE, payload.title ?: "")
+        bundle.putString(ReaderConstants.TYPE, payload.type ?: "")
+        bundle.putString(ReaderConstants.YEAR, payload.year ?: "")
         firebaseAnalytics?.logEvent(ReaderConstants.SEARCH, bundle)
 
         RatingRequester.requestRating(payload, object : RatingRequester.RatingRequesterCallback {
