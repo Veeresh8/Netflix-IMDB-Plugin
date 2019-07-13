@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private lateinit var drawer: DrawerLayout
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -69,7 +68,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.customizeRatingView -> Toast.makeText(this, "Clicked item one", Toast.LENGTH_SHORT).show()
+            R.id.customizeRatingView -> {
+                startActivity(Intent(this@MainActivity, CustomizeRatingViewActivity::class.java))
+            }
             R.id.feedback -> Toast.makeText(this, "Clicked item two", Toast.LENGTH_SHORT).show()
             R.id.rateApp -> Toast.makeText(this, "Clicked item three", Toast.LENGTH_SHORT).show()
         }

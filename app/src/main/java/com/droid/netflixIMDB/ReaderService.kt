@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
 import android.widget.Toast
+import com.droid.netflixIMDB.ratingView.RatingViewRenderer
 import com.droid.netflixIMDB.reader.HotstarReader
 import com.droid.netflixIMDB.reader.NetflixReader
 import com.droid.netflixIMDB.reader.Reader

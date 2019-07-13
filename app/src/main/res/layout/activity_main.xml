@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/netflixBackground"
+            android:background="@color/ratingBackground"
             tools:context=".MainActivity">
 
         <TextView
@@ -104,7 +104,6 @@
                 android:textAlignment="center" tools:visibility="visible"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     <com.google.android.material.navigation.NavigationView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -112,7 +111,7 @@
             android:layout_gravity="start"
             android:theme="@style/NavigationTheme"
             app:headerLayout="@layout/layout_nav_header"
-            android:background="@color/netflixBackground"
+            android:background="@color/ratingBackground"
             app:itemIconTint="@android:color/white"
             app:itemTextAppearance="@style/navFontStyle"
             app:itemTextColor="@android:color/white"
