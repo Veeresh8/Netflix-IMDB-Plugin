@@ -111,8 +111,8 @@ class RatingViewRenderer {
                     override fun onTick(millisUntilFinished: Long) {
                         Log.d(TAG, "On tick $millisUntilFinished")
                         if (mRatingView?.windowToken == null && !userClosedView) {
-                            Log.i(TAG, "Rating view was removed, adding again!")
                             mWindowManager?.addView(mRatingView, params)
+                            Log.i(TAG, "Rating view was removed, adding again!")
                         }
                     }
 

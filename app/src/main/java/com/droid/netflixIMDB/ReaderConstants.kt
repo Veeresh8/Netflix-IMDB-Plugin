@@ -14,5 +14,6 @@ class ReaderConstants {
         const val TYPE = "type"
         const val SEARCH = "search"
 
+        const val BASE_URL = "https://www.omdbapi.com/"
     }
 }

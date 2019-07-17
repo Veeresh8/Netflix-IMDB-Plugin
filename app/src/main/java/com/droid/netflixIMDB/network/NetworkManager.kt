@@ -10,16 +10,14 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
-import retrofit2.http.Query
+import retrofit2.http.Url
 import java.util.concurrent.TimeUnit
 
 interface NetworkManager {
 
-    @GET("?apikey=38dc3955")
-    open fun getRatingAsync(
-        @Query("t") title: String?,
-        @Query("type") type: String? = null,
-        @Query("y") year: String? = null
+    @GET
+    fun getRatingAsync(
+        @Url url: String
     ): Deferred<Response<OMDBResponse>>
 
 
@@ -37,7 +35,8 @@ interface NetworkManager {
                     .client(getHTTPClient())
                     .build()
                 create = retrofit?.create(
-                    NetworkManager::class.java)
+                    NetworkManager::class.java
+                )
             }
             return create
         }

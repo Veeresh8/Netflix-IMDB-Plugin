@@ -14,6 +14,8 @@ object RatingRequester {
     var lastYear: String? = null
     var lastTitle: String? = null
 
+    private lateinit var url: String
+
     interface RatingRequesterCallback {
         fun onSuccess(responsePayload: ResponsePayload)
         fun onRequestException(exception: Exception)
@@ -34,10 +36,12 @@ object RatingRequester {
                 val year = payload.year
 
                 if (type == null) {
-                    response = NetworkManager.getInstance()?.getRatingAsync(title, null, year)?.await()
+                    url = """${ReaderConstants.BASE_URL}?apikey=${BuildConfig.OMDB_API_KEY}&t=$title&y=$year"""
                 } else if (type == "series" && year != null) {
-                    response = NetworkManager.getInstance()?.getRatingAsync(title, type, null)?.await()
+                    url = """${ReaderConstants.BASE_URL}?apikey=${BuildConfig.OMDB_API_KEY}&t=$title&type=$type"""
                 }
+
+                response = NetworkManager.getInstance()?.getRatingAsync(url)?.await()
 
                 response?.let { response ->
                     if (response.isSuccessful) {

@@ -21,12 +21,14 @@ import android.text.style.StyleSpan
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.airbnb.lottie.LottieAnimationView
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -36,7 +38,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val TAG: String = this.javaClass.simpleName
     private val CODE_DRAW_OVER_OTHER_APP_PERMISSION = 2084
 
-    private lateinit var drawer: DrawerLayout
+    private var drawer: DrawerLayout? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,10 +61,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START)
+        if (drawer?.isDrawerOpen(GravityCompat.START)!!) {
+            drawer?.closeDrawer(GravityCompat.START)
         } else {
             super.onBackPressed()
+        }
+    }
+
+    private fun toggleDrawer() {
+        drawer?.run {
+            if (isDrawerOpen(GravityCompat.START)) {
+                closeDrawer(GravityCompat.START)
+            } else {
+                openDrawer(GravityCompat.START)
+            }
         }
     }
 
@@ -71,8 +83,36 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.customizeRatingView -> {
                 startActivity(Intent(this@MainActivity, CustomizeRatingViewActivity::class.java))
             }
-            R.id.feedback -> Toast.makeText(this, "Clicked item two", Toast.LENGTH_SHORT).show()
-            R.id.rateApp -> Toast.makeText(this, "Clicked item three", Toast.LENGTH_SHORT).show()
+            R.id.feedback -> {
+                Toast.makeText(this, "Clicked item two", Toast.LENGTH_SHORT).show()
+            }
+            R.id.rateApp -> {
+                Toast.makeText(this, "Clicked item three", Toast.LENGTH_SHORT).show()
+            }
+            R.id.support -> {
+
+                toggleDrawer()
+
+                val mBottomSheetDialog = BottomSheetDialog(this)
+                val sheetView = layoutInflater.inflate(
+                    R.layout.support_bottom_sheet,
+                    null
+                )
+
+                val donationLow = sheetView.findViewById(R.id.btnLowDonation) as Button
+                val donationHigh = sheetView.findViewById(R.id.btnHighDonation) as Button
+
+                donationLow.setOnClickListener {
+                    Toast.makeText(this, "Low donation", Toast.LENGTH_SHORT).show()
+                }
+
+                donationHigh.setOnClickListener {
+                    Toast.makeText(this, "High donation", Toast.LENGTH_SHORT).show()
+                }
+
+                mBottomSheetDialog.setContentView(sheetView)
+                mBottomSheetDialog.show()
+            }
         }
         return true
     }
@@ -92,11 +132,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         ivMenu.setOnClickListener {
-            if (drawer.isDrawerOpen(GravityCompat.START)) {
-                drawer.closeDrawer(GravityCompat.START)
-            } else {
-                drawer.openDrawer(GravityCompat.START)
-            }
+            toggleDrawer()
         }
     }
 
@@ -161,8 +197,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun checkBatterySettings() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val pm = getSystemService(Context.POWER_SERVICE) as PowerManager
-            val isOptimized = pm.isIgnoringBatteryOptimizations(packageName)
-            if (!isOptimized) {
+            val isIgnoring = pm.isIgnoringBatteryOptimizations(packageName)
+            if (isIgnoring) {
                 setIconToTextView(tvAddToWhitelist, true)
             } else {
                 setIconToTextView(tvAddToWhitelist, false)
@@ -176,7 +212,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         checkBatterySettings()
         checkAccessibilitySettings()
 
-        if (tvAddToWhitelist.tag == "enabled" && tvGrantOverlay.tag == "enabled" && tvEnableAccessibility.tag == "enabled") {
+        if (tvGrantOverlay.tag == "enabled" && tvEnableAccessibility.tag == "enabled") {
             val spannable = getSpan()
             tvAllDone.text = spannable
             tvAllDone.movementMethod = LinkMovementMethod.getInstance()
