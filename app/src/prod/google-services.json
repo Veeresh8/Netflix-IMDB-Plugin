@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "217344232755",
+    "firebase_url": "https://netflix-imdb.firebaseio.com",
+    "project_id": "netflix-imdb",
+    "storage_bucket": "netflix-imdb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:217344232755:android:d8ee01d382962e4d",
+        "android_client_info": {
+          "package_name": "com.droid.netflixIMDB"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "217344232755-7n8ab2v94fbhcoa1ntc2jeeueq3k5rqa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNzv2T_zb9jz95d__unjmIORRcB7g-j4g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "217344232755-7n8ab2v94fbhcoa1ntc2jeeueq3k5rqa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

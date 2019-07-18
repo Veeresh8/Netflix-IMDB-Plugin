@@ -8,10 +8,12 @@
         android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/rootLayout"
+            android:animateLayoutChanges="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/ratingBackground"
-            tools:context=".MainActivity">
+            tools:context=".MainActivity" android:visibility="visible">
 
         <TextView
                 android:text="@string/battery_optimization_hint"
@@ -102,7 +104,41 @@
                 android:fontFamily="sans-serif-smallcaps" android:textSize="18sp"
                 android:textColor="@android:color/white"
                 android:textAlignment="center" tools:visibility="visible"/>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/billingLayout"
+            android:animateLayoutChanges="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/ratingBackground"
+            tools:context=".MainActivity" android:visibility="gone">
+
+        <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottieAnimationBilling"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:lottie_autoPlay="true"
+                app:lottie_speed="0.5"
+                app:lottie_loop="false"
+                app:lottie_fileName="purchase.json"/>
+        <TextView
+                android:text="@string/thank_you"
+                android:layout_width="0dp"
+                android:visibility="gone"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvThank" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+                android:textColor="@android:color/white" android:textSize="18sp" android:textAlignment="center"
+                android:fontFamily="sans-serif-smallcaps"
+                app:layout_constraintBottom_toBottomOf="@+id/lottieAnimationBilling"
+                android:layout_marginBottom="128dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <com.google.android.material.navigation.NavigationView
             android:layout_width="wrap_content"

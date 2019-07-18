@@ -64,16 +64,27 @@ class RatingViewRenderer {
     fun removeRatingView() {
         Log.d(TAG, "Removing rating view")
         mRatingView?.run {
-            if (mRatingView?.windowToken != null)
-                mWindowManager?.removeView(mRatingView)
+            if (mRatingView?.windowToken != null) {
+                try {
+                    mWindowManager?.removeView(mRatingView)
+                } catch (exception: Exception) {
+                    Log.e(TAG, "Exception removing view to window manager: ${exception.message}")
+                }
+            }
+
         }
     }
 
     fun showRating(responsePayload: ResponsePayload) {
         if (::tvRating.isInitialized && ::tvTitle.isInitialized) {
 
-            if (mRatingView?.windowToken == null)
-                mWindowManager?.addView(mRatingView, params)
+            if (mRatingView?.windowToken == null) {
+                try {
+                    mWindowManager?.addView(mRatingView, params)
+                } catch (exception: Exception) {
+                    Log.e(TAG, "Exception adding view to window manager: ${exception.message}")
+                }
+            }
 
             var year = responsePayload.year
             var rating = responsePayload.rating

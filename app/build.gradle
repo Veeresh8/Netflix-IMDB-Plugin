@@ -13,11 +13,12 @@ android {
         applicationId "com.droid.netflixIMDB"
         minSdkVersion 18
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.2"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField 'String', 'OMDB_API_KEY', properties['omdb_api_key']
+        buildConfigField 'String', 'BILLING_KEY', properties['billing_key']
     }
 
     flavorDimensions "default"
@@ -66,6 +67,9 @@ dependencies {
 
     /*Number picker*/
     implementation 'com.github.ch-muhammad-adil:MaterialPickerDialog:1.0.3'
+
+    /*Billing*/
+    implementation 'com.anjlab.android.iab.v3:library:1.0.44'
 
 }
 apply plugin: 'com.google.gms.google-services'

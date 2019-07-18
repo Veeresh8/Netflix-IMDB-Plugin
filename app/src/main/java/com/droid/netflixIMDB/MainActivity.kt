@@ -1,11 +1,13 @@
 package com.droid.netflixIMDB
 
+import android.animation.Animator
 import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface.BOLD
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.os.PowerManager
 import android.provider.Settings
 import android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS
@@ -26,25 +28,36 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
 import com.airbnb.lottie.LottieAnimationView
+import com.anjlab.android.iab.v3.BillingProcessor
+import com.anjlab.android.iab.v3.TransactionDetails
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
+    BillingProcessor.IBillingHandler {
 
     private val TAG: String = this.javaClass.simpleName
     private val CODE_DRAW_OVER_OTHER_APP_PERMISSION = 2084
 
     private var drawer: DrawerLayout? = null
+    private lateinit var billingProcessor: BillingProcessor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setupClickListeners()
         setUpNavDrawer()
+        initBilling()
+    }
+
+    private fun initBilling() {
+        billingProcessor = BillingProcessor(this, BuildConfig.BILLING_KEY, this)
+        billingProcessor.initialize()
     }
 
     private fun setUpNavDrawer() {
@@ -61,6 +74,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onBackPressed() {
+        if (billingLayout.isVisible)
+            return
+
         if (drawer?.isDrawerOpen(GravityCompat.START)!!) {
             drawer?.closeDrawer(GravityCompat.START)
         } else {
@@ -81,15 +97,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.customizeRatingView -> {
+                Analytics.postClickEvents(Analytics.ClickTypes.CUSTOMIZE)
                 startActivity(Intent(this@MainActivity, CustomizeRatingViewActivity::class.java))
             }
             R.id.feedback -> {
+                Analytics.postClickEvents(Analytics.ClickTypes.FEEDBACK)
                 Toast.makeText(this, "Clicked item two", Toast.LENGTH_SHORT).show()
             }
             R.id.rateApp -> {
+                Analytics.postClickEvents(Analytics.ClickTypes.PLAYSTORE)
                 Toast.makeText(this, "Clicked item three", Toast.LENGTH_SHORT).show()
             }
             R.id.support -> {
+                Analytics.postClickEvents(Analytics.ClickTypes.SUPPORT)
 
                 toggleDrawer()
 
@@ -99,15 +119,26 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     null
                 )
 
-                val donationLow = sheetView.findViewById(R.id.btnLowDonation) as Button
+                val donationLow = sheetView.findViewById(R.id.btnSmallDonation) as Button
                 val donationHigh = sheetView.findViewById(R.id.btnHighDonation) as Button
+                val donationMedium = sheetView.findViewById(R.id.btnMediumDonation) as Button
 
                 donationLow.setOnClickListener {
-                    Toast.makeText(this, "Low donation", Toast.LENGTH_SHORT).show()
+                    Analytics.postClickEvents(Analytics.ClickTypes.SMALL_PURCHASE)
+                    billingProcessor.purchase(this, "android.test.purchased")
+                    mBottomSheetDialog.dismiss()
+                }
+
+                donationMedium.setOnClickListener {
+                    Analytics.postClickEvents(Analytics.ClickTypes.MEDIUM_PURCHASE)
+                    billingProcessor.purchase(this, "android.test.purchased")
+                    mBottomSheetDialog.dismiss()
                 }
 
                 donationHigh.setOnClickListener {
-                    Toast.makeText(this, "High donation", Toast.LENGTH_SHORT).show()
+                    Analytics.postClickEvents(Analytics.ClickTypes.HIGH_PURCHASE)
+                    billingProcessor.purchase(this, "android.test.purchased")
+                    mBottomSheetDialog.dismiss()
                 }
 
                 mBottomSheetDialog.setContentView(sheetView)
@@ -119,15 +150,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun setupClickListeners() {
         tvEnableAccessibility.setOnClickListener {
+            Analytics.postClickEvents(Analytics.ClickTypes.ACC_SERV)
             val intent = Intent(ACTION_ACCESSIBILITY_SETTINGS)
             startActivity(intent)
         }
 
         tvAddToWhitelist.setOnClickListener {
+            Analytics.postClickEvents(Analytics.ClickTypes.WHITELIST)
             openPowerSettings(this)
         }
 
         tvGrantOverlay.setOnClickListener {
+            Analytics.postClickEvents(Analytics.ClickTypes.OVERLAY)
             checkOverlayPermission()
         }
 
@@ -291,7 +325,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == CODE_DRAW_OVER_OTHER_APP_PERMISSION) {
+        if (!billingProcessor.handleActivityResult(requestCode, resultCode, data)) {
+            super.onActivityResult(requestCode, resultCode, data)
+        } else if (requestCode == CODE_DRAW_OVER_OTHER_APP_PERMISSION) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !canDrawOverlays(this)) {
                 Toast.makeText(
                     this,
@@ -302,5 +338,59 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
+    }
+
+
+    override fun onBillingInitialized() {
+
+    }
+
+    override fun onPurchaseHistoryRestored() {
+
+    }
+
+    override fun onProductPurchased(productId: String, details: TransactionDetails?) {
+        Analytics.postPurchasePayload(productId)
+        performBillingAnimation()
+    }
+
+    private fun performBillingAnimation() {
+        rootLayout.gone()
+        tvThank.gone()
+        billingLayout.visible()
+        lottieAnimationBilling.playAnimation()
+        lottieAnimationBilling.addAnimatorListener(object : Animator.AnimatorListener {
+            override fun onAnimationRepeat(p0: Animator?) {
+
+            }
+
+            override fun onAnimationEnd(p0: Animator?) {
+                tvThank.visible()
+                Handler().postDelayed({
+                    rootLayout.visible()
+                    billingLayout.gone()
+                }, 3000)
+            }
+
+            override fun onAnimationCancel(p0: Animator?) {
+
+            }
+
+            override fun onAnimationStart(p0: Animator?) {
+
+            }
+
+        })
+    }
+
+    override fun onBillingError(errorCode: Int, error: Throwable?) {
+        Log.e(TAG, "Error in billing $error: ${error?.message}")
+    }
+
+    public override fun onDestroy() {
+        if (::billingProcessor.isInitialized) {
+            billingProcessor.release()
+        }
+        super.onDestroy()
     }
 }

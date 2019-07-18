@@ -3,7 +3,6 @@ package com.droid.netflixIMDB
 import android.accessibilityservice.AccessibilityService
 import android.accessibilityservice.AccessibilityServiceInfo
 import android.content.Intent
-import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -14,7 +13,6 @@ import com.droid.netflixIMDB.ratingView.RatingViewRenderer
 import com.droid.netflixIMDB.reader.HotstarReader
 import com.droid.netflixIMDB.reader.NetflixReader
 import com.droid.netflixIMDB.reader.Reader
-import com.google.firebase.analytics.FirebaseAnalytics
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
@@ -33,8 +31,6 @@ class ReaderService : AccessibilityService() {
 
     private var ratingView: RatingViewRenderer? = null
 
-    private var firebaseAnalytics: FirebaseAnalytics? = null
-
     companion object {
         var isConnected: Boolean = false
     }
@@ -43,12 +39,8 @@ class ReaderService : AccessibilityService() {
         super.onCreate()
         initReaders()
         initRatingView()
-        initAnalytics()
     }
 
-    private fun initAnalytics() {
-        firebaseAnalytics = FirebaseAnalytics.getInstance(this)
-    }
 
     private fun initReaders() {
         readers.clear()
@@ -139,12 +131,7 @@ class ReaderService : AccessibilityService() {
             return
         }
 
-        val bundle = Bundle()
-        bundle.putString(ReaderConstants.PACKAGE_NAME, event.source.packageName.toString())
-        bundle.putString(ReaderConstants.TITLE, payload.title ?: "")
-        bundle.putString(ReaderConstants.TYPE, payload.type ?: "")
-        bundle.putString(ReaderConstants.YEAR, payload.year ?: "")
-        firebaseAnalytics?.logEvent(ReaderConstants.SEARCH, bundle)
+        Analytics.postPayload(event.source.packageName.toString(), payload)
 
         RatingRequester.requestRating(payload, object : RatingRequester.RatingRequesterCallback {
             override fun onFailure(message: String) {
