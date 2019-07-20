@@ -1,13 +1,14 @@
 package com.droid.netflixIMDB.notifications
 
 import android.util.Log
+import com.droid.netflixIMDB.util.Prefs
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
 
 class PushNotificationService : FirebaseMessagingService() {
     private val TAG: String = this.javaClass.simpleName
-    
+
     override fun onMessageReceived(remoteMessage: RemoteMessage?) {
         try {
             if (remoteMessage == null) {
@@ -35,5 +36,9 @@ class PushNotificationService : FirebaseMessagingService() {
         } catch (exception: Exception) {
             Log.e(TAG, "Exception parsing push notification: ${exception.message}")
         }
+    }
+
+    override fun onNewToken(token: String?) {
+        Prefs.setPushToken(token ?: "NULL TOKEN")
     }
 }

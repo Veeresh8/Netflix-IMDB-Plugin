@@ -3,6 +3,7 @@ package com.droid.netflixIMDB.analytics
 import android.os.Bundle
 import com.droid.netflixIMDB.Application
 import com.droid.netflixIMDB.Payload
+import com.droid.netflixIMDB.util.Prefs
 import com.droid.netflixIMDB.util.ReaderConstants
 
 object Analytics {
@@ -26,6 +27,15 @@ object Analytics {
         val bundle = Bundle()
         bundle.putString(ReaderConstants.CLICK_TYPE, clickTypes.name)
         Application.firebaseAnalytics?.logEvent(ReaderConstants.CLICK, bundle)
+    }
+
+    fun postUserProperties() {
+        Application.firebaseAnalytics?.setUserProperty("push_id", Prefs.getPushToken() ?: "NULL TOKEN")
+        Application.firebaseAnalytics?.setUserProperty("titles_requested", Prefs.getAllTitlesRequested().toString())
+        Application.firebaseAnalytics?.setUserProperty(
+            "titles_requested_count",
+            Prefs.getAllTitlesRequested().size.toString()
+        )
     }
 
     enum class ClickTypes(name: String) {

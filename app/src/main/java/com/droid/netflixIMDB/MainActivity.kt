@@ -36,6 +36,7 @@ import com.anjlab.android.iab.v3.BillingProcessor
 import com.anjlab.android.iab.v3.TransactionDetails
 import com.droid.netflixIMDB.analytics.Analytics
 import com.droid.netflixIMDB.util.LaunchUtils
+import com.droid.netflixIMDB.util.Prefs
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.navigation.NavigationView
@@ -76,6 +77,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     return@OnCompleteListener
                 }
                 val token = task.result?.token
+                Prefs.setPushToken(token ?: "NULL TOKEN")
                 Log.d(TAG, "Push notification token: $token")
             })
     }
@@ -212,7 +214,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             val launchIntent = pm.getLaunchIntentForPackage(packageName)
             startActivity(launchIntent)
         } catch (exception: Exception) {
-            Log.e(TAG, "Exception launching Netflix - ${exception.message}")
+            Log.e(TAG, "Exception launching - ${exception.message}")
             Toast.makeText(this, "App not installed", Toast.LENGTH_SHORT).show()
         }
     }

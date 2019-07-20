@@ -5,7 +5,6 @@ import android.content.SharedPreferences
 import com.droid.netflixIMDB.Application
 import com.droid.netflixIMDB.R
 
-
 object Prefs {
 
     private var sharedPreferences: SharedPreferences? = null
@@ -15,6 +14,8 @@ object Prefs {
     private const val ICON_COLOR = "icon_color"
     private const val VIEW_TIMEOUT = "view_timeout"
     private const val REQUESTS_MADE = "requests_made"
+    private const val PUSH_TOKEN = "push_token"
+    private var titlesRequested: Set<String> = HashSet()
 
     private fun getSharedPrefs(): SharedPreferences? {
         sharedPreferences = Application.instance?.getSharedPreferences(
@@ -22,6 +23,20 @@ object Prefs {
             Context.MODE_PRIVATE
         )
         return sharedPreferences
+    }
+
+    fun addTitle(title: String? = "NULL") {
+        titlesRequested.plus(title)
+    }
+
+    fun getAllTitlesRequested(): Set<String> {
+        return titlesRequested
+    }
+
+    fun setPushToken(token: String) {
+        getSharedPrefs()?.run {
+            edit().putString(PUSH_TOKEN, token).apply()
+        }
     }
 
     fun setTitleColor(color: Int) {
@@ -81,5 +96,10 @@ object Prefs {
     fun getViewTimeout(): Int? {
         return getSharedPrefs()
             ?.getInt(VIEW_TIMEOUT, 5)
+    }
+
+    fun getPushToken(): String? {
+        return getSharedPrefs()
+            ?.getString(PUSH_TOKEN, null)
     }
 }

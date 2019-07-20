@@ -163,9 +163,10 @@ class ReaderService : AccessibilityService() {
 
     private fun incrementPushCount() {
         try {
+            Analytics.postUserProperties()
             Prefs.incrementRequestMade()
             Prefs.getRequestsMade()?.run {
-                if (this == 3) {
+                if (this == 12) {
                     NotificationManager.createPlayStorePushNotification(
                         this@ReaderService,
                         "Enjoying Netflix IMDB Plugin?", "We've served over $this title ratings. " +

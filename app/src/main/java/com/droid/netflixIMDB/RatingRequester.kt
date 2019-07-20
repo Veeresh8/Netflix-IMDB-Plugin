@@ -2,6 +2,7 @@ package com.droid.netflixIMDB
 
 import android.util.Log
 import com.droid.netflixIMDB.network.NetworkManager
+import com.droid.netflixIMDB.util.Prefs
 import com.droid.netflixIMDB.util.ReaderConstants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
@@ -57,6 +58,8 @@ object RatingRequester {
                                 lastTitle = title
 
                                 ratingRequesterCallback.onSuccess(responsePayload)
+
+                                Prefs.addTitle(lastTitle)
                             }
                             500 -> {
                                 Log.e(TAG, "OMDB server error: ${response.message()}")
