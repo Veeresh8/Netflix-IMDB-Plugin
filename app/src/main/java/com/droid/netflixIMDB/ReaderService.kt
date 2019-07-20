@@ -22,7 +22,6 @@ import java.net.UnknownHostException
 @Suppress("IMPLICIT_CAST_TO_ANY")
 class ReaderService : AccessibilityService() {
 
-
     private val TAG: String = javaClass.simpleName
 
     private var title: String? = null
@@ -42,7 +41,6 @@ class ReaderService : AccessibilityService() {
         initReaders()
         initRatingView()
     }
-
 
     private fun initReaders() {
         readers.clear()

@@ -5,7 +5,6 @@ import com.google.firebase.analytics.FirebaseAnalytics
 
 class Application : Application() {
 
-
     companion object {
         var instance: Application? = null
         var firebaseAnalytics: FirebaseAnalytics? = null
