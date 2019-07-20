@@ -1,5 +1,6 @@
 package com.droid.netflixIMDB
 
+import PurchaseUtils
 import android.animation.Animator
 import android.content.Context
 import android.content.Intent
@@ -33,6 +34,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.airbnb.lottie.LottieAnimationView
 import com.anjlab.android.iab.v3.BillingProcessor
 import com.anjlab.android.iab.v3.TransactionDetails
+import com.droid.netflixIMDB.analytics.Analytics
+import com.droid.netflixIMDB.util.LaunchUtils
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -102,11 +105,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.feedback -> {
                 Analytics.postClickEvents(Analytics.ClickTypes.FEEDBACK)
-                Toast.makeText(this, "Clicked item two", Toast.LENGTH_SHORT).show()
+                LaunchUtils.sendFeedbackIntent(this)
             }
             R.id.rateApp -> {
                 Analytics.postClickEvents(Analytics.ClickTypes.PLAYSTORE)
-                Toast.makeText(this, "Clicked item three", Toast.LENGTH_SHORT).show()
+                LaunchUtils.openPlayStore(this, packageName)
+            }
+            R.id.policy -> {
+                Analytics.postClickEvents(Analytics.ClickTypes.PRIVACY_POLICY)
+                LaunchUtils.openPrivacyPolicy(this)
             }
             R.id.support -> {
                 Analytics.postClickEvents(Analytics.ClickTypes.SUPPORT)
@@ -114,6 +121,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 toggleDrawer()
 
                 val mBottomSheetDialog = BottomSheetDialog(this)
+                mBottomSheetDialog.window?.setDimAmount(0.9F)
                 val sheetView = layoutInflater.inflate(
                     R.layout.support_bottom_sheet,
                     null
@@ -125,19 +133,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
                 donationLow.setOnClickListener {
                     Analytics.postClickEvents(Analytics.ClickTypes.SMALL_PURCHASE)
-                    billingProcessor.purchase(this, "android.test.purchased")
+                    billingProcessor.purchase(this, PurchaseUtils.SMALL_DONATION)
                     mBottomSheetDialog.dismiss()
                 }
 
                 donationMedium.setOnClickListener {
                     Analytics.postClickEvents(Analytics.ClickTypes.MEDIUM_PURCHASE)
-                    billingProcessor.purchase(this, "android.test.purchased")
+                    billingProcessor.purchase(this, PurchaseUtils.MEDIUM_DONATION)
                     mBottomSheetDialog.dismiss()
                 }
 
                 donationHigh.setOnClickListener {
                     Analytics.postClickEvents(Analytics.ClickTypes.HIGH_PURCHASE)
-                    billingProcessor.purchase(this, "android.test.purchased")
+                    billingProcessor.purchase(this, PurchaseUtils.HIGH_DONATION)
                     mBottomSheetDialog.dismiss()
                 }
 
@@ -167,6 +175,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         ivMenu.setOnClickListener {
             toggleDrawer()
+        }
+
+        ivHelp.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=9o_Ccc5O0X0"))
+            intent.putExtra("force_fullscreen", true)
+            startActivity(intent)
         }
     }
 

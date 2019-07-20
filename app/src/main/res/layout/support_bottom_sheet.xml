@@ -20,7 +20,7 @@
             app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="32dp"
             app:layout_constraintVertical_bias="0.0"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="42dp"
-    />
+            android:textAlignment="center"/>
     <TextView
             android:text=" Help us keep this app ad-free \n \n If you liked the app, please support it by buying any of the items below"
             android:layout_width="0dp"

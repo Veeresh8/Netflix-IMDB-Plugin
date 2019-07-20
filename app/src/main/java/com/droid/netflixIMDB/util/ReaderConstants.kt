@@ -1,4 +1,4 @@
-package com.droid.netflixIMDB
+package com.droid.netflixIMDB.util
 
 class ReaderConstants {
 

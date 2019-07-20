@@ -13,9 +13,9 @@ import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.droid.netflixIMDB.ColorPrefs
 import com.droid.netflixIMDB.R
 import com.droid.netflixIMDB.ResponsePayload
+import com.droid.netflixIMDB.util.ColorPrefs
 
 class RatingViewRenderer {
 

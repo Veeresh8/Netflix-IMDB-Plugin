@@ -1,7 +1,9 @@
-package com.droid.netflixIMDB
+package com.droid.netflixIMDB.util
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.droid.netflixIMDB.Application
+import com.droid.netflixIMDB.R
 
 
 object ColorPrefs {
@@ -46,18 +48,22 @@ object ColorPrefs {
     }
 
     fun getTitleColor(): Int? {
-        return getSharedPrefs()?.getInt(TITLE_COLOR, 0)
+        return getSharedPrefs()
+            ?.getInt(TITLE_COLOR, 0)
     }
 
     fun getBackgroundColor(): Int? {
-        return getSharedPrefs()?.getInt(BACKGROUND_COLOR, 0)
+        return getSharedPrefs()
+            ?.getInt(BACKGROUND_COLOR, 0)
     }
 
     fun getIconColor(): Int? {
-        return getSharedPrefs()?.getInt(ICON_COLOR, 0)
+        return getSharedPrefs()
+            ?.getInt(ICON_COLOR, 0)
     }
 
     fun getViewTimeout(): Int? {
-        return getSharedPrefs()?.getInt(VIEW_TIMEOUT, 5)
+        return getSharedPrefs()
+            ?.getInt(VIEW_TIMEOUT, 5)
     }
 }

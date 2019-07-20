@@ -1,6 +1,9 @@
-package com.droid.netflixIMDB
+package com.droid.netflixIMDB.analytics
 
 import android.os.Bundle
+import com.droid.netflixIMDB.Application
+import com.droid.netflixIMDB.Payload
+import com.droid.netflixIMDB.util.ReaderConstants
 
 object Analytics {
 
