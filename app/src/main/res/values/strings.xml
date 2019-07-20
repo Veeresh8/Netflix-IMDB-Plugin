@@ -2,7 +2,7 @@
     <string name="app_name_accessibility_service">Netflix IMDb Plugin Accessibility Service</string>
     <string name="accessibility_service_description">Netflix IMDb Plugin</string>
     <string name="overlay_hint">Grant overlay permission</string>
-    <string name="battery_optimization_hint">Add app to whitelist</string>
+    <string name="battery_optimization_hint">Add to whitelist (Optional)</string>
     <string name="accessibility_hint">Enable accessibility settings</string>
     <string name="header_hint">Please follow the below instructions to get started</string>
     <string name="open_netflix">Open Netflix</string>

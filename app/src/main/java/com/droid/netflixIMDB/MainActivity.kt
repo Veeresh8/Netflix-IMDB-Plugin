@@ -36,8 +36,10 @@ import com.anjlab.android.iab.v3.BillingProcessor
 import com.anjlab.android.iab.v3.TransactionDetails
 import com.droid.netflixIMDB.analytics.Analytics
 import com.droid.netflixIMDB.util.LaunchUtils
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -56,6 +58,26 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setupClickListeners()
         setUpNavDrawer()
         initBilling()
+        initFCM()
+        checkForPlayStoreIntent()
+    }
+
+    private fun checkForPlayStoreIntent() {
+        if (intent.getStringExtra("open_playstore") != null) {
+            LaunchUtils.openPlayStore(this)
+        }
+    }
+
+    private fun initFCM() {
+        FirebaseInstanceId.getInstance().instanceId
+            .addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Log.w(TAG, "getInstanceId failed", task.exception)
+                    return@OnCompleteListener
+                }
+                val token = task.result?.token
+                Log.d(TAG, "Push notification token: $token")
+            })
     }
 
     private fun initBilling() {
@@ -109,7 +131,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.rateApp -> {
                 Analytics.postClickEvents(Analytics.ClickTypes.PLAYSTORE)
-                LaunchUtils.openPlayStore(this, packageName)
+                LaunchUtils.openPlayStore(this)
             }
             R.id.policy -> {
                 Analytics.postClickEvents(Analytics.ClickTypes.PRIVACY_POLICY)

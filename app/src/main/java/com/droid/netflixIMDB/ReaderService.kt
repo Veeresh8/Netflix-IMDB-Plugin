@@ -10,10 +10,12 @@ import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
 import android.widget.Toast
 import com.droid.netflixIMDB.analytics.Analytics
+import com.droid.netflixIMDB.notifications.NotificationManager
 import com.droid.netflixIMDB.ratingView.RatingViewRenderer
 import com.droid.netflixIMDB.reader.HotstarReader
 import com.droid.netflixIMDB.reader.NetflixReader
 import com.droid.netflixIMDB.reader.Reader
+import com.droid.netflixIMDB.util.Prefs
 import com.droid.netflixIMDB.util.ReaderConstants
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
@@ -140,6 +142,7 @@ class ReaderService : AccessibilityService() {
 
             override fun onSuccess(responsePayload: ResponsePayload) {
                 showRating(responsePayload)
+                incrementPushCount()
             }
 
             override fun onRequestException(exception: Exception) {
@@ -156,6 +159,23 @@ class ReaderService : AccessibilityService() {
                 }
             }
         })
+    }
+
+    private fun incrementPushCount() {
+        try {
+            Prefs.incrementRequestMade()
+            Prefs.getRequestsMade()?.run {
+                if (this == 3) {
+                    NotificationManager.createPlayStorePushNotification(
+                        this@ReaderService,
+                        "Enjoying Netflix IMDB Plugin?", "We've served over $this title ratings. " +
+                                "Please spread the word by giving us a honest rating at the PlayStore"
+                    )
+                }
+            }
+        } catch (exception: java.lang.Exception) {
+            Log.e(TAG, "Exception showing push notification: ${exception.message}")
+        }
     }
 
     private fun showConnectionErrorToast() {

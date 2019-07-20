@@ -15,7 +15,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.droid.netflixIMDB.R
 import com.droid.netflixIMDB.ResponsePayload
-import com.droid.netflixIMDB.util.ColorPrefs
+import com.droid.netflixIMDB.util.Prefs
 
 class RatingViewRenderer {
 
@@ -115,7 +115,7 @@ class RatingViewRenderer {
                 Log.d(TAG, "Resetting timer")
             }
 
-            val viewTimeout = ColorPrefs.getViewTimeout()
+            val viewTimeout = Prefs.getViewTimeout()
 
             if (timer == null) {
                 timer = object : CountDownTimer(viewTimeout?.toLong()!! * 1000, 1000) {
@@ -139,9 +139,9 @@ class RatingViewRenderer {
     }
 
     private fun checkForColorPrefs() {
-        val titleColor = ColorPrefs.getTitleColor()
-        val backgroundColor = ColorPrefs.getBackgroundColor()
-        val iconColor = ColorPrefs.getIconColor()
+        val titleColor = Prefs.getTitleColor()
+        val backgroundColor = Prefs.getBackgroundColor()
+        val iconColor = Prefs.getIconColor()
 
         if (titleColor != null && titleColor != 0) {
             tvTitle.setTextColor(titleColor)

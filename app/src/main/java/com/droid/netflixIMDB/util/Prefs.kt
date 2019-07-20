@@ -6,7 +6,7 @@ import com.droid.netflixIMDB.Application
 import com.droid.netflixIMDB.R
 
 
-object ColorPrefs {
+object Prefs {
 
     private var sharedPreferences: SharedPreferences? = null
 
@@ -14,6 +14,7 @@ object ColorPrefs {
     private const val BACKGROUND_COLOR = "background_color"
     private const val ICON_COLOR = "icon_color"
     private const val VIEW_TIMEOUT = "view_timeout"
+    private const val REQUESTS_MADE = "requests_made"
 
     private fun getSharedPrefs(): SharedPreferences? {
         sharedPreferences = Application.instance?.getSharedPreferences(
@@ -41,10 +42,25 @@ object ColorPrefs {
         }
     }
 
+    fun incrementRequestMade() {
+        val requestsMade = getRequestsMade()
+        requestsMade?.run {
+            requestsMade
+            getSharedPrefs()?.run {
+                edit().putInt(REQUESTS_MADE, requestsMade + 1).apply()
+            }
+        }
+    }
+
     fun setIconColor(color: Int) {
         getSharedPrefs()?.run {
             edit().putInt(ICON_COLOR, color).apply()
         }
+    }
+
+    fun getRequestsMade(): Int? {
+        return getSharedPrefs()
+            ?.getInt(REQUESTS_MADE, 0)
     }
 
     fun getTitleColor(): Int? {

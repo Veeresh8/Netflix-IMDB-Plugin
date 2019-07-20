@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.droid.netflixIMDB.util.ColorPrefs
+import com.droid.netflixIMDB.util.Prefs
 import com.jaredrummler.android.colorpicker.ColorPickerDialog
 import com.jaredrummler.android.colorpicker.ColorPickerDialogListener
 import kotlinx.android.synthetic.main.activity_customize_rating_view.*
@@ -26,10 +26,10 @@ class CustomizeRatingViewActivity : AppCompatActivity(), ColorPickerDialogListen
     }
 
     private fun checkForColorPrefs() {
-        val titleColor = ColorPrefs.getTitleColor()
-        val backgroundColor = ColorPrefs.getBackgroundColor()
-        val iconColor = ColorPrefs.getIconColor()
-        val timeout = ColorPrefs.getViewTimeout()
+        val titleColor = Prefs.getTitleColor()
+        val backgroundColor = Prefs.getBackgroundColor()
+        val iconColor = Prefs.getIconColor()
+        val timeout = Prefs.getViewTimeout()
 
         if (titleColor != null && titleColor != 0) {
             tvTitle.setTextColor(titleColor)
@@ -66,7 +66,7 @@ class CustomizeRatingViewActivity : AppCompatActivity(), ColorPickerDialogListen
         tvChangeRatingTimeout.setOnClickListener {
             val dialog = NumberPickerDialog(this, 3, 10,
                 NumberPickerDialog.NumberPickerCallBack { value ->
-                    ColorPrefs.setViewTimeout(value)
+                    Prefs.setViewTimeout(value)
                     tvTimeout.text = "$value" + "s"
                 })
             dialog.show()
@@ -92,16 +92,16 @@ class CustomizeRatingViewActivity : AppCompatActivity(), ColorPickerDialogListen
         when (which) {
             ColorObject.BACKGROUND -> {
                 constraintLayout.setBackgroundColor(color)
-                ColorPrefs.setBackgroundColor(color)
+                Prefs.setBackgroundColor(color)
             }
             ColorObject.TITLE -> {
                 tvTitle.setTextColor(color)
                 tvRating.setTextColor(color)
-                ColorPrefs.setTitleColor(color)
+                Prefs.setTitleColor(color)
             }
             ColorObject.ICON -> {
                 ivClose.setColorFilter(color)
-                ColorPrefs.setIconColor(color)
+                Prefs.setIconColor(color)
             }
         }
 
