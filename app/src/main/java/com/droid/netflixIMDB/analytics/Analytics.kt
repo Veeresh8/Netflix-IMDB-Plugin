@@ -44,6 +44,7 @@ object Analytics {
         PRIVACY_POLICY("privacy_policy"),
         CUSTOMIZE("customize"),
         SUPPORT("support"),
+        FAQ("faq"),
 
         OVERLAY("overlay_permission"),
         ACC_SERV("acc_serv"),

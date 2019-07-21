@@ -4,7 +4,6 @@ import PurchaseUtils
 import android.animation.Animator
 import android.content.Context
 import android.content.Intent
-import android.graphics.Typeface.BOLD
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -13,17 +12,9 @@ import android.os.PowerManager
 import android.provider.Settings
 import android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS
 import android.provider.Settings.canDrawOverlays
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.TextPaint
 import android.text.method.LinkMovementMethod
-import android.text.style.ClickableSpan
-import android.text.style.ForegroundColorSpan
-import android.text.style.RelativeSizeSpan
-import android.text.style.StyleSpan
 import android.util.Log
 import android.view.MenuItem
-import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -36,7 +27,9 @@ import com.anjlab.android.iab.v3.BillingProcessor
 import com.anjlab.android.iab.v3.TransactionDetails
 import com.droid.netflixIMDB.analytics.Analytics
 import com.droid.netflixIMDB.util.LaunchUtils
+import com.droid.netflixIMDB.util.LaunchUtils.openPowerSettings
 import com.droid.netflixIMDB.util.Prefs
+import com.droid.netflixIMDB.util.TextUtils
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.navigation.NavigationView
@@ -140,44 +133,83 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 LaunchUtils.openPrivacyPolicy(this)
             }
             R.id.support -> {
-                Analytics.postClickEvents(Analytics.ClickTypes.SUPPORT)
+                launchSupportSheet()
+            }
 
-                toggleDrawer()
-
-                val mBottomSheetDialog = BottomSheetDialog(this)
-                mBottomSheetDialog.window?.setDimAmount(0.9F)
-                val sheetView = layoutInflater.inflate(
-                    R.layout.support_bottom_sheet,
-                    null
-                )
-
-                val donationLow = sheetView.findViewById(R.id.btnSmallDonation) as Button
-                val donationHigh = sheetView.findViewById(R.id.btnHighDonation) as Button
-                val donationMedium = sheetView.findViewById(R.id.btnMediumDonation) as Button
-
-                donationLow.setOnClickListener {
-                    Analytics.postClickEvents(Analytics.ClickTypes.SMALL_PURCHASE)
-                    billingProcessor.purchase(this, PurchaseUtils.SMALL_DONATION)
-                    mBottomSheetDialog.dismiss()
-                }
-
-                donationMedium.setOnClickListener {
-                    Analytics.postClickEvents(Analytics.ClickTypes.MEDIUM_PURCHASE)
-                    billingProcessor.purchase(this, PurchaseUtils.MEDIUM_DONATION)
-                    mBottomSheetDialog.dismiss()
-                }
-
-                donationHigh.setOnClickListener {
-                    Analytics.postClickEvents(Analytics.ClickTypes.HIGH_PURCHASE)
-                    billingProcessor.purchase(this, PurchaseUtils.HIGH_DONATION)
-                    mBottomSheetDialog.dismiss()
-                }
-
-                mBottomSheetDialog.setContentView(sheetView)
-                mBottomSheetDialog.show()
+            R.id.faq -> {
+                launchFAQSheet(true)
             }
         }
         return true
+    }
+
+    private fun launchSupportSheet() {
+        Analytics.postClickEvents(Analytics.ClickTypes.SUPPORT)
+
+        toggleDrawer()
+
+        val mBottomSheetDialog = BottomSheetDialog(this)
+        mBottomSheetDialog.window?.setDimAmount(0.9F)
+        val sheetView = layoutInflater.inflate(
+            R.layout.support_bottom_sheet,
+            null
+        )
+
+        val donationLow = sheetView.findViewById(R.id.btnSmallDonation) as Button
+        val donationHigh = sheetView.findViewById(R.id.btnHighDonation) as Button
+        val donationMedium = sheetView.findViewById(R.id.btnMediumDonation) as Button
+
+        donationLow.setOnClickListener {
+            Analytics.postClickEvents(Analytics.ClickTypes.SMALL_PURCHASE)
+            billingProcessor.purchase(this, PurchaseUtils.SMALL_DONATION)
+            mBottomSheetDialog.dismiss()
+        }
+
+        donationMedium.setOnClickListener {
+            Analytics.postClickEvents(Analytics.ClickTypes.MEDIUM_PURCHASE)
+            billingProcessor.purchase(this, PurchaseUtils.MEDIUM_DONATION)
+            mBottomSheetDialog.dismiss()
+        }
+
+        donationHigh.setOnClickListener {
+            Analytics.postClickEvents(Analytics.ClickTypes.HIGH_PURCHASE)
+            billingProcessor.purchase(this, PurchaseUtils.HIGH_DONATION)
+            mBottomSheetDialog.dismiss()
+        }
+
+        mBottomSheetDialog.setContentView(sheetView)
+        mBottomSheetDialog.show()
+    }
+
+    private fun launchFAQSheet(mustToggleDrawer: Boolean = false) {
+        Analytics.postClickEvents(Analytics.ClickTypes.FAQ)
+
+        if (mustToggleDrawer)
+            toggleDrawer()
+
+        val mBottomSheetDialog = BottomSheetDialog(this)
+        mBottomSheetDialog.window?.setDimAmount(0.9F)
+        val sheetView = layoutInflater.inflate(
+            R.layout.faq_bottom_sheet,
+            null
+        )
+
+        val tvAnswerOne = sheetView.findViewById(R.id.tvAnswerOne) as TextView
+        val tvAnswerTwo = sheetView.findViewById(R.id.tvAnswerTwo) as TextView
+        val tvAnswerThree = sheetView.findViewById(R.id.tvAnswerThree) as TextView
+
+
+        tvAnswerOne.text = TextUtils.getSpanOne(tvAnswerOne, this)
+        tvAnswerOne.movementMethod = LinkMovementMethod.getInstance()
+
+        tvAnswerTwo.text = TextUtils.getSpanTwo(tvAnswerTwo, this)
+        tvAnswerTwo.movementMethod = LinkMovementMethod.getInstance()
+
+        tvAnswerThree.text = TextUtils.getSpanThree(tvAnswerThree, this)
+        tvAnswerThree.movementMethod = LinkMovementMethod.getInstance()
+
+        mBottomSheetDialog.setContentView(sheetView)
+        mBottomSheetDialog.show()
     }
 
     private fun setupClickListeners() {
@@ -202,13 +234,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         ivHelp.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=9o_Ccc5O0X0"))
-            intent.putExtra("force_fullscreen", true)
-            startActivity(intent)
+            launchFAQSheet()
         }
     }
 
-    private fun launchApp(packageName: String) {
+    private fun launchAppWithPackageName(packageName: String) {
         val pm = packageManager
         try {
             val launchIntent = pm.getLaunchIntentForPackage(packageName)
@@ -216,14 +246,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         } catch (exception: Exception) {
             Log.e(TAG, "Exception launching - ${exception.message}")
             Toast.makeText(this, "App not installed", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun openPowerSettings(context: Context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val intent = Intent()
-            intent.action = Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS
-            context.startActivity(intent)
         }
     }
 
@@ -285,81 +307,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         checkAccessibilitySettings()
 
         if (tvGrantOverlay.tag == "enabled" && tvEnableAccessibility.tag == "enabled") {
-            val spannable = getSpan()
+            val spannable = TextUtils.getSpan(this, tvAllDone, object : TextUtils.SpanClickCallback {
+                override fun launchApp(packageName: String) {
+                    launchAppWithPackageName(packageName)
+                }
+            })
             tvAllDone.text = spannable
             tvAllDone.movementMethod = LinkMovementMethod.getInstance()
             tvAllDone.visible()
         } else {
             tvAllDone.gone()
         }
-    }
-
-    private fun getSpan(): SpannableString {
-        val spannable = SpannableString(tvAllDone.text.toString())
-
-        /*Netflix Span*/
-        spannable.setSpan(
-            ForegroundColorSpan(resources.getColor(R.color.netflixRed)),
-            7, 14,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-
-        spannable.setSpan(
-            StyleSpan(BOLD),
-            7, 14,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-
-        spannable.setSpan(
-            RelativeSizeSpan(1.1f),
-            7, 14,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-
-        val clickSpanNetflix = object : ClickableSpan() {
-            override fun onClick(p0: View) {
-                launchApp("com.netflix.mediaclient")
-            }
-
-            override fun updateDrawState(ds: TextPaint) {
-                ds.color = ds.linkColor
-                ds.isUnderlineText = true
-            }
-        }
-
-        spannable.setSpan(clickSpanNetflix, 7, 14, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-
-        /*Hotstar Span*/
-        spannable.setSpan(
-            ForegroundColorSpan(resources.getColor(R.color.hotstarYellow)),
-            18, 25,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-
-        spannable.setSpan(
-            StyleSpan(BOLD),
-            18, 25,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-
-        spannable.setSpan(
-            RelativeSizeSpan(1.1f),
-            18, 25,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-
-        val clickSpanHotstar = object : ClickableSpan() {
-            override fun onClick(p0: View) {
-                launchApp("in.startv.hotstar")
-            }
-
-            override fun updateDrawState(ds: TextPaint) {
-                ds.isUnderlineText = true
-            }
-        }
-
-        spannable.setSpan(clickSpanHotstar, 18, 25, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        return spannable
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

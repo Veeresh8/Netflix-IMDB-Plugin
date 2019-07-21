@@ -15,4 +15,7 @@
     <item android:id="@+id/policy"
           android:icon="@drawable/round_class_24px"
           android:title="Privacy Policy"/>
+    <item android:id="@+id/faq"
+          android:icon="@drawable/round_help_24px"
+          android:title="FAQ"/>
 </menu>
