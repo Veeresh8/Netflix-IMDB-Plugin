@@ -7,114 +7,132 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/rootLayout"
-            android:animateLayoutChanges="true"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/ratingBackground"
-            tools:context=".MainActivity" android:visibility="visible">
+    <ScrollView android:layout_width="match_parent"
+                android:background="@color/ratingBackground"
+                android:layout_height="0dp">
 
-        <TextView
-                android:text="@string/battery_optimization_hint"
-                android:layout_width="0dp"
-                android:alpha="0.9"
-                android:padding="10dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="32dp" android:id="@+id/tvAddToWhitelist"
-                android:textColor="@android:color/white"
-                android:textSize="18sp" android:fontFamily="sans-serif-smallcaps"
-                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="32dp"
-                android:textAlignment="textStart"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintTop_toBottomOf="@+id/divider_2" android:layout_marginTop="32dp"
-                android:drawableEnd="@drawable/round_navigate_next_24px"/>
-        <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:alpha="0.8"
-                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-                android:id="@+id/divider_2" app:layout_constraintHorizontal_bias="0.0" android:layout_marginStart="32dp"
-                android:background="@android:color/white" android:layout_marginEnd="32dp"
-                android:layout_marginTop="35dp" app:layout_constraintTop_toBottomOf="@+id/tvEnableAccessibility"/>
-        <TextView
-                android:text="@string/accessibility_hint"
-                android:layout_width="0dp"
-                android:alpha="0.9"
-                android:padding="10dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="32dp" android:id="@+id/tvEnableAccessibility"
-                android:textColor="@android:color/white"
-                android:textSize="18sp" android:fontFamily="sans-serif-smallcaps"
-                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="32dp"
-                android:textAlignment="textStart"
-                app:layout_constraintHorizontal_bias="1.0" app:layout_constraintTop_toBottomOf="@+id/divider_1"
-                android:layout_marginTop="32dp" android:drawableEnd="@drawable/round_navigate_next_24px"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/rootLayout"
+                android:animateLayoutChanges="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".MainActivity" android:visibility="visible">
 
-        <TextView
-                android:text="@string/overlay_hint"
-                android:layout_width="0dp"
-                android:alpha="0.9"
-                android:padding="10dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="32dp" android:id="@+id/tvGrantOverlay"
-                android:textColor="@android:color/white"
-                android:textSize="18sp" android:fontFamily="sans-serif-smallcaps"
-                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="32dp"
-                android:textAlignment="textStart"
-                android:layout_marginTop="150dp" app:layout_constraintTop_toBottomOf="@+id/tvHeaderHint"
-                app:layout_constraintHorizontal_bias="0.0" android:drawableRight="@drawable/round_navigate_next_24px"/>
-        <TextView
-                android:text="@string/app_name"
-                android:layout_width="0dp"
-                android:padding="10dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/tvHeaderHint" app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="64dp"
-                android:textColor="@android:color/white"
-                android:fontFamily="sans-serif-smallcaps" android:textSize="18sp"
-                android:textAlignment="textStart" app:layout_constraintStart_toEndOf="@+id/ivMenu"
-                android:layout_marginStart="24dp" android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toStartOf="@+id/ivHelp" android:textStyle="bold"/>
-        <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:alpha="0.8"
-                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-                android:id="@+id/divider_1" app:layout_constraintHorizontal_bias="0.0" android:layout_marginStart="32dp"
-                android:background="@android:color/white" android:layout_marginEnd="32dp"
-                android:layout_marginTop="35dp" app:layout_constraintTop_toBottomOf="@+id/tvGrantOverlay"/>
-        <ImageView
-                android:layout_width="wrap_content"
-                android:padding="10dp"
-                android:layout_height="wrap_content" app:srcCompat="@drawable/round_menu_24px"
-                android:id="@+id/ivMenu"
-                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="32dp"
-                app:layout_constraintBottom_toBottomOf="@+id/tvHeaderHint" android:layout_marginTop="64dp"
-                app:layout_constraintTop_toTopOf="parent"/>
-        <TextView
-                android:text="Launch Netflix or Hotstar"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-                android:id="@+id/tvAllDone" android:layout_marginStart="32dp" android:layout_marginEnd="32dp"
-                android:layout_marginBottom="64dp" app:layout_constraintBottom_toBottomOf="parent"
-                android:fontFamily="sans-serif-smallcaps" android:textSize="18sp"
-                android:textColor="@android:color/white"
-                android:textAlignment="center" tools:visibility="visible"/>
-        <ImageView
-                android:layout_width="wrap_content"
-                android:padding="10dp"
-                android:layout_height="wrap_content" app:srcCompat="@drawable/round_help_24px"
-                android:id="@+id/ivHelp"
-                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="24dp"
-                app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="64dp"/>
+            <TextView
+                    android:text="@string/battery_optimization_hint"
+                    android:layout_width="0dp"
+                    android:alpha="0.9"
+                    android:padding="10dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="32dp" android:id="@+id/tvAddToWhitelist"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" android:fontFamily="sans-serif-smallcaps"
+                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="32dp"
+                    android:textAlignment="textStart"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintTop_toBottomOf="@+id/divider_2" android:layout_marginTop="4dp"
+                    android:drawableEnd="@drawable/round_navigate_next_24px"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline2" android:layout_marginBottom="8dp"/>
+            <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:alpha="0.8"
+                    app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                    android:id="@+id/divider_2" app:layout_constraintHorizontal_bias="0.0"
+                    android:layout_marginStart="32dp"
+                    android:background="@android:color/white" android:layout_marginEnd="32dp"
+                    android:layout_marginTop="35dp" app:layout_constraintTop_toBottomOf="@+id/tvEnableAccessibility"/>
+            <TextView
+                    android:text="@string/accessibility_hint"
+                    android:layout_width="0dp"
+                    android:alpha="0.9"
+                    android:padding="10dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="32dp" android:id="@+id/tvEnableAccessibility"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" android:fontFamily="sans-serif-smallcaps"
+                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="32dp"
+                    android:textAlignment="textStart"
+                    app:layout_constraintHorizontal_bias="1.0" app:layout_constraintTop_toBottomOf="@+id/divider_1"
+                    android:layout_marginTop="32dp" android:drawableEnd="@drawable/round_navigate_next_24px"/>
+
+            <TextView
+                    android:text="@string/overlay_hint"
+                    android:layout_width="0dp"
+                    android:alpha="0.9"
+                    android:padding="10dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="32dp" android:id="@+id/tvGrantOverlay"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" android:fontFamily="sans-serif-smallcaps"
+                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="32dp"
+                    android:textAlignment="textStart"
+                    android:layout_marginTop="120dp" app:layout_constraintTop_toBottomOf="@+id/tvHeaderHint"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    android:drawableRight="@drawable/round_navigate_next_24px"/>
+            <TextView
+                    android:text="@string/app_name"
+                    android:layout_width="0dp"
+                    android:padding="10dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvHeaderHint" app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="64dp"
+                    android:textColor="@android:color/white"
+                    android:fontFamily="sans-serif-smallcaps" android:textSize="18sp"
+                    android:textAlignment="textStart" app:layout_constraintStart_toEndOf="@+id/ivMenu"
+                    android:layout_marginStart="24dp" android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toStartOf="@+id/ivHelp" android:textStyle="bold"/>
+            <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:alpha="0.8"
+                    app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                    android:id="@+id/divider_1" app:layout_constraintHorizontal_bias="0.0"
+                    android:layout_marginStart="32dp"
+                    android:background="@android:color/white" android:layout_marginEnd="32dp"
+                    android:layout_marginTop="35dp" app:layout_constraintTop_toBottomOf="@+id/tvGrantOverlay"/>
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:padding="10dp"
+                    android:layout_height="wrap_content" app:srcCompat="@drawable/round_menu_24px"
+                    android:id="@+id/ivMenu"
+                    app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="32dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvHeaderHint" android:layout_marginTop="64dp"
+                    app:layout_constraintTop_toTopOf="parent"/>
+            <TextView
+                    android:text="Launch Netflix or Hotstar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                    android:id="@+id/tvAllDone" android:layout_marginStart="32dp" android:layout_marginEnd="32dp"
+                    android:fontFamily="sans-serif-smallcaps" android:textSize="18sp"
+                    android:textColor="@android:color/white"
+                    android:textAlignment="center" tools:visibility="visible" android:layout_marginTop="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/guideline2"
+                    app:layout_constraintHorizontal_bias="0.1"
+                    app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="16dp"/>
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:padding="10dp"
+                    android:layout_height="wrap_content" app:srcCompat="@drawable/round_help_24px"
+                    android:id="@+id/ivHelp"
+                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="24dp"
+                    app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="64dp"/>
+            <androidx.constraintlayout.widget.Guideline
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" app:layout_constraintGuide_begin="543dp"
+                    android:id="@+id/guideline2" app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+            />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
+    </ScrollView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/billingLayout"

@@ -15,8 +15,8 @@ android {
         applicationId "com.droid.netflixIMDB"
         minSdkVersion 18
         targetSdkVersion 28
-        versionCode 5
-        versionName "1.4"
+        versionCode 7
+        versionName "1.6"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField 'String', 'OMDB_API_KEY', properties['omdb_api_key']
@@ -32,13 +32,6 @@ android {
 
         prod {
             applicationId "com.droid.netflixIMDB"
-        }
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 }

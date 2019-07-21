@@ -34,8 +34,8 @@
                 android:textColor="@color/ratingTitle"
                 android:fontFamily="sans-serif-smallcaps"
                 android:textStyle="bold"
-                android:layout_marginEnd="8dp" app:layout_constraintEnd_toStartOf="@+id/guideline"
-                android:textAlignment="textStart"/>
+                android:textAlignment="textStart" android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/guideline"/>
         <androidx.constraintlayout.widget.Guideline
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
@@ -46,7 +46,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="20dp" android:id="@+id/tvRating"
-                app:layout_constraintStart_toEndOf="@+id/tvTitle" android:layout_marginStart="16dp"
                 app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"
                 android:textColor="@color/ratingTitle" android:fontFamily="sans-serif-smallcaps"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" android:textSize="18sp"
