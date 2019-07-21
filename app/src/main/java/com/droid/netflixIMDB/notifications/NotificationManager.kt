@@ -13,8 +13,8 @@ import com.droid.netflixIMDB.util.LaunchUtils
 
 object NotificationManager {
 
-    private val channelID = "Netflix IMDB Plugin Channel"
-    private val name = "Netflix IMDB Plugin"
+    private const val channelID = "Netflix IMDB Plugin Channel"
+    private const val name = "Netflix IMDB Plugin"
     private lateinit var intent: Intent
 
     fun initPushNotification(context: Context, title: String, body: String, hasPlayStoreIntent: Boolean = false) {

@@ -7,7 +7,6 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
-import android.view.accessibility.AccessibilityNodeInfo
 import android.widget.Toast
 import com.droid.netflixIMDB.analytics.Analytics
 import com.droid.netflixIMDB.notifications.NotificationManager
@@ -209,19 +208,19 @@ class ReaderService : AccessibilityService() {
         }
     }
 
-    private fun checkNodeRecursively(node: AccessibilityNodeInfo) {
-        node.text?.let {
-            Log.d(TAG, "Text: " + node.text)
-        }
-
-        if (node.childCount > 0) {
-            (0 until node.childCount).forEach { index ->
-                val child = node.getChild(index)
-                if (child != null && child.isVisibleToUser) {
-                    checkNodeRecursively(child)
-                    child.recycle()
-                }
-            }
-        }
-    }
+//    private fun checkNodeRecursively(node: AccessibilityNodeInfo) {
+//        node.text?.let {
+//            Log.d(TAG, "Text: " + node.text)
+//        }
+//
+//        if (node.childCount > 0) {
+//            (0 until node.childCount).forEach { index ->
+//                val child = node.getChild(index)
+//                if (child != null && child.isVisibleToUser) {
+//                    checkNodeRecursively(child)
+//                    child.recycle()
+//                }
+//            }
+//        }
+//    }
 }
