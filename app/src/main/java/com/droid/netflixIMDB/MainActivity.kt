@@ -319,6 +319,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         checkOverlaySettings()
         checkAccessibilitySettings()
         checkBatterySettings()
+        setTextViews()
 
         if (sbAccessibilityService.isChecked && sbOverlay.isChecked) {
             launchGroup.visible()
@@ -327,6 +328,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             launchGroup.gone()
             dialog?.show()
         }
+    }
+
+    private fun setTextViews() {
+        tvYoutubeCount.text = "Youtube Ads Skipped - ${Prefs.getPayloadCount()?.youtube}"
+        tvNetflixCount.text = "Netflix IMDb ratings shown - ${Prefs.getPayloadCount()?.netflix}"
+        tvPrimeVideoCount.text = "Prime video ratings shown  - ${Prefs.getPayloadCount()?.prime}"
+        tvHotstartCount2.text = "Hotstar IMDb ratings shown  - ${Prefs.getPayloadCount()?.hotstar}"
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

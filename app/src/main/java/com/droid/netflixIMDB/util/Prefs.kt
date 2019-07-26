@@ -2,8 +2,12 @@ package com.droid.netflixIMDB.util
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.core.content.edit
 import com.droid.netflixIMDB.Application
+import com.droid.netflixIMDB.PayloadCount
 import com.droid.netflixIMDB.R
+import com.google.gson.Gson
+
 
 object Prefs {
 
@@ -15,6 +19,7 @@ object Prefs {
     private const val VIEW_TIMEOUT = "view_timeout"
     private const val REQUESTS_MADE = "requests_made"
     private const val PUSH_TOKEN = "push_token"
+    private const val PAYLOAD_COUNT = "payload_count"
     private var titlesRequested: Set<String> = HashSet()
 
     private fun getSharedPrefs(): SharedPreferences? {
@@ -101,5 +106,32 @@ object Prefs {
     fun getPushToken(): String? {
         return getSharedPrefs()
             ?.getString(PUSH_TOKEN, null)
+    }
+
+    fun getPayloadCount(): PayloadCount? {
+        var payloadCount: PayloadCount? = null
+
+        val sharedPrefs = getSharedPrefs()
+        sharedPrefs?.run {
+            payloadCount = if (this.getString(PAYLOAD_COUNT, null) == null) {
+                PayloadCount()
+            } else {
+                val payload = this.getString(PAYLOAD_COUNT, null)
+                Gson().fromJson(payload, PayloadCount::class.java)
+            }
+        }
+
+        return payloadCount
+    }
+
+    fun savePayloadCount(payloadCount: PayloadCount) {
+        val sharedPrefs = getSharedPrefs()
+        sharedPrefs?.run {
+            val json = Gson().toJson(payloadCount)
+            this.edit {
+                this.putString(PAYLOAD_COUNT, json)
+                this.commit()
+            }
+        }
     }
 }

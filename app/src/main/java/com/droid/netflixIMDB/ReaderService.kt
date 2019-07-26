@@ -11,10 +11,7 @@ import android.widget.Toast
 import com.droid.netflixIMDB.analytics.Analytics
 import com.droid.netflixIMDB.notifications.NotificationManager
 import com.droid.netflixIMDB.ratingView.RatingViewRenderer
-import com.droid.netflixIMDB.reader.AmazonPrimeReader
-import com.droid.netflixIMDB.reader.HotstarReader
-import com.droid.netflixIMDB.reader.NetflixReader
-import com.droid.netflixIMDB.reader.Reader
+import com.droid.netflixIMDB.reader.*
 import com.droid.netflixIMDB.util.Prefs
 import com.droid.netflixIMDB.util.ReaderConstants
 
@@ -47,6 +44,7 @@ class ReaderService : AccessibilityService() {
         readers[ReaderConstants.NETFLIX] = NetflixReader()
         readers[ReaderConstants.HOTSTAR] = HotstarReader()
         readers[ReaderConstants.PRIME] = AmazonPrimeReader()
+        readers[ReaderConstants.YOUTUBE] = YoutubeReader()
     }
 
     private fun initRatingView() {
@@ -134,17 +132,20 @@ class ReaderService : AccessibilityService() {
 
         Analytics.postPayload(event.source.packageName.toString(), payload)
 
-        RatingRequester.requestRating(payload, object : RatingRequester.RatingRequesterCallback {
-            override fun onFailure(message: String) {
+        RatingRequester.requestRating(
+            payload,
+            event.source.packageName.toString(),
+            object : RatingRequester.RatingRequesterCallback {
+                override fun onFailure(message: String) {
 //                showToastWithMessage(message)
-            }
+                }
 
-            override fun onSuccess(responsePayload: ResponsePayload) {
-                showRating(responsePayload)
-                incrementPushCount()
-            }
+                override fun onSuccess(responsePayload: ResponsePayload) {
+                    showRating(responsePayload)
+                    incrementPushCount()
+                }
 
-            override fun onRequestException(exception: Exception) {
+                override fun onRequestException(exception: Exception) {
 //                when (exception) {
 //                    is SocketTimeoutException -> {
 //                        showConnectionErrorToast()
@@ -156,8 +157,8 @@ class ReaderService : AccessibilityService() {
 //                        showGenericErrorToast()
 //                    }
 //                }
-            }
-        })
+                }
+            })
     }
 
     private fun incrementPushCount() {

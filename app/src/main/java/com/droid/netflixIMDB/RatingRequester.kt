@@ -26,6 +26,7 @@ object RatingRequester {
 
     fun requestRating(
         payload: Payload,
+        packageName: String,
         ratingRequesterCallback: RatingRequesterCallback
     ) {
         try {
@@ -60,6 +61,37 @@ object RatingRequester {
                                 ratingRequesterCallback.onSuccess(responsePayload)
 
                                 Prefs.addTitle(lastTitle)
+
+                                val payloadCount = Prefs.getPayloadCount()
+
+                                val block: Int.() -> Int = { this + 1 }
+
+                                when (packageName) {
+                                    ReaderConstants.NETFLIX -> {
+                                        val value = payloadCount?.netflix?.run(block)
+                                        value?.run {
+                                            payloadCount.netflix = value
+                                        }
+                                    }
+
+                                    ReaderConstants.PRIME -> {
+                                        val value = payloadCount?.prime?.run(block)
+                                        value?.run {
+                                            payloadCount.prime = value
+                                        }
+                                    }
+
+                                    ReaderConstants.HOTSTAR -> {
+                                        val value = payloadCount?.hotstar?.run(block)
+                                        value?.run {
+                                            payloadCount.hotstar = value
+                                        }
+                                    }
+                                }
+
+                                Log.i(TAG, "Payload count ${payloadCount.toString()}")
+
+                                payloadCount?.let { Prefs.savePayloadCount(it) }
                             }
                             500 -> {
                                 Log.e(TAG, "OMDB server error: ${response.message()}")
