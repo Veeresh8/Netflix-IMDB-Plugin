@@ -11,13 +11,12 @@ import android.widget.Toast
 import com.droid.netflixIMDB.analytics.Analytics
 import com.droid.netflixIMDB.notifications.NotificationManager
 import com.droid.netflixIMDB.ratingView.RatingViewRenderer
+import com.droid.netflixIMDB.reader.AmazonPrimeReader
 import com.droid.netflixIMDB.reader.HotstarReader
 import com.droid.netflixIMDB.reader.NetflixReader
 import com.droid.netflixIMDB.reader.Reader
 import com.droid.netflixIMDB.util.Prefs
 import com.droid.netflixIMDB.util.ReaderConstants
-import java.net.SocketTimeoutException
-import java.net.UnknownHostException
 
 
 @Suppress("IMPLICIT_CAST_TO_ANY")
@@ -47,6 +46,7 @@ class ReaderService : AccessibilityService() {
         readers.clear()
         readers[ReaderConstants.NETFLIX] = NetflixReader()
         readers[ReaderConstants.HOTSTAR] = HotstarReader()
+        readers[ReaderConstants.PRIME] = AmazonPrimeReader()
     }
 
     private fun initRatingView() {
@@ -136,7 +136,7 @@ class ReaderService : AccessibilityService() {
 
         RatingRequester.requestRating(payload, object : RatingRequester.RatingRequesterCallback {
             override fun onFailure(message: String) {
-                showToastWithMessage(message)
+//                showToastWithMessage(message)
             }
 
             override fun onSuccess(responsePayload: ResponsePayload) {
@@ -145,17 +145,17 @@ class ReaderService : AccessibilityService() {
             }
 
             override fun onRequestException(exception: Exception) {
-                when (exception) {
-                    is SocketTimeoutException -> {
-                        showConnectionErrorToast()
-                    }
-                    is UnknownHostException -> {
-                        showConnectionErrorToast()
-                    }
-                    else -> {
-                        showGenericErrorToast()
-                    }
-                }
+//                when (exception) {
+//                    is SocketTimeoutException -> {
+//                        showConnectionErrorToast()
+//                    }
+//                    is UnknownHostException -> {
+//                        showConnectionErrorToast()
+//                    }
+//                    else -> {
+//                        showGenericErrorToast()
+//                    }
+//                }
             }
         })
     }

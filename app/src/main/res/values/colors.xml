@@ -2,10 +2,11 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#FFF9FF00</color>
     <color name="netflixRed">#E50914</color>
     <color name="hotstarYellow">#D4D60D</color>
     <color name="ratingBackground">#221F1F</color>
+    <color name="cardBackground">#1e1b1b</color>
     <color name="ratingTitle">#FFF9FF00</color>
     <color name="white">#FFF</color>
 

@@ -15,8 +15,8 @@ android {
         applicationId "com.droid.netflixIMDB"
         minSdkVersion 18
         targetSdkVersion 28
-        versionCode 7
-        versionName "1.6"
+        versionCode 8
+        versionName "1.7"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField 'String', 'OMDB_API_KEY', properties['omdb_api_key']
@@ -76,5 +76,9 @@ dependencies {
     /*Firebase*/
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
     implementation 'com.google.firebase:firebase-messaging:19.0.1'
+
+    /*Dialogs*/
+    implementation 'com.afollestad.material-dialogs:core:3.1.0'
+
 }
 apply plugin: 'com.google.gms.google-services'

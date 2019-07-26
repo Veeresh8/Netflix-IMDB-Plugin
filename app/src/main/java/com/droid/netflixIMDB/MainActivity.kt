@@ -4,13 +4,10 @@ import PurchaseUtils
 import android.animation.Animator
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.PowerManager
-import android.provider.Settings
-import android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS
 import android.provider.Settings.canDrawOverlays
 import android.text.method.LinkMovementMethod
 import android.util.Log
@@ -22,33 +19,47 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
+import com.afollestad.materialdialogs.MaterialDialog
 import com.airbnb.lottie.LottieAnimationView
 import com.anjlab.android.iab.v3.BillingProcessor
 import com.anjlab.android.iab.v3.TransactionDetails
 import com.droid.netflixIMDB.analytics.Analytics
 import com.droid.netflixIMDB.util.LaunchUtils
+import com.droid.netflixIMDB.util.LaunchUtils.forceLaunchOverlay
+import com.droid.netflixIMDB.util.LaunchUtils.launchAppWithPackageName
 import com.droid.netflixIMDB.util.LaunchUtils.openPowerSettings
 import com.droid.netflixIMDB.util.Prefs
+import com.droid.netflixIMDB.util.ReaderConstants
 import com.droid.netflixIMDB.util.TextUtils
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.iid.FirebaseInstanceId
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.billingLayout
+import kotlinx.android.synthetic.main.activity_main.ivHelp
+import kotlinx.android.synthetic.main.activity_main.ivMenu
+import kotlinx.android.synthetic.main.activity_main.lottieAnimationBilling
+import kotlinx.android.synthetic.main.activity_main.rootLayout
+import kotlinx.android.synthetic.main.activity_main.tvThank
+import kotlinx.android.synthetic.main.activity_main_new.*
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     BillingProcessor.IBillingHandler {
 
     private val TAG: String = this.javaClass.simpleName
-    private val CODE_DRAW_OVER_OTHER_APP_PERMISSION = 2084
+    private var dialog: MaterialDialog? = null
 
     private var drawer: DrawerLayout? = null
     private lateinit var billingProcessor: BillingProcessor
 
+    companion object {
+        const val CODE_DRAW_OVER_OTHER_APP_PERMISSION = 2084
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main_new)
         setupClickListeners()
         setUpNavDrawer()
         initBilling()
@@ -213,20 +224,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun setupClickListeners() {
-        tvEnableAccessibility.setOnClickListener {
-            Analytics.postClickEvents(Analytics.ClickTypes.ACC_SERV)
-            val intent = Intent(ACTION_ACCESSIBILITY_SETTINGS)
-            startActivity(intent)
+        sbAccessibilityService.setOnClickListener {
+            launchAccessibilityScreen()
         }
 
-        tvAddToWhitelist.setOnClickListener {
-            Analytics.postClickEvents(Analytics.ClickTypes.WHITELIST)
+        sbBattery.setOnClickListener {
             openPowerSettings(this)
         }
 
-        tvGrantOverlay.setOnClickListener {
-            Analytics.postClickEvents(Analytics.ClickTypes.OVERLAY)
-            checkOverlayPermission()
+        sbOverlay.setOnClickListener {
+            forceLaunchOverlay(this)
         }
 
         ivMenu.setOnClickListener {
@@ -236,87 +243,89 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         ivHelp.setOnClickListener {
             launchFAQSheet()
         }
-    }
 
-    private fun launchAppWithPackageName(packageName: String) {
-        val pm = packageManager
-        try {
-            val launchIntent = pm.getLaunchIntentForPackage(packageName)
-            startActivity(launchIntent)
-        } catch (exception: Exception) {
-            Log.e(TAG, "Exception launching - ${exception.message}")
-            Toast.makeText(this, "App not installed", Toast.LENGTH_SHORT).show()
+        btNetflix.setOnClickListener {
+            launchAppWithPackageName(this, ReaderConstants.NETFLIX)
+        }
+
+        btHotstar.setOnClickListener {
+            launchAppWithPackageName(this, ReaderConstants.HOTSTAR)
+        }
+
+        btPrime.setOnClickListener {
+            launchAppWithPackageName(this, ReaderConstants.PRIME)
+        }
+
+        btYoutube.setOnClickListener {
+            launchAppWithPackageName(this, ReaderConstants.YOUTUBE)
         }
     }
 
-    private fun checkOverlayPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !canDrawOverlays(this)) {
-            val intent = Intent(
-                Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                Uri.parse("package:$packageName")
-            )
-            startActivityForResult(intent, CODE_DRAW_OVER_OTHER_APP_PERMISSION)
-        }
+    private fun launchOverlayScreen() {
+        LaunchUtils.launchOverlayScreen(this)
     }
 
+    private fun launchAccessibilityScreen() {
+        LaunchUtils.launchAccessibilityScreen(this)
+    }
 
     private fun checkOverlaySettings() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && canDrawOverlays(this)) {
-            setIconToTextView(tvGrantOverlay, true)
+            sbOverlay.isChecked = true
         } else {
-            setIconToTextView(tvGrantOverlay, false)
+            dialog = MaterialDialog(this)
+                .cancelable(false)
+                .cancelOnTouchOutside(false)
+                .title(text = "Please grant overlay permissions")
+                .message(text = "Overlay permissions are used to show IMDb ratings of the title you are about to watch.")
+                .positiveButton(text = "Grant") {
+                    launchOverlayScreen()
+                }
+                .negativeButton(text = "Exit") {
+                    finishAffinity()
+                }
         }
     }
 
     private fun checkAccessibilitySettings() {
         if (ReaderService.isConnected) {
-            setIconToTextView(tvEnableAccessibility, true)
+            sbAccessibilityService.isChecked = true
         } else {
-            setIconToTextView(tvEnableAccessibility, false)
-        }
-    }
+            dialog = MaterialDialog(this)
+                .cancelable(false)
+                .cancelOnTouchOutside(false)
+                .title(text = "Please turn on Accessibility Services")
+                .message(text = "Accessibility Services are core to the app and cannot function without it.")
+                .positiveButton(text = "Turn on") {
+                    launchAccessibilityScreen()
+                }
+                .negativeButton(text = "Exit") {
+                    finishAffinity()
+                }
 
-    private fun setIconToTextView(textView: TextView, isEnabled: Boolean) {
-        val drawable: Int = if (isEnabled) {
-            textView.tag = "enabled"
-            R.drawable.round_check_circle_outline_24px
-        } else {
-            textView.tag = "disabled"
-            R.drawable.round_navigate_next_24px
         }
-
-        textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, drawable, 0)
     }
 
     private fun checkBatterySettings() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val pm = getSystemService(Context.POWER_SERVICE) as PowerManager
             val isIgnoring = pm.isIgnoringBatteryOptimizations(packageName)
-            if (isIgnoring) {
-                setIconToTextView(tvAddToWhitelist, true)
-            } else {
-                setIconToTextView(tvAddToWhitelist, false)
-            }
+            sbBattery.isChecked = isIgnoring
         }
     }
 
     override fun onResume() {
         super.onResume()
         checkOverlaySettings()
-        checkBatterySettings()
         checkAccessibilitySettings()
+        checkBatterySettings()
 
-        if (tvGrantOverlay.tag == "enabled" && tvEnableAccessibility.tag == "enabled") {
-            val spannable = TextUtils.getSpan(this, tvAllDone, object : TextUtils.SpanClickCallback {
-                override fun launchApp(packageName: String) {
-                    launchAppWithPackageName(packageName)
-                }
-            })
-            tvAllDone.text = spannable
-            tvAllDone.movementMethod = LinkMovementMethod.getInstance()
-            tvAllDone.visible()
+        if (sbAccessibilityService.isChecked && sbOverlay.isChecked) {
+            launchGroup.visible()
+            dialog?.dismiss()
         } else {
-            tvAllDone.gone()
+            launchGroup.gone()
+            dialog?.show()
         }
     }
 
@@ -387,6 +396,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (::billingProcessor.isInitialized) {
             billingProcessor.release()
         }
+        dialog?.dismiss()
         super.onDestroy()
     }
 }

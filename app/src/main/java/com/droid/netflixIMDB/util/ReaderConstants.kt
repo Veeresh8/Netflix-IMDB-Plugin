@@ -5,8 +5,11 @@ class ReaderConstants {
     companion object {
         const val NETFLIX = "com.netflix.mediaclient"
         const val HOTSTAR = "in.startv.hotstar"
+        const val PRIME = "com.amazon.avod.thirdpartyclient"
+        const val YOUTUBE = "com.google.android.youtube"
 
-        val supportedPackages = listOf("com.netflix.mediaclient", "in.startv.hotstar")
+        val supportedPackages = listOf("com.netflix.mediaclient",
+            "in.startv.hotstar", "com.amazon.avod.thirdpartyclient", "com.google.android.youtube")
 
         /*Payload*/
         const val PACKAGE_NAME = "packageName"
