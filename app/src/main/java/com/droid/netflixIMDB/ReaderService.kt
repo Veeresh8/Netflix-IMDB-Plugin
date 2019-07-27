@@ -106,6 +106,11 @@ class ReaderService : AccessibilityService() {
             return
         }
 
+        if (event.source.packageName == ReaderConstants.YOUTUBE && YoutubeReader.isTimerRunning) {
+            Log.i(TAG, "Not handling event from Youtube when timer is running")
+            return
+        }
+
         val reader = readers[event.source.packageName]
 
         val readerPayload = reader?.payload(event.source)

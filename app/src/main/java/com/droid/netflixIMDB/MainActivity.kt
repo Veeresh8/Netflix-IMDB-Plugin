@@ -89,6 +89,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun initBilling() {
         billingProcessor = BillingProcessor(this, BuildConfig.BILLING_KEY, this)
         billingProcessor.initialize()
+        val purchaseListingDetails = billingProcessor.getPurchaseListingDetails(PurchaseUtils.SMALL_DONATION)
+        purchaseListingDetails?.run {
+            Toast.makeText(this@MainActivity, "Premium user", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun setUpNavDrawer() {
@@ -143,7 +147,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 Analytics.postClickEvents(Analytics.ClickTypes.PRIVACY_POLICY)
                 LaunchUtils.openPrivacyPolicy(this)
             }
-            R.id.support -> {
+            R.id.pro -> {
                 launchSupportSheet()
             }
 
@@ -167,24 +171,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         )
 
         val donationLow = sheetView.findViewById(R.id.btnSmallDonation) as Button
-        val donationHigh = sheetView.findViewById(R.id.btnHighDonation) as Button
-        val donationMedium = sheetView.findViewById(R.id.btnMediumDonation) as Button
 
         donationLow.setOnClickListener {
             Analytics.postClickEvents(Analytics.ClickTypes.SMALL_PURCHASE)
             billingProcessor.purchase(this, PurchaseUtils.SMALL_DONATION)
-            mBottomSheetDialog.dismiss()
-        }
-
-        donationMedium.setOnClickListener {
-            Analytics.postClickEvents(Analytics.ClickTypes.MEDIUM_PURCHASE)
-            billingProcessor.purchase(this, PurchaseUtils.MEDIUM_DONATION)
-            mBottomSheetDialog.dismiss()
-        }
-
-        donationHigh.setOnClickListener {
-            Analytics.postClickEvents(Analytics.ClickTypes.HIGH_PURCHASE)
-            billingProcessor.purchase(this, PurchaseUtils.HIGH_DONATION)
             mBottomSheetDialog.dismiss()
         }
 
@@ -208,7 +198,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val tvAnswerOne = sheetView.findViewById(R.id.tvAnswerOne) as TextView
         val tvAnswerTwo = sheetView.findViewById(R.id.tvAnswerTwo) as TextView
         val tvAnswerThree = sheetView.findViewById(R.id.tvAnswerThree) as TextView
-
 
         tvAnswerOne.text = TextUtils.getSpanOne(tvAnswerOne, this)
         tvAnswerOne.movementMethod = LinkMovementMethod.getInstance()
@@ -331,10 +320,25 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun setTextViews() {
-        tvYoutubeCount.text = "Youtube Ads Skipped - ${Prefs.getPayloadCount()?.youtube}"
-        tvNetflixCount.text = "Netflix IMDb ratings shown - ${Prefs.getPayloadCount()?.netflix}"
-        tvPrimeVideoCount.text = "Prime video ratings shown  - ${Prefs.getPayloadCount()?.prime}"
-        tvHotstartCount2.text = "Hotstar IMDb ratings shown  - ${Prefs.getPayloadCount()?.hotstar}"
+        val youtube = Prefs.getPayloadCount()?.youtube
+        val netflix = Prefs.getPayloadCount()?.netflix
+        val prime = Prefs.getPayloadCount()?.prime
+        val hotstar = Prefs.getPayloadCount()?.hotstar
+
+        tvYoutubeCount.text = "Youtube Ads Skipped - $youtube"
+        tvNetflixCount.text = "Netflix IMDb ratings shown - $netflix"
+        tvPrimeVideoCount.text = "Prime video ratings shown  - $prime"
+        tvHotstartCount2.text = "Hotstar IMDb ratings shown  - $hotstar"
+
+        tvTotalCount.text = "${netflix?.let {
+            prime?.let { it1 ->
+                hotstar?.let { it2 ->
+                    youtube?.plus(it)?.plus(it1)?.plus(
+                        it2
+                    )
+                }
+            }
+        }}"
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

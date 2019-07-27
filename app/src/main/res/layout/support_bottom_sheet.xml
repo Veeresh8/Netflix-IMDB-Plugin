@@ -8,7 +8,7 @@
         android:id="@+id/rootLayout">
 
     <Button
-            android:text="Basic"
+            android:text="Buy"
             android:padding="10dp"
             android:textStyle="bold"
             android:background="@color/ratingTitle"
@@ -20,10 +20,10 @@
             app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="32dp"
             app:layout_constraintVertical_bias="0.0"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
-            android:textAlignment="center" app:layout_constraintEnd_toStartOf="@+id/btnMediumDonation"
-            android:layout_marginEnd="28dp" android:textSize="12sp"/>
+            android:textAlignment="center"
+            android:textSize="14sp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"/>
     <TextView
-            android:text=" Help us keep this app ad-free \n \n If you liked the app, please support it by buying any of the items below"
+            android:text=" Get unlimited hits and removes 500 hits check. \n \n This will also support the developer to keep pushing updates regularly."
             android:layout_width="0dp"
             android:padding="10dp"
             android:layout_height="wrap_content" app:layout_constraintTop_toTopOf="parent"
@@ -31,34 +31,4 @@
             android:layout_marginStart="16dp" android:id="@+id/textView" android:fontFamily="sans-serif-smallcaps"
             android:textColor="@android:color/white" android:textSize="18sp" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="16dp" android:textAlignment="center"/>
-    <Button
-            android:text="Standard"
-            android:padding="10dp"
-            android:textStyle="bold"
-            android:background="@color/ratingTitle"
-            android:layout_width="0dp"
-            android:fontFamily="sans-serif-smallcaps"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnMediumDonation"
-            app:layout_constraintEnd_toStartOf="@+id/btnHighDonation"
-            android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="32dp"
-            android:layout_marginEnd="32dp" app:layout_constraintVertical_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/btnSmallDonation" app:layout_constraintHorizontal_bias="1.0"
-            android:layout_marginStart="24dp" android:textSize="12sp"/>
-    <Button
-            android:text="Ultimate"
-            android:padding="10dp"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-smallcaps" android:layout_width="0dp"
-            android:background="@color/ratingTitle"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnHighDonation"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/textView" android:layout_marginBottom="32dp"
-            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginEnd="16dp"
-            app:layout_constraintVertical_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/btnMediumDonation" android:layout_marginStart="16dp"
-            android:textSize="12sp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
