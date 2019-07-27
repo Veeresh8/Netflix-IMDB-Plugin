@@ -14,6 +14,7 @@ import com.droid.netflixIMDB.ratingView.RatingViewRenderer
 import com.droid.netflixIMDB.reader.*
 import com.droid.netflixIMDB.util.Prefs
 import com.droid.netflixIMDB.util.ReaderConstants
+import com.droid.netflixIMDB.util.ReaderConstants.Companion.PLAYSTORE_INIT
 
 
 @Suppress("IMPLICIT_CAST_TO_ANY")
@@ -106,6 +107,13 @@ class ReaderService : AccessibilityService() {
             return
         }
 
+        Prefs.getUserSupportedPackages()?.run {
+            if (!this.contains(event.source.packageName)) {
+                Log.i(TAG, "Not handling event from " + event.source.packageName + " as user prefs")
+                return
+            }
+        }
+
         if (event.source.packageName == ReaderConstants.YOUTUBE && YoutubeReader.isTimerRunning) {
             Log.i(TAG, "Not handling event from Youtube when timer is running")
             return
@@ -139,7 +147,7 @@ class ReaderService : AccessibilityService() {
 
         if (Prefs.hasExceedLimit()) {
             Log.i(TAG, "Exceeded max events, user is not premium")
-           // return
+            // return
         }
 
         RatingRequester.requestRating(
@@ -176,7 +184,7 @@ class ReaderService : AccessibilityService() {
             Analytics.postUserProperties()
             Prefs.incrementRequestMade()
             Prefs.getPayloadTotalCount().run {
-                if (this == 5) {
+                if (this == PLAYSTORE_INIT) {
                     NotificationManager.createPlayStorePushNotification(
                         this@ReaderService,
                         "Enjoying ${application.getString(R.string.app_name)}?", "We've served over $this hits. " +

@@ -5,9 +5,9 @@
     <color name="colorAccent">#FFF9FF00</color>
     <color name="netflixRed">#E50914</color>
     <color name="hotstarYellow">#D4D60D</color>
-    <color name="ratingBackground">#221F1F</color>
+    <color name="ratingBackground">#FFF7FF00</color>
     <color name="cardBackground">#1e1b1b</color>
-    <color name="ratingTitle">#FFF9FF00</color>
+    <color name="ratingTitle">#FF161515</color>
     <color name="white">#FFF</color>
 
 

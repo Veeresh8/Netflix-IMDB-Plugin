@@ -14,9 +14,11 @@ import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.CompoundButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
@@ -32,22 +34,17 @@ import com.droid.netflixIMDB.util.LaunchUtils.launchAppWithPackageName
 import com.droid.netflixIMDB.util.LaunchUtils.openPowerSettings
 import com.droid.netflixIMDB.util.Prefs
 import com.droid.netflixIMDB.util.ReaderConstants
+import com.droid.netflixIMDB.util.ReaderConstants.Companion.MAX_LIMIT
 import com.droid.netflixIMDB.util.TextUtils
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.iid.FirebaseInstanceId
-import kotlinx.android.synthetic.main.activity_main.billingLayout
-import kotlinx.android.synthetic.main.activity_main.ivHelp
-import kotlinx.android.synthetic.main.activity_main.ivMenu
-import kotlinx.android.synthetic.main.activity_main.lottieAnimationBilling
-import kotlinx.android.synthetic.main.activity_main.rootLayout
-import kotlinx.android.synthetic.main.activity_main.tvThank
 import kotlinx.android.synthetic.main.activity_main_new.*
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
-    BillingProcessor.IBillingHandler {
+    BillingProcessor.IBillingHandler, CompoundButton.OnCheckedChangeListener {
 
     private val TAG: String = this.javaClass.simpleName
     private var dialog: MaterialDialog? = null
@@ -167,12 +164,47 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.pro -> {
                 launchSupportSheet()
             }
-
             R.id.faq -> {
                 launchFAQSheet(false)
             }
+            R.id.settings -> {
+                launchSettingsSheet()
+            }
         }
         return true
+    }
+
+    private fun launchSettingsSheet() {
+        Analytics.postClickEvents(Analytics.ClickTypes.SETTINGS)
+
+        toggleDrawer()
+
+        val mBottomSheetDialog = BottomSheetDialog(this)
+        mBottomSheetDialog.window?.setDimAmount(0.9F)
+        val sheetView = layoutInflater.inflate(
+            R.layout.settings_bottom_sheet,
+            null
+        )
+
+        val switchYoutube = sheetView.findViewById(R.id.sbYoutube) as SwitchCompat
+        val switchNetflix = sheetView.findViewById(R.id.sbNetflix) as SwitchCompat
+        val switchPrime = sheetView.findViewById(R.id.sbPrime) as SwitchCompat
+        val switchHotstar = sheetView.findViewById(R.id.sbHotstar) as SwitchCompat
+
+        Prefs.getUserSupportedPackages()?.run {
+            switchYoutube.isChecked = this.contains(ReaderConstants.YOUTUBE)
+            switchNetflix.isChecked = this.contains(ReaderConstants.NETFLIX)
+            switchPrime.isChecked = this.contains(ReaderConstants.PRIME)
+            switchHotstar.isChecked = this.contains(ReaderConstants.HOTSTAR)
+        }
+
+        switchYoutube.setOnCheckedChangeListener(this)
+        switchNetflix.setOnCheckedChangeListener(this)
+        switchPrime.setOnCheckedChangeListener(this)
+        switchHotstar.setOnCheckedChangeListener(this)
+
+        mBottomSheetDialog.setContentView(sheetView)
+        mBottomSheetDialog.show()
     }
 
     private fun launchSupportSheet(mustToggleDrawer: Boolean = false) {
@@ -189,6 +221,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         )
 
         val donationLow = sheetView.findViewById(R.id.btnSmallDonation) as Button
+        val tvSupportHint = sheetView.findViewById(R.id.tvSupportHint) as TextView
+
+        tvSupportHint.text =
+            " Get unlimited hits and removes $MAX_LIMIT hits limit. \n \n This will help to keep this app ad-free and our servers running"
 
         donationLow.setOnClickListener {
             Analytics.postClickEvents(Analytics.ClickTypes.SMALL_PURCHASE)
@@ -343,6 +379,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         checkIfPremiumUser()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun checkIfPremiumUser() {
         val isPremiumUser = Prefs.getIsPremiumUser()
         val menu = navigationView.menu
@@ -353,7 +390,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 menu.removeItem(R.id.pro)
             } else {
                 tvBuyPro.visible()
-                tvTotalCount.text = "${Prefs.getPayloadTotalCount()} / 500"
+                tvTotalCount.text = "${Prefs.getPayloadTotalCount()} / $MAX_LIMIT"
             }
         }
     }
@@ -367,7 +404,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         tvYoutubeCount.text = "Youtube Ads Skipped - $youtube"
         tvNetflixCount.text = "Netflix IMDb ratings shown - $netflix"
-        tvPrimeVideoCount.text = "Prime video ratings shown  - $prime"
+        tvPrimeVideoCount.text = "Prime Video IMDb ratings shown  - $prime"
         tvHotstartCount2.text = "Hotstar IMDb ratings shown  - $hotstar"
     }
 
@@ -441,5 +478,40 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         dialog?.dismiss()
         super.onDestroy()
+    }
+
+    override fun onCheckedChanged(button: CompoundButton?, isChecked: Boolean) {
+        when (button?.id) {
+            R.id.sbYoutube -> {
+                if (isChecked) {
+                    Prefs.addPackage(ReaderConstants.YOUTUBE)
+                } else {
+                    Prefs.removePackage(ReaderConstants.YOUTUBE)
+                }
+            }
+            R.id.sbPrime -> {
+                if (isChecked) {
+                    Prefs.addPackage(ReaderConstants.PRIME)
+                } else {
+                    Prefs.removePackage(ReaderConstants.PRIME)
+                }
+            }
+
+            R.id.sbNetflix -> {
+                if (isChecked) {
+                    Prefs.addPackage(ReaderConstants.NETFLIX)
+                } else {
+                    Prefs.removePackage(ReaderConstants.NETFLIX)
+                }
+            }
+
+            R.id.sbHotstar -> {
+                if (isChecked) {
+                    Prefs.addPackage(ReaderConstants.HOTSTAR)
+                } else {
+                    Prefs.removePackage(ReaderConstants.HOTSTAR)
+                }
+            }
+        }
     }
 }

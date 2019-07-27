@@ -7,6 +7,8 @@ class ReaderConstants {
         const val HOTSTAR = "in.startv.hotstar"
         const val PRIME = "com.amazon.avod.thirdpartyclient"
         const val YOUTUBE = "com.google.android.youtube"
+        const val MAX_LIMIT = 100
+        const val PLAYSTORE_INIT = 12
 
         val supportedPackages = listOf("com.netflix.mediaclient",
             "in.startv.hotstar", "com.amazon.avod.thirdpartyclient", "com.google.android.youtube")

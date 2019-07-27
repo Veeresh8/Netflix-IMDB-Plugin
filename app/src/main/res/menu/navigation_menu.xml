@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/settings"
+          android:icon="@drawable/round_settings_24px"
+          android:title="Settings"/>
     <item android:id="@+id/customizeRatingView"
           android:icon="@drawable/round_style_24px"
           android:title="Customize Rating View"/>
-    <item android:id="@+id/feedback"
-          android:icon="@drawable/round_feedback_24px"
-          android:title="Feedback"/>
     <item android:id="@+id/pro"
           android:icon="@drawable/round_attach_money_24px"
           android:title="Buy Pro"/>
     <item android:id="@+id/rateApp"
           android:icon="@drawable/round_stars_24px"
           android:title="Rate us on PlayStore"/>
+    <item android:id="@+id/feedback"
+          android:icon="@drawable/round_feedback_24px"
+          android:title="Feedback"/>
     <item android:id="@+id/policy"
           android:icon="@drawable/round_class_24px"
           android:title="Privacy Policy"/>

@@ -45,6 +45,7 @@ object Analytics {
         CUSTOMIZE("customize"),
         SUPPORT("support"),
         FAQ("faq"),
+        SETTINGS("settings"),
 
         OVERLAY("overlay_permission"),
         ACC_SERV("acc_serv"),

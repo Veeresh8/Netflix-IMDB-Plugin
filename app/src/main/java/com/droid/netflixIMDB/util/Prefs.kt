@@ -7,6 +7,7 @@ import com.droid.netflixIMDB.Application
 import com.droid.netflixIMDB.PayloadCount
 import com.droid.netflixIMDB.R
 import com.droid.netflixIMDB.notifications.NotificationManager
+import com.droid.netflixIMDB.util.ReaderConstants.Companion.MAX_LIMIT
 import com.google.gson.Gson
 
 
@@ -24,8 +25,13 @@ object Prefs {
     private const val PAYLOAD_COUNT = "payload_count"
     private const val IS_PREMIUM_USER = "is_premium_user"
     private const val IS_PREMIUM_HINT_SHOWN = "is_premium_hint_shown"
+    private const val USER_PACKAGES = "user_packages"
 
     private var titlesRequested: Set<String> = HashSet()
+    private var packagesUserRequested: Set<String> = hashSetOf(
+        ReaderConstants.YOUTUBE,
+        ReaderConstants.HOTSTAR, ReaderConstants.NETFLIX, ReaderConstants.PRIME
+    )
 
     private fun getSharedPrefs(): SharedPreferences? {
         sharedPreferences = Application.instance?.getSharedPreferences(
@@ -37,6 +43,31 @@ object Prefs {
 
     fun addTitle(title: String? = "NULL") {
         titlesRequested.plus(title)
+    }
+
+    fun addPackage(packageName: String) {
+        packagesUserRequested = packagesUserRequested.plus(packageName)
+        getSharedPrefs()?.run {
+            edit().putStringSet(USER_PACKAGES, packagesUserRequested).apply()
+        }
+    }
+
+    fun removePackage(packageName: String) {
+        packagesUserRequested = packagesUserRequested.minus(packageName)
+        getSharedPrefs()?.run {
+            edit().putStringSet(USER_PACKAGES, packagesUserRequested).apply()
+        }
+    }
+
+    fun initPackages() {
+        getSharedPrefs()?.run {
+            edit().putStringSet(USER_PACKAGES, packagesUserRequested).apply()
+        }
+    }
+
+    fun getUserSupportedPackages(): Set<String>? {
+        return getSharedPrefs()
+            ?.getStringSet(USER_PACKAGES, null)
     }
 
     fun getAllTitlesRequested(): Set<String> {
@@ -174,7 +205,7 @@ object Prefs {
         val payloadCount = getPayloadTotalCount()
         val isPremiumUser = getIsPremiumUser()
         isPremiumUser?.run {
-            if (!this && payloadCount >= 3) {
+            if (!this && payloadCount >= MAX_LIMIT) {
                 Application.instance?.let {
                     NotificationManager.createLauncherPushNotification(
                         it,

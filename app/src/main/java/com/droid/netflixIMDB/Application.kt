@@ -1,6 +1,7 @@
 package com.droid.netflixIMDB
 
 import android.app.Application
+import com.droid.netflixIMDB.util.Prefs
 import com.google.firebase.analytics.FirebaseAnalytics
 
 class Application : Application() {
@@ -14,5 +15,6 @@ class Application : Application() {
         super.onCreate()
         instance = this
         firebaseAnalytics = FirebaseAnalytics.getInstance(this)
+        Prefs.initPackages()
     }
 }
