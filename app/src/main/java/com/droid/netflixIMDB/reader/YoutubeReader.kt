@@ -16,6 +16,12 @@ class YoutubeReader : Reader() {
     }
 
     override fun payload(node: AccessibilityNodeInfo): Payload {
+
+        if (Prefs.hasExceedLimit()) {
+            Log.i(TAG, "Exceeded max events, user is not premium")
+            return Payload()
+        }
+
         val nodeTitle = node.findAccessibilityNodeInfosByViewId(SKIP_BUTTON)
         nodeTitle.forEach { child ->
             child?.run {

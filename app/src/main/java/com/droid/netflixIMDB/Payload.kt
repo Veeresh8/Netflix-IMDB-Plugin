@@ -18,5 +18,5 @@ data class PayloadCount(
     var hotstar: Int = 0,
     var youtube: Int = 0,
     var prime: Int = 0,
-    var total: Int = netflix.plus(youtube).plus(prime).plus(hotstar)
+    var total: Int = 0
 )

@@ -6,12 +6,14 @@ import androidx.core.content.edit
 import com.droid.netflixIMDB.Application
 import com.droid.netflixIMDB.PayloadCount
 import com.droid.netflixIMDB.R
+import com.droid.netflixIMDB.notifications.NotificationManager
 import com.google.gson.Gson
 
 
 object Prefs {
 
     private var sharedPreferences: SharedPreferences? = null
+    private val TAG: String = javaClass.simpleName
 
     private const val TITLE_COLOR = "title_color"
     private const val BACKGROUND_COLOR = "background_color"
@@ -20,6 +22,9 @@ object Prefs {
     private const val REQUESTS_MADE = "requests_made"
     private const val PUSH_TOKEN = "push_token"
     private const val PAYLOAD_COUNT = "payload_count"
+    private const val IS_PREMIUM_USER = "is_premium_user"
+    private const val IS_PREMIUM_HINT_SHOWN = "is_premium_hint_shown"
+
     private var titlesRequested: Set<String> = HashSet()
 
     private fun getSharedPrefs(): SharedPreferences? {
@@ -41,6 +46,18 @@ object Prefs {
     fun setPushToken(token: String) {
         getSharedPrefs()?.run {
             edit().putString(PUSH_TOKEN, token).apply()
+        }
+    }
+
+    fun setIsPremiumUser(isPremium: Boolean) {
+        getSharedPrefs()?.run {
+            edit().putBoolean(IS_PREMIUM_USER, isPremium).apply()
+        }
+    }
+
+    fun setIsPremiumHintShown(isHintShown: Boolean) {
+        getSharedPrefs()?.run {
+            edit().putBoolean(IS_PREMIUM_HINT_SHOWN, isHintShown).apply()
         }
     }
 
@@ -78,9 +95,18 @@ object Prefs {
         }
     }
 
-    fun getRequestsMade(): Int? {
+    private fun getRequestsMade(): Int? {
         return getSharedPrefs()
             ?.getInt(REQUESTS_MADE, 0)
+    }
+
+    fun getIsPremiumUser(): Boolean? {
+        return getSharedPrefs()
+            ?.getBoolean(IS_PREMIUM_USER, false)
+    }
+
+    fun getIsPremiumHintShown(): Boolean {
+        return getSharedPrefs()?.getBoolean(IS_PREMIUM_HINT_SHOWN, false)!!
     }
 
     fun getTitleColor(): Int? {
@@ -133,5 +159,33 @@ object Prefs {
                 this.commit()
             }
         }
+    }
+
+    fun getPayloadTotalCount(): Int {
+        var count = 0
+        val payloadCount = getPayloadCount()
+        payloadCount?.run {
+            count = this.netflix.plus(prime).plus(hotstar).plus(youtube)
+        }
+        return count
+    }
+
+    fun hasExceedLimit(): Boolean {
+        val payloadCount = getPayloadTotalCount()
+        val isPremiumUser = getIsPremiumUser()
+        isPremiumUser?.run {
+            if (!this && payloadCount >= 3) {
+                Application.instance?.let {
+                    NotificationManager.createLauncherPushNotification(
+                        it,
+                        "Enjoying ${Application.instance?.getString(R.string.app_name)}?",
+                        "We've served over $payloadCount hits. " +
+                                "Please go pro to get unlimited hits."
+                    )
+                }
+                return true
+            }
+        }
+        return false
     }
 }

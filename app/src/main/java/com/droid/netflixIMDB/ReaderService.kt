@@ -137,6 +137,11 @@ class ReaderService : AccessibilityService() {
 
         Analytics.postPayload(event.source.packageName.toString(), payload)
 
+        if (Prefs.hasExceedLimit()) {
+            Log.i(TAG, "Exceeded max events, user is not premium")
+           // return
+        }
+
         RatingRequester.requestRating(
             payload,
             event.source.packageName.toString(),
@@ -170,11 +175,11 @@ class ReaderService : AccessibilityService() {
         try {
             Analytics.postUserProperties()
             Prefs.incrementRequestMade()
-            Prefs.getRequestsMade()?.run {
-                if (this == 12) {
+            Prefs.getPayloadTotalCount().run {
+                if (this == 5) {
                     NotificationManager.createPlayStorePushNotification(
                         this@ReaderService,
-                        "Enjoying Netflix IMDB Plugin?", "We've served over $this title ratings. " +
+                        "Enjoying ${application.getString(R.string.app_name)}?", "We've served over $this hits. " +
                                 "Please spread the word by giving us a honest rating at the PlayStore"
                     )
                 }

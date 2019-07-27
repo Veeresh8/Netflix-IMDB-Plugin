@@ -2,6 +2,7 @@ package com.droid.netflixIMDB
 
 import PurchaseUtils
 import android.animation.Animator
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -24,6 +25,7 @@ import com.airbnb.lottie.LottieAnimationView
 import com.anjlab.android.iab.v3.BillingProcessor
 import com.anjlab.android.iab.v3.TransactionDetails
 import com.droid.netflixIMDB.analytics.Analytics
+import com.droid.netflixIMDB.notifications.NotificationManager
 import com.droid.netflixIMDB.util.LaunchUtils
 import com.droid.netflixIMDB.util.LaunchUtils.forceLaunchOverlay
 import com.droid.netflixIMDB.util.LaunchUtils.launchAppWithPackageName
@@ -71,6 +73,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (intent.getStringExtra("open_playstore") != null) {
             LaunchUtils.openPlayStore(this)
         }
+        checkForProIntent(intent)
+    }
+
+    private fun checkForProIntent(intent: Intent?) {
+        val notificationToClear = intent?.getIntExtra("notification_id", 0)
+        notificationToClear?.run {
+            if (this > 0) {
+                NotificationManager.getNotificationManager()?.cancel(this)
+                launchSupportSheet()
+            }
+        }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        checkForProIntent(intent)
     }
 
     private fun initFCM() {
@@ -89,9 +106,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun initBilling() {
         billingProcessor = BillingProcessor(this, BuildConfig.BILLING_KEY, this)
         billingProcessor.initialize()
-        val purchaseListingDetails = billingProcessor.getPurchaseListingDetails(PurchaseUtils.SMALL_DONATION)
-        purchaseListingDetails?.run {
-            Toast.makeText(this@MainActivity, "Premium user", Toast.LENGTH_SHORT).show()
+        val purchaseListingDetails = billingProcessor.getPurchaseTransactionDetails(PurchaseUtils.SMALL_DONATION)
+        if (purchaseListingDetails != null) {
+            Prefs.setIsPremiumUser(true)
         }
     }
 
@@ -152,16 +169,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
 
             R.id.faq -> {
-                launchFAQSheet(true)
+                launchFAQSheet(false)
             }
         }
         return true
     }
 
-    private fun launchSupportSheet() {
+    private fun launchSupportSheet(mustToggleDrawer: Boolean = false) {
         Analytics.postClickEvents(Analytics.ClickTypes.SUPPORT)
 
-        toggleDrawer()
+        if (mustToggleDrawer)
+            toggleDrawer()
 
         val mBottomSheetDialog = BottomSheetDialog(this)
         mBottomSheetDialog.window?.setDimAmount(0.9F)
@@ -248,6 +266,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         btYoutube.setOnClickListener {
             launchAppWithPackageName(this, ReaderConstants.YOUTUBE)
         }
+
+        tvBuyPro.setOnClickListener {
+            launchSupportSheet(false)
+        }
     }
 
     private fun launchOverlayScreen() {
@@ -317,8 +339,26 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             launchGroup.gone()
             dialog?.show()
         }
+
+        checkIfPremiumUser()
     }
 
+    private fun checkIfPremiumUser() {
+        val isPremiumUser = Prefs.getIsPremiumUser()
+        val menu = navigationView.menu
+        isPremiumUser?.run {
+            if (this) {
+                tvBuyPro.gone()
+                tvTotalCount.text = "${Prefs.getPayloadTotalCount()}"
+                menu.removeItem(R.id.pro)
+            } else {
+                tvBuyPro.visible()
+                tvTotalCount.text = "${Prefs.getPayloadTotalCount()} / 500"
+            }
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
     private fun setTextViews() {
         val youtube = Prefs.getPayloadCount()?.youtube
         val netflix = Prefs.getPayloadCount()?.netflix
@@ -329,16 +369,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         tvNetflixCount.text = "Netflix IMDb ratings shown - $netflix"
         tvPrimeVideoCount.text = "Prime video ratings shown  - $prime"
         tvHotstartCount2.text = "Hotstar IMDb ratings shown  - $hotstar"
-
-        tvTotalCount.text = "${netflix?.let {
-            prime?.let { it1 ->
-                hotstar?.let { it2 ->
-                    youtube?.plus(it)?.plus(it1)?.plus(
-                        it2
-                    )
-                }
-            }
-        }}"
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -357,7 +387,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-
     override fun onBillingInitialized() {
 
     }
@@ -368,6 +397,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onProductPurchased(productId: String, details: TransactionDetails?) {
         Analytics.postPurchasePayload(productId)
+        Prefs.setIsPremiumUser(true)
         performBillingAnimation()
     }
 
@@ -386,6 +416,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 Handler().postDelayed({
                     rootLayout.visible()
                     billingLayout.gone()
+                    checkIfPremiumUser()
                 }, 3000)
             }
 
