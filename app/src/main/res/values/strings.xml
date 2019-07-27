@@ -17,7 +17,6 @@
         view shown
     </string>
     <string name="ans_acc_serv">A: Add this app to whitelist (More info)</string>
-    <string name="ans_activate_app">A: Grant overlay permission and enable accessibility services to activate the app
-        (More Info)
+    <string name="ans_activate_app">A: Grant overlay permission and enable accessibility services to activate the app.
     </string>
 </resources>

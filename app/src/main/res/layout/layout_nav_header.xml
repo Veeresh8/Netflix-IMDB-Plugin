@@ -5,7 +5,7 @@
               android:layout_width="match_parent"
               android:layout_height="200dp"
               android:gravity="center"
-              android:background="@color/ratingBackground">
+              android:background="@color/background">
 
     <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottieAnimation"

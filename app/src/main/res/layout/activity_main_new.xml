@@ -8,14 +8,13 @@
         android:layout_height="match_parent">
 
     <ScrollView android:layout_width="match_parent"
-                android:background="@color/ratingBackground"
+                android:background="@color/background"
                 android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/rootLayout"
                 android:animateLayoutChanges="true"
                 android:layout_width="match_parent"
-                android:background="@color/ratingBackground"
                 android:layout_height="match_parent"
                 android:visibility="visible">
 
@@ -319,7 +318,7 @@
             android:animateLayoutChanges="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/ratingBackground"
+            android:background="@color/background"
             tools:context=".MainActivity" android:visibility="gone">
 
         <com.airbnb.lottie.LottieAnimationView
@@ -352,7 +351,7 @@
             android:layout_gravity="start"
             android:theme="@style/NavigationTheme"
             app:headerLayout="@layout/layout_nav_header"
-            android:background="@color/ratingBackground"
+            android:background="@color/background"
             app:itemIconTint="@android:color/white"
             app:itemTextAppearance="@style/navFontStyle"
             app:itemTextColor="@android:color/white"
