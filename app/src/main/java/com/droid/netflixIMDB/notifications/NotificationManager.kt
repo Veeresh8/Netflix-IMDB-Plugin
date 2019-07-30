@@ -109,7 +109,7 @@ object NotificationManager {
             context,
             "${context.getString(R.string.app_name)} general channel"
         )
-            .setSmallIcon(R.drawable.ic_stat_ic_notification)
+            .setSmallIcon(R.drawable.ic_stat_round_fast_forward_black_48dp)
             .setOngoing(true)
             .setContentTitle(title)
             .setStyle(

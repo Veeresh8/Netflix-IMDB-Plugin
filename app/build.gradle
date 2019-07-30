@@ -21,6 +21,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField 'String', 'OMDB_API_KEY', properties['omdb_api_key']
         buildConfigField 'String', 'BILLING_KEY', properties['billing_key']
+        buildConfigField 'String', 'WANT_PREMIUM_COUNT', properties['want_premium']
     }
 
     flavorDimensions "default"

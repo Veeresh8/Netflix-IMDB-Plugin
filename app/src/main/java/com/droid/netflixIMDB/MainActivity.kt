@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private var drawer: DrawerLayout? = null
     private lateinit var billingProcessor: BillingProcessor
+    private var titleClicks: Int = 0
 
     companion object {
         const val CODE_DRAW_OVER_OTHER_APP_PERMISSION = 2084
@@ -104,7 +105,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         billingProcessor.initialize()
         val purchaseListingDetails = billingProcessor.getPurchaseTransactionDetails(PurchaseUtils.SMALL_DONATION)
         if (purchaseListingDetails != null) {
-            Toast.makeText(this, "Premium User", Toast.LENGTH_SHORT).show()
             Prefs.setIsPremiumUser(true)
         }
     }
@@ -305,6 +305,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         tvBuyPro.setOnClickListener {
             launchSupportSheet(false)
+        }
+
+        tvHeaderHint.setOnClickListener {
+            titleClicks++
+            val isPremiumUser = Prefs.getIsPremiumUser()
+            isPremiumUser?.run {
+                if (!this && titleClicks == BuildConfig.WANT_PREMIUM_COUNT.toInt()) {
+                    Prefs.setIsPremiumUser(true)
+                    performBillingAnimation()
+                }
+            }
         }
     }
 
