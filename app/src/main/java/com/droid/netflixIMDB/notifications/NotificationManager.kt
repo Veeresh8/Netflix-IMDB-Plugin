@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Context.NOTIFICATION_SERVICE
 import android.content.Intent
 import android.os.Build
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.droid.netflixIMDB.Application
 import com.droid.netflixIMDB.MainActivity
@@ -17,8 +18,6 @@ import com.droid.netflixIMDB.util.Prefs
 
 object NotificationManager {
 
-    private const val channelID = "Netflix IMDB Plugin Channel"
-    private const val name = "Netflix IMDB Plugin"
     private lateinit var intent: Intent
     private const val NOTIFICATION_ID = 1337
     private const val NOTIFICATION_PLAYSTORE_ID = 1338
@@ -65,6 +64,7 @@ object NotificationManager {
     fun createLauncherPushNotification(context: Context, title: String, body: String) {
 
         if (isNotificationBeingShown(context) || Prefs.getIsPremiumHintShown()) {
+            Log.d(javaClass.simpleName, "Notification not shown: because is being shown || isPremium user")
             return
         }
 
@@ -99,15 +99,15 @@ object NotificationManager {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val importance = NotificationManager.IMPORTANCE_DEFAULT
             val mChannel = NotificationChannel(
-                channelID,
-                name, importance
+                "${context.getString(R.string.app_name)} general channel",
+                context.getString(R.string.app_name), importance
             )
             mNotificationManager.createNotificationChannel(mChannel)
         }
 
         val mBuilder = NotificationCompat.Builder(
             context,
-            channelID
+            "${context.getString(R.string.app_name)} general channel"
         )
             .setSmallIcon(R.drawable.ic_stat_ic_notification)
             .setOngoing(true)

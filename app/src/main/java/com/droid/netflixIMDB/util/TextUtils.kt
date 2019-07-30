@@ -1,9 +1,8 @@
 package com.droid.netflixIMDB.util
 
+import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.graphics.Typeface
-import android.net.Uri
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextPaint
@@ -92,7 +91,7 @@ object TextUtils {
         return spannable
     }
 
-    fun getSpanOne(textView: TextView, context: Context): SpannableString {
+    fun getSpanOne(textView: TextView, context: Context, activity: Activity): SpannableString {
         val spannable = SpannableString(textView.text.toString())
         spannable.setSpan(
             ForegroundColorSpan(context.resources.getColor(R.color.white)),
@@ -102,9 +101,7 @@ object TextUtils {
 
         val clickFirstSpan = object : ClickableSpan() {
             override fun onClick(p0: View) {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=9o_Ccc5O0X0"))
-                intent.putExtra("force_fullscreen", true)
-                context.startActivity(intent)
+                LaunchUtils.forceLaunchOverlay(activity)
             }
 
             override fun updateDrawState(ds: TextPaint) {
@@ -115,8 +112,33 @@ object TextUtils {
 
         spannable.setSpan(
             clickFirstSpan,
-            textView.length() - 10,
-            textView.length() - 1,
+            3,
+            27,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+
+        spannable.setSpan(
+            ForegroundColorSpan(context.resources.getColor(R.color.white)),
+            7, 14,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        val clickSecondSubSpan = object : ClickableSpan() {
+            override fun onClick(p0: View) {
+                LaunchUtils.launchAccessibilityScreen(context)
+            }
+
+            override fun updateDrawState(ds: TextPaint) {
+                ds.color = context.resources.getColor(R.color.white)
+                ds.isUnderlineText = true
+            }
+        }
+
+        spannable.setSpan(
+            clickSecondSubSpan,
+            39,
+            61,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
@@ -133,7 +155,7 @@ object TextUtils {
 
         val clickSecondSpan = object : ClickableSpan() {
             override fun onClick(p0: View) {
-                openDontKillMyApp(context)
+                openPowerSettings(context)
             }
 
             override fun updateDrawState(ds: TextPaint) {
@@ -144,8 +166,8 @@ object TextUtils {
 
         spannable.setSpan(
             clickSecondSpan,
-            textView.length() - 10,
-            textView.length() - 1,
+            19,
+            28,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
@@ -158,7 +180,7 @@ object TextUtils {
 
         val clickSecondSubSpan = object : ClickableSpan() {
             override fun onClick(p0: View) {
-                openPowerSettings(context)
+                openDontKillMyApp(context)
             }
 
             override fun updateDrawState(ds: TextPaint) {
@@ -169,8 +191,8 @@ object TextUtils {
 
         spannable.setSpan(
             clickSecondSubSpan,
-            19,
-            28,
+            30,
+            39,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 

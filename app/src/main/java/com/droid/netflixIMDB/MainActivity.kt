@@ -34,7 +34,6 @@ import com.droid.netflixIMDB.util.LaunchUtils.launchAppWithPackageName
 import com.droid.netflixIMDB.util.LaunchUtils.openPowerSettings
 import com.droid.netflixIMDB.util.Prefs
 import com.droid.netflixIMDB.util.ReaderConstants
-import com.droid.netflixIMDB.util.ReaderConstants.Companion.MAX_LIMIT
 import com.droid.netflixIMDB.util.TextUtils
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -105,6 +104,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         billingProcessor.initialize()
         val purchaseListingDetails = billingProcessor.getPurchaseTransactionDetails(PurchaseUtils.SMALL_DONATION)
         if (purchaseListingDetails != null) {
+            Toast.makeText(this, "Premium User", Toast.LENGTH_SHORT).show()
             Prefs.setIsPremiumUser(true)
         }
     }
@@ -162,7 +162,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 LaunchUtils.openPrivacyPolicy(this)
             }
             R.id.pro -> {
-                launchSupportSheet()
+                launchSupportSheet(true)
             }
             R.id.faq -> {
                 launchFAQSheet(false)
@@ -224,7 +224,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val tvSupportHint = sheetView.findViewById(R.id.tvSupportHint) as TextView
 
         tvSupportHint.text =
-            " Get unlimited hits and removes $MAX_LIMIT hits limit. \n \n This will help to keep this app ad-free and our servers running"
+            " Get unlimited hits and removes ${ReaderConstants.MAX_LIMIT} hits limit. \n \n This will help to keep this app ad-free and our servers running"
 
         donationLow.setOnClickListener {
             Analytics.postClickEvents(Analytics.ClickTypes.SMALL_PURCHASE)
@@ -253,7 +253,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val tvAnswerTwo = sheetView.findViewById(R.id.tvAnswerTwo) as TextView
         val tvAnswerThree = sheetView.findViewById(R.id.tvAnswerThree) as TextView
 
-        tvAnswerOne.text = TextUtils.getSpanOne(tvAnswerOne, this)
+        tvAnswerOne.text = TextUtils.getSpanOne(tvAnswerOne, this, this)
         tvAnswerOne.movementMethod = LinkMovementMethod.getInstance()
 
         tvAnswerTwo.text = TextUtils.getSpanTwo(tvAnswerTwo, this)
@@ -390,7 +390,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 menu.removeItem(R.id.pro)
             } else {
                 tvBuyPro.visible()
-                tvTotalCount.text = "${Prefs.getPayloadTotalCount()} / $MAX_LIMIT"
+                tvTotalCount.text = "${Prefs.getPayloadTotalCount()} / ${ReaderConstants.MAX_LIMIT}"
             }
         }
     }

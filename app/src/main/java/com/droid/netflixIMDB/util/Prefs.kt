@@ -25,6 +25,7 @@ object Prefs {
     private const val PAYLOAD_COUNT = "payload_count"
     private const val IS_PREMIUM_USER = "is_premium_user"
     private const val IS_PREMIUM_HINT_SHOWN = "is_premium_hint_shown"
+    private const val HAS_SHOWN_YOUTUBE_HINT = "has_shown_youtube_hint"
     private const val USER_PACKAGES = "user_packages"
 
     private var titlesRequested: Set<String> = HashSet()
@@ -92,6 +93,12 @@ object Prefs {
         }
     }
 
+    fun setHasShownYoutubeHint(hasShownHint: Boolean) {
+        getSharedPrefs()?.run {
+            edit().putBoolean(HAS_SHOWN_YOUTUBE_HINT, hasShownHint).apply()
+        }
+    }
+
     fun setTitleColor(color: Int) {
         getSharedPrefs()?.run {
             edit().putInt(TITLE_COLOR, color).apply()
@@ -134,6 +141,11 @@ object Prefs {
     fun getIsPremiumUser(): Boolean? {
         return getSharedPrefs()
             ?.getBoolean(IS_PREMIUM_USER, false)
+    }
+
+    fun hasShownYoutubeHint(): Boolean? {
+        return getSharedPrefs()
+            ?.getBoolean(HAS_SHOWN_YOUTUBE_HINT, false)
     }
 
     fun getIsPremiumHintShown(): Boolean {

@@ -25,6 +25,7 @@ class RatingViewRenderer {
     private var mRatingView: View? = null
     private var timer: CountDownTimer? = null
     private var userClosedView: Boolean = false
+    private var useShortTimeOut: Boolean = false
 
     private lateinit var tvTitle: TextView
     private lateinit var params: WindowManager.LayoutParams
@@ -32,7 +33,15 @@ class RatingViewRenderer {
     private lateinit var closeButton: ImageView
     private lateinit var constraintLayout: ConstraintLayout
 
-    fun init(context: Context) {
+
+    companion object {
+        var timeout: Long = 4
+    }
+
+    fun init(context: Context, useShortTimeOut: Boolean = false) {
+
+        this.useShortTimeOut = useShortTimeOut
+
         mRatingView = LayoutInflater.from(context).inflate(R.layout.rating_view, null)
 
         val layoutFlag =
@@ -78,6 +87,9 @@ class RatingViewRenderer {
     fun showRating(responsePayload: ResponsePayload) {
         if (::tvRating.isInitialized && ::tvTitle.isInitialized) {
 
+
+            Log.d(TAG, "Showing rating: $responsePayload")
+
             if (mRatingView?.windowToken == null) {
                 try {
                     mWindowManager?.addView(mRatingView, params)
@@ -115,10 +127,21 @@ class RatingViewRenderer {
                 Log.d(TAG, "Resetting timer")
             }
 
-            val viewTimeout = Prefs.getViewTimeout()
+            if (useShortTimeOut) {
+                timeout = 3
+            } else {
+                val viewTimeout = Prefs.getViewTimeout()
+                viewTimeout?.run {
+                    if (this > 0) {
+                        timeout = this.toLong()
+                    }
+                }
+            }
+
+            Log.d(TAG, "Using timeout: $timeout")
 
             if (timer == null) {
-                timer = object : CountDownTimer(viewTimeout?.toLong()!! * 1000, 1000) {
+                timer = object : CountDownTimer(timeout * 1000, 1000) {
                     override fun onTick(millisUntilFinished: Long) {
                         Log.d(TAG, "On tick $millisUntilFinished")
                         if (mRatingView?.windowToken == null && !userClosedView) {

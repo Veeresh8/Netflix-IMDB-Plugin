@@ -87,83 +87,84 @@ class ReaderService : AccessibilityService() {
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
-        if (event == null) {
-            Log.i(TAG, "Null AccessibilityEvent")
-            return
-        }
-
-        if (event.source == null) {
-            Log.i(TAG, "Event source was NULL")
-            return
-        }
-
-        if (event.source.packageName == null) {
-            Log.i(TAG, "PackageName was NULL")
-            return
-        }
-
-        if (!ReaderConstants.supportedPackages.contains(event.source.packageName)) {
-            Log.i(TAG, "Not handling event from " + event.source.packageName)
-            return
-        }
-
-        Prefs.getUserSupportedPackages()?.run {
-            if (!this.contains(event.source.packageName)) {
-                Log.i(TAG, "Not handling event from " + event.source.packageName + " as user prefs")
+        try {
+            if (event == null) {
+                Log.i(TAG, "Null AccessibilityEvent")
                 return
             }
-        }
 
-        if (event.source.packageName == ReaderConstants.YOUTUBE && YoutubeReader.isTimerRunning) {
-            Log.i(TAG, "Not handling event from Youtube when timer is running")
-            return
-        }
+            if (event.source == null) {
+                Log.i(TAG, "Event source was NULL")
+                return
+            }
 
-        val reader = readers[event.source.packageName]
+            if (event.source.packageName == null) {
+                Log.i(TAG, "PackageName was NULL")
+                return
+            }
 
-        val readerPayload = reader?.payload(event.source)
+            if (!ReaderConstants.supportedPackages.contains(event.source.packageName)) {
+                Log.i(TAG, "Not handling event from " + event.source.packageName)
+                return
+            }
 
-        title = readerPayload?.title
-        year = readerPayload?.year
-        type = readerPayload?.type
+            Prefs.getUserSupportedPackages()?.run {
+                if (!this.contains(event.source.packageName)) {
+                    Log.i(TAG, "Not handling event from " + event.source.packageName + " as user prefs")
+                    return
+                }
+            }
 
-        val payload = Payload(title, year, type)
+            if (event.source.packageName == ReaderConstants.YOUTUBE && YoutubeReader.isTimerRunning) {
+                Log.i(TAG, "Not handling event from Youtube when timer is running")
+                return
+            }
 
-        Log.i(TAG, "Scraped item: $payload")
+            val reader = readers[event.source.packageName]
 
-        if (payload.title == null || (payload.year == null && payload.type == null)) {
-            Log.i(TAG, "No title request")
-            return
-        }
+            val readerPayload = reader?.payload(event.source)
 
-        if (payload.title.equals(RatingRequester.lastTitle, true) &&
-            payload.year.equals(RatingRequester.lastYear, true)
-        ) {
-            Log.i(TAG, "Already requested $payload")
-            return
-        }
+            title = readerPayload?.title
+            year = readerPayload?.year
+            type = readerPayload?.type
 
-        Analytics.postPayload(event.source.packageName.toString(), payload)
+            val payload = Payload(title, year, type)
 
-        if (Prefs.hasExceedLimit()) {
-            Log.i(TAG, "Exceeded max events, user is not premium")
-            // return
-        }
+            Log.i(TAG, "Scraped item: $payload")
 
-        RatingRequester.requestRating(
-            payload,
-            event.source.packageName.toString(),
-            object : RatingRequester.RatingRequesterCallback {
-                override fun onFailure(message: String) {
+            if (payload.title == null || (payload.year == null && payload.type == null)) {
+                Log.i(TAG, "No title request")
+                return
+            }
+
+            if (payload.title.equals(RatingRequester.lastTitle, true) &&
+                payload.year.equals(RatingRequester.lastYear, true)
+            ) {
+                Log.i(TAG, "Already requested $payload")
+                return
+            }
+
+            Analytics.postPayload(event.source.packageName.toString(), payload)
+
+            if (Prefs.hasExceedLimit()) {
+                Log.i(TAG, "Exceeded max events, user is not premium")
+                return
+            }
+
+            RatingRequester.requestRating(
+                payload,
+                event.source.packageName.toString(),
+                object : RatingRequester.RatingRequesterCallback {
+                    override fun onFailure(message: String) {
 //                showToastWithMessage(message)
-                }
+                    }
 
-                override fun onSuccess(responsePayload: ResponsePayload) {
-                    showRating(responsePayload)
-                    incrementPushCount()
-                }
+                    override fun onSuccess(responsePayload: ResponsePayload) {
+                        showRating(responsePayload)
+                        incrementPushCount()
+                    }
 
-                override fun onRequestException(exception: Exception) {
+                    override fun onRequestException(exception: Exception) {
 //                when (exception) {
 //                    is SocketTimeoutException -> {
 //                        showConnectionErrorToast()
@@ -175,8 +176,13 @@ class ReaderService : AccessibilityService() {
 //                        showGenericErrorToast()
 //                    }
 //                }
-                }
-            })
+                    }
+                })
+        } catch (exception: Exception) {
+            Log.d(TAG, "Exception in on event: ${exception.message}")
+        }
+
+
     }
 
     private fun incrementPushCount() {
