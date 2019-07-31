@@ -18,14 +18,18 @@ object LaunchUtils {
     private val TAG: String = this.javaClass.simpleName
 
     fun sendFeedbackIntent(context: Context) {
-        val emailIntent = Intent(
-            Intent.ACTION_SENDTO, Uri.fromParts(
-                "mailto", "parallelstudiosinc@gmail.com", null
+        try {
+            val emailIntent = Intent(
+                Intent.ACTION_SENDTO, Uri.fromParts(
+                    "mailto", "parallelstudiosinc@gmail.com", null
+                )
             )
-        )
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Feedback")
-        emailIntent.putExtra(Intent.EXTRA_TEXT, "")
-        context.startActivity(Intent.createChooser(emailIntent, "Send Feedback"))
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Feedback")
+            emailIntent.putExtra(Intent.EXTRA_TEXT, "")
+            context.startActivity(Intent.createChooser(emailIntent, "Send Feedback"))
+        } catch (exception: Exception) {
+            Log.e(TAG, "Exception launching feedback intent - ${exception.message}")
+        }
     }
 
     fun openPlayStore(context: Context) {
@@ -44,7 +48,6 @@ object LaunchUtils {
                 )
             )
         }
-
     }
 
     fun launchOverlayScreen(activity: Activity) {
@@ -85,8 +88,12 @@ object LaunchUtils {
 
     fun launchAccessibilityScreen(context: Context) {
         Analytics.postClickEvents(Analytics.ClickTypes.ACC_SERV)
-        val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
-        context.startActivity(intent)
+        try {
+            val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
+            context.startActivity(intent)
+        } catch (exception: java.lang.Exception) {
+            Log.e(TAG, "Exception launching - ${exception.message}")
+        }
     }
 
     fun getPlaystoreIntent(): Intent {
@@ -101,29 +108,41 @@ object LaunchUtils {
     }
 
     fun openPrivacyPolicy(context: Context) {
-        context.startActivity(
-            Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse("https://sites.google.com/view/netfliximdbplugin/privacy-policy")
+        try {
+            context.startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://sites.google.com/view/netfliximdbplugin/privacy-policy")
+                )
             )
-        )
+        } catch (exception: Exception) {
+            Log.e(TAG, "Exception launching - ${exception.message}")
+        }
     }
 
     fun openDontKillMyApp(context: Context) {
-        context.startActivity(
-            Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse("https://dontkillmyapp.com")
+        try {
+            context.startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://dontkillmyapp.com")
+                )
             )
-        )
+        } catch (exception: Exception) {
+            Log.e(TAG, "Exception launching - ${exception.message}")
+        }
     }
 
     fun openPowerSettings(context: Context) {
         Analytics.postClickEvents(Analytics.ClickTypes.WHITELIST)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val intent = Intent()
-            intent.action = Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS
-            context.startActivity(intent)
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                val intent = Intent()
+                intent.action = Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS
+                context.startActivity(intent)
+            }
+        } catch (exception: Exception) {
+            Log.e(TAG, "Exception launching - ${exception.message}")
         }
     }
 }

@@ -182,8 +182,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val mBottomSheetDialog = BottomSheetDialog(this)
         mBottomSheetDialog.window?.setDimAmount(0.9F)
         val sheetView = layoutInflater.inflate(
-            R.layout.settings_bottom_sheet,
-            null
+            R.layout.settings_bottom_sheet, null
         )
 
         val switchYoutube = sheetView.findViewById(R.id.sbYoutube) as SwitchCompat

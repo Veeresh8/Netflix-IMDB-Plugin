@@ -55,7 +55,7 @@
 
         <meta-data
                 android:name="com.google.firebase.messaging.default_notification_icon"
-                android:resource="@drawable/ic_stat_ic_notification" />
+                android:resource="@drawable/ic_stat_round_fast_forward_black_48dp" />
 
         <receiver android:name=".notifications.NotificationActionReceiver"/>
     </application>
