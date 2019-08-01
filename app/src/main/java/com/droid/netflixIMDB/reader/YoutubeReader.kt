@@ -30,6 +30,7 @@ class YoutubeReader : Reader() {
         nodeTitle.forEach { child ->
             child?.run {
                 if (this.isClickable && this.isVisibleToUser) {
+                    isTimerRunning = true
                     this.performAction(AccessibilityNodeInfo.ACTION_CLICK)
                     val payloadCount = Prefs.getPayloadCount()
                     val plus = payloadCount?.youtube?.plus(1)
@@ -48,6 +49,7 @@ class YoutubeReader : Reader() {
                             Prefs.setHasShownYoutubeHint(true)
                         }
                     }
+                    return Payload()
                 }
             }
         }
@@ -69,7 +71,7 @@ class YoutubeReader : Reader() {
     private fun startTimer() {
         if (timer == null) {
             isTimerRunning = true
-            timer = object : CountDownTimer(RatingViewRenderer.timeout, 1000) {
+            timer = object : CountDownTimer(RatingViewRenderer.timeout * 1000, 1000) {
                 override fun onTick(millisUntilFinished: Long) {
                     Log.i(TAG, "Youtube timer running")
                 }

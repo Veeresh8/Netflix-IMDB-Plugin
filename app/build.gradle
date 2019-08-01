@@ -15,8 +15,8 @@ android {
         applicationId "com.droid.netflixIMDB"
         minSdkVersion 18
         targetSdkVersion 28
-        versionCode 8
-        versionName "1.7"
+        versionCode 10
+        versionName "1.9"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField 'String', 'OMDB_API_KEY', properties['omdb_api_key']
