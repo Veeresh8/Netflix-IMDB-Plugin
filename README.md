@@ -1,7 +1,9 @@
 # Youtube Ad Skipper and Netflix IMDB Rater
 
+## Get the app
 PlayStore Link - https://play.google.com/store/apps/details?id=com.droid.netflixIMDB
 
+## Description
 YouTube often interrupts your viewing experience with ads.Using this app we'll skip ads for you (after the 5-0 countdown, without you doing anything). This app is not a ad-blocker, but an ad skipper.
 
 Also, finding quality content is hard. Netflix, Hotstar, Prime Video have ditched the IMDB rating feature which leaves many users puzzled to decide what title to watch.
@@ -16,8 +18,7 @@ We take Personal Privacy very seriously and do not listen to any Accessibility E
 
 The app is ad-free and promotion-free
 
-
-Supported Apps
+## Supported Apps
 
 Youtube (skips ads)
 
@@ -27,17 +28,14 @@ Hotstar (IMDb Ratings)
 
 Prime Video (IMDb Ratings)
 
+## Contributing
 
+Feel free to contribute! :smile:.
 
+## License
 
+Licensed under the GNU GENERAL PUBLIC LICENSE. See the [LICENSE file][license] for details.
 
-
-                                             GNU GENERAL PUBLIC LICENSE
-                                              Version 3, 29 June 2007
-
-                             Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
-                             Everyone is permitted to copy and distribute verbatim copies
-                             of this license document, but changing it is not allowed.
-
+[license]: LICENSE
 
 
