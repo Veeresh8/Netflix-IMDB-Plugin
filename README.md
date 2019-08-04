@@ -1,9 +1,5 @@
 # Youtube Ad Skipper and Netflix IMDB Rater
 
-
-
-Why use this app
-
 YouTube often interrupts your viewing experience with ads.Using this app we'll skip ads for you (after the 5-0 countdown, without you doing anything). This app is not a ad-blocker, but an ad skipper.
 
 Also, finding quality content is hard. Netflix, Hotstar, Prime Video have ditched the IMDB rating feature which leaves many users puzzled to decide what title to watch.
