@@ -28,9 +28,19 @@ Hotstar (IMDb Ratings)
 
 Prime Video (IMDb Ratings)
 
-## Contributing
+## Contribute
 
-Feel free to contribute! :smile:.
+Contributions are welcome!
+
+To build the project, create `local.properties` in the base directory if it does not exist and add following line to it.
+
+```
+omdb_api_key=<OMDB_API_KEY>
+billing_key=<BILLING_KEY>
+want_premium=<WANT_PREMIUM_COUNT>
+```
+
+You can get your API key here - [OMDB API Key](http://www.omdbapi.com/apikey.aspx)
 
 ## License
 
