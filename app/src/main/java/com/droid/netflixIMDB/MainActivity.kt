@@ -170,6 +170,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.settings -> {
                 launchSettingsSheet()
             }
+            R.id.share -> {
+                LaunchUtils.shareAppIntent(this)
+            }
         }
         return true
     }

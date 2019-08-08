@@ -32,6 +32,21 @@ object LaunchUtils {
         }
     }
 
+    fun shareAppIntent(context: Context) {
+        try {
+            val sendIntent = Intent()
+            sendIntent.action = Intent.ACTION_SEND
+            sendIntent.putExtra(
+                Intent.EXTRA_TEXT,
+                "Hey check this app at: https://play.google.com/store/apps/details?id=com.droid.netflixIMDB"
+            )
+            sendIntent.type = "text/plain"
+            context.startActivity(sendIntent)
+        } catch (exception: Exception) {
+            Log.e(TAG, "Exception launching share intent - ${exception.message}")
+        }
+    }
+
     fun openPlayStore(context: Context) {
         try {
             context.startActivity(

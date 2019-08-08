@@ -12,6 +12,9 @@
     <item android:id="@+id/rateApp"
           android:icon="@drawable/round_stars_24px"
           android:title="Rate us on PlayStore"/>
+    <item android:id="@+id/share"
+          android:icon="@drawable/round_share_24px"
+          android:title="Share App"/>
     <item android:id="@+id/feedback"
           android:icon="@drawable/round_feedback_24px"
           android:title="Feedback"/>
