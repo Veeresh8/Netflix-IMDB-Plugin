@@ -38,7 +38,7 @@ object LaunchUtils {
             sendIntent.action = Intent.ACTION_SEND
             sendIntent.putExtra(
                 Intent.EXTRA_TEXT,
-                "Hey check this app at: https://play.google.com/store/apps/details?id=com.droid.netflixIMDB"
+                "Hey, check out this app: https://play.google.com/store/apps/details?id=com.droid.netflixIMDB"
             )
             sendIntent.type = "text/plain"
             context.startActivity(sendIntent)

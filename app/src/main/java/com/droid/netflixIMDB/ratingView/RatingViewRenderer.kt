@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.PixelFormat
 import android.os.Build
 import android.os.CountDownTimer
+import android.provider.Settings
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -12,8 +13,10 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.droid.netflixIMDB.R
+import com.droid.netflixIMDB.ReaderService
 import com.droid.netflixIMDB.ResponsePayload
 import com.droid.netflixIMDB.util.Prefs
 
@@ -87,16 +90,7 @@ class RatingViewRenderer {
     fun showRating(responsePayload: ResponsePayload) {
         if (::tvRating.isInitialized && ::tvTitle.isInitialized) {
 
-
             Log.d(TAG, "Showing rating: $responsePayload")
-
-            if (mRatingView?.windowToken == null) {
-                try {
-                    mWindowManager?.addView(mRatingView, params)
-                } catch (exception: Exception) {
-                    Log.e(TAG, "Exception adding view to window manager: ${exception.message}")
-                }
-            }
 
             var year = responsePayload.year
             var rating = responsePayload.rating
@@ -140,26 +134,60 @@ class RatingViewRenderer {
 
             Log.d(TAG, "Using timeout: $timeout")
 
-            if (timer == null) {
-                timer = object : CountDownTimer(timeout * 1000, 1000) {
-                    override fun onTick(millisUntilFinished: Long) {
-                        Log.d(TAG, "On tick $millisUntilFinished")
-                        if (mRatingView?.windowToken == null && !userClosedView) {
-                            mWindowManager?.addView(mRatingView, params)
-                            Log.i(TAG, "Rating view was removed, adding again!")
-                        }
-                    }
+            if (hasOverlayPermission()) {
 
-                    override fun onFinish() {
-                        removeRatingView()
+                if (mRatingView?.windowToken == null) {
+                    try {
+                        showRatingView()
+                    } catch (exception: Exception) {
+                        Log.e(TAG, "Exception adding view to window manager: ${exception.message}")
+                        showRatingToast()
                     }
                 }
-                timer?.start()
+
+                if (timer == null) {
+                    timer = object : CountDownTimer(timeout * 1000, 1000) {
+                        override fun onTick(millisUntilFinished: Long) {
+                            Log.d(TAG, "On tick $millisUntilFinished")
+                            try {
+                                if (mRatingView?.windowToken == null && !userClosedView) {
+                                    showRatingView()
+                                }
+                            } catch (exception: Exception) {
+                                Log.e(TAG, "Exception adding view to window manager: ${exception.message}")
+                                showRatingToast()
+                            }
+                        }
+
+                        override fun onFinish() {
+                            removeRatingView()
+                        }
+                    }
+                    timer?.start()
+                }
+            } else {
+                showRatingToast()
             }
+
         } else {
             Log.e(TAG, "Views not initialized")
         }
     }
+
+    private fun showRatingToast() {
+        Toast.makeText(ReaderService.INSTANCE, "${tvTitle.text} - ${tvRating.text}", Toast.LENGTH_LONG).show()
+        Log.i(TAG, "Overlay permission denied, show toast")
+    }
+
+    private fun showRatingView() {
+        mWindowManager?.addView(mRatingView, params)
+        Log.i(TAG, "Rating view shown")
+    }
+
+    private fun hasOverlayPermission() =
+        ReaderService.INSTANCE != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && Settings.canDrawOverlays(
+            ReaderService.INSTANCE
+        )
 
     private fun checkForColorPrefs() {
         val titleColor = Prefs.getTitleColor()

@@ -32,12 +32,14 @@ class ReaderService : AccessibilityService() {
 
     companion object {
         var isConnected: Boolean = false
+        var INSTANCE: ReaderService? = null
     }
 
     override fun onCreate() {
         super.onCreate()
         initReaders()
         initRatingView()
+        INSTANCE = this
     }
 
     private fun initReaders() {
