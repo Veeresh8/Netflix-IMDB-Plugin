@@ -101,6 +101,12 @@ object LaunchUtils {
         }
     }
 
+    fun launchMainActivity() {
+        val intent = Intent(Application.instance, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        Application.instance?.startActivity(intent)
+    }
+
     fun launchAccessibilityScreen(context: Context) {
         Analytics.postClickEvents(Analytics.ClickTypes.ACC_SERV)
         try {

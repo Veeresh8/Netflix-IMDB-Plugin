@@ -1,54 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="match_parent" android:id="@+id/linearLayout">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:id="@+id/constraintLayout"
+            android:background="@color/ratingBackground"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-            android:background="@color/ratingBackground">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivClose"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="2dp"
                 android:alpha="0.8"
-                app:srcCompat="@drawable/ic_round_cancel_24px"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" android:id="@+id/ivClose"
-                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
-                android:layout_marginTop="2dp"/>
+                app:srcCompat="@drawable/ic_round_cancel_24px" />
+
         <TextView
-                android:singleLine="true"
-                android:ellipsize="marquee"
+                android:id="@+id/tvTitle"
                 android:layout_width="0dp"
-                android:alpha="0.8"
                 android:layout_height="wrap_content"
-                android:id="@+id/tvTitle" android:layout_marginStart="16dp"
-                app:layout_constraintStart_toEndOf="@+id/ivClose" app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="22dp"
-                android:text="Random title here"
-                android:textColor="@color/ratingTitle"
+                android:layout_marginEnd="8dp"
+                android:alpha="0.8"
+                android:ellipsize="marquee"
                 android:fontFamily="sans-serif-smallcaps"
+                android:singleLine="true"
+                android:text="Random title here"
+                android:textAlignment="textStart"
+                android:textColor="@color/ratingTitle"
                 android:textStyle="bold"
-                android:textAlignment="textStart" android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toStartOf="@+id/guideline"/>
+                app:layout_constraintEnd_toStartOf="@+id/guideline"
+                app:layout_constraintStart_toEndOf="@+id/ivClose"
+                app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" app:layout_constraintGuide_begin="350dp"
-                android:id="@+id/guideline"/>
+                app:layout_constraintGuide_begin="350dp" />
+
         <TextView
-                android:text="8.6"
+                android:id="@+id/tvRating"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="20dp" android:id="@+id/tvRating"
-                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"
-                android:textColor="@color/ratingTitle" android:fontFamily="sans-serif-smallcaps"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1" android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="8.6"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/ratingTitle"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

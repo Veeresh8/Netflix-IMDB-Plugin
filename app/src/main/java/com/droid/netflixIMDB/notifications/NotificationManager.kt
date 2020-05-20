@@ -22,7 +22,12 @@ object NotificationManager {
     private const val NOTIFICATION_ID = 1337
     private const val NOTIFICATION_PLAYSTORE_ID = 1338
 
-    fun initPushNotification(context: Context, title: String, body: String, hasPlayStoreIntent: Boolean = false) {
+    fun initPushNotification(
+        context: Context,
+        title: String,
+        body: String,
+        hasPlayStoreIntent: Boolean = false
+    ) {
         intent = if (hasPlayStoreIntent) {
             LaunchUtils.getPlaystoreIntent()
         } else {
@@ -64,7 +69,10 @@ object NotificationManager {
     fun createLauncherPushNotification(context: Context, title: String, body: String) {
 
         if (isNotificationBeingShown(context) || Prefs.getIsPremiumHintShown()) {
-            Log.d(javaClass.simpleName, "Notification not shown: because is being shown || isPremium user")
+            Log.d(
+                javaClass.simpleName,
+                "Notification not shown: because is being shown || isPremium user"
+            )
             return
         }
 
@@ -94,7 +102,8 @@ object NotificationManager {
         hasBuyIntent: Boolean = false,
         hasPlayStoreIntent: Boolean = false
     ) {
-        val mNotificationManager = context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        val mNotificationManager =
+            context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val importance = NotificationManager.IMPORTANCE_DEFAULT
@@ -125,7 +134,11 @@ object NotificationManager {
             mBuilder.addAction(0, "No Thanks", getIgnoreIntent(context, NOTIFICATION_ID))
         } else if (hasPlayStoreIntent) {
             mBuilder.addAction(0, "Write Honest Review", getPlayStoreIntent(context))
-            mBuilder.addAction(0, "Already Done", getIgnoreIntent(context, NOTIFICATION_PLAYSTORE_ID))
+            mBuilder.addAction(
+                0,
+                "Already Done",
+                getIgnoreIntent(context, NOTIFICATION_PLAYSTORE_ID)
+            )
         }
 
         mBuilder.setContentIntent(contentIntent)
@@ -171,19 +184,21 @@ object NotificationManager {
     }
 
     private fun isNotificationBeingShown(context: Context): Boolean {
-        val mNotificationManager = context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager?
-        val notifications = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            mNotificationManager?.activeNotifications
-        } else {
-            TODO("VERSION.SDK_INT < M")
-        }
-        if (notifications != null) {
-            for (notification in notifications) {
-                if (notification.id == NOTIFICATION_ID) {
-                    return true
+        val mNotificationManager =
+            context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager?
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val notifications = mNotificationManager?.activeNotifications
+            if (notifications != null) {
+                for (notification in notifications) {
+                    if (notification.id == NOTIFICATION_ID) {
+                        return true
+                    }
                 }
             }
         }
+
+
         return false
     }
 

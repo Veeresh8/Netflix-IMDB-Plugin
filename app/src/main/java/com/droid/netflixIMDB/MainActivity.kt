@@ -348,7 +348,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun checkAccessibilitySettings() {
-        if (ReaderService.isConnected) {
+        if (AccessibilityUtils.isAccessibilityServiceEnabled(this, ReaderService::class.java)) {
             sbAccessibilityService.isChecked = true
         } else {
             dialog = MaterialDialog(this)

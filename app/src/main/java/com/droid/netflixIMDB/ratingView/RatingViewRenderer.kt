@@ -18,6 +18,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.droid.netflixIMDB.R
 import com.droid.netflixIMDB.ReaderService
 import com.droid.netflixIMDB.ResponsePayload
+import com.droid.netflixIMDB.util.LaunchUtils
 import com.droid.netflixIMDB.util.Prefs
 
 class RatingViewRenderer {
@@ -26,6 +27,7 @@ class RatingViewRenderer {
 
     private var mWindowManager: WindowManager? = null
     private var mRatingView: View? = null
+    private var mBuyView: View? = null
     private var timer: CountDownTimer? = null
     private var userClosedView: Boolean = false
     private var useShortTimeOut: Boolean = false
@@ -33,7 +35,10 @@ class RatingViewRenderer {
     private lateinit var tvTitle: TextView
     private lateinit var params: WindowManager.LayoutParams
     private lateinit var tvRating: TextView
+    private lateinit var tvBuyTitle: TextView
     private lateinit var closeButton: ImageView
+    private lateinit var ivNavToApp: ImageView
+    private lateinit var closeBuyButton: ImageView
     private lateinit var constraintLayout: ConstraintLayout
 
 
@@ -46,6 +51,8 @@ class RatingViewRenderer {
         this.useShortTimeOut = useShortTimeOut
 
         mRatingView = LayoutInflater.from(context).inflate(R.layout.rating_view, null)
+
+        mBuyView = LayoutInflater.from(context).inflate(R.layout.buy_floating_view, null)
 
         val layoutFlag =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY else WindowManager.LayoutParams.TYPE_PHONE
@@ -67,9 +74,52 @@ class RatingViewRenderer {
         tvRating = mRatingView?.findViewById(R.id.tvRating) as TextView
         constraintLayout = mRatingView?.findViewById(R.id.constraintLayout) as ConstraintLayout
 
+        tvBuyTitle = mBuyView?.findViewById(R.id.tvBuyTitle) as TextView
+        closeBuyButton = mBuyView?.findViewById(R.id.ivBuyClose) as ImageView
+        ivNavToApp = mBuyView?.findViewById(R.id.ivNavToApp) as ImageView
+        tvBuyTitle.isSelected = true
+
+        closeBuyButton.setOnClickListener {
+            removeBuyView()
+        }
+
+        ivNavToApp.setOnClickListener {
+            removeBuyView()
+            LaunchUtils.launchMainActivity()
+        }
+
         closeButton.setOnClickListener {
             userClosedView = true
             removeRatingView()
+        }
+    }
+
+    private fun removeBuyView() {
+        mBuyView?.run {
+            if (mBuyView?.windowToken != null) {
+                try {
+                    mWindowManager?.removeView(mBuyView)
+                } catch (exception: Exception) {
+                    Log.e(
+                        TAG,
+                        "Exception removing buy view to window manager: ${exception.message}"
+                    )
+                }
+            }
+        }
+    }
+
+    fun showBuyView() {
+        if (mBuyView?.windowToken != null) {
+            Log.i(TAG, "Buy view already showing")
+            return
+        }
+
+        try {
+            mWindowManager?.addView(mBuyView, params)
+            Log.i(TAG, "Buy view shown")
+        } catch (exception: Exception) {
+            Log.e(TAG, "Exception adding buy view to window manager: ${exception.message}")
         }
     }
 
@@ -83,7 +133,6 @@ class RatingViewRenderer {
                     Log.e(TAG, "Exception removing view to window manager: ${exception.message}")
                 }
             }
-
         }
     }
 
@@ -136,6 +185,8 @@ class RatingViewRenderer {
 
             if (hasOverlayPermission()) {
 
+                removeBuyView()
+
                 if (mRatingView?.windowToken == null) {
                     try {
                         showRatingView()
@@ -154,7 +205,10 @@ class RatingViewRenderer {
                                     showRatingView()
                                 }
                             } catch (exception: Exception) {
-                                Log.e(TAG, "Exception adding view to window manager: ${exception.message}")
+                                Log.e(
+                                    TAG,
+                                    "Exception adding view to window manager: ${exception.message}"
+                                )
                                 showRatingToast()
                             }
                         }
@@ -175,7 +229,11 @@ class RatingViewRenderer {
     }
 
     private fun showRatingToast() {
-        Toast.makeText(ReaderService.INSTANCE, "${tvTitle.text} - ${tvRating.text}", Toast.LENGTH_LONG).show()
+        Toast.makeText(
+            ReaderService.INSTANCE,
+            "${tvTitle.text} - ${tvRating.text}",
+            Toast.LENGTH_LONG
+        ).show()
         Log.i(TAG, "Overlay permission denied, show toast")
     }
 

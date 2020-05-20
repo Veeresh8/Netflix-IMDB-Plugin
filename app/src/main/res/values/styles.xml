@@ -6,6 +6,9 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="md_corner_radius">16dp</item>
+        <item name="md_font_title">@font/alegreya_sans_sc_extrabold</item>
+        <item name="md_font_button">@font/alegreya_sans_sc_extrabold</item>
     </style>
 
     <style name="Theme.Transparent" parent="AppTheme">

@@ -2,7 +2,10 @@ package com.droid.netflixIMDB
 
 import android.accessibilityservice.AccessibilityService
 import android.accessibilityservice.AccessibilityServiceInfo
+import android.content.ComponentName
 import android.content.Intent
+import android.content.pm.ActivityInfo
+import android.content.pm.PackageManager
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -112,7 +115,10 @@ class ReaderService : AccessibilityService() {
 
             Prefs.getUserSupportedPackages()?.run {
                 if (!this.contains(event.source.packageName)) {
-                    Log.i(TAG, "Not handling event from " + event.source.packageName + " as user prefs")
+                    Log.i(
+                        TAG,
+                        "Not handling event from " + event.source.packageName + " as user prefs"
+                    )
                     return
                 }
             }
@@ -150,6 +156,9 @@ class ReaderService : AccessibilityService() {
 
             if (Prefs.hasExceedLimit()) {
                 Log.i(TAG, "Exceeded max events, user is not premium")
+                Handler(Looper.getMainLooper()).post {
+                    ratingView?.showBuyView()
+                }
                 return
             }
 
@@ -158,7 +167,7 @@ class ReaderService : AccessibilityService() {
                 event.source.packageName.toString(),
                 object : RatingRequester.RatingRequesterCallback {
                     override fun onFailure(message: String) {
-//                showToastWithMessage(message)
+
                     }
 
                     override fun onSuccess(responsePayload: ResponsePayload) {
@@ -167,24 +176,32 @@ class ReaderService : AccessibilityService() {
                     }
 
                     override fun onRequestException(exception: Exception) {
-//                when (exception) {
-//                    is SocketTimeoutException -> {
-//                        showConnectionErrorToast()
-//                    }
-//                    is UnknownHostException -> {
-//                        showConnectionErrorToast()
-//                    }
-//                    else -> {
-//                        showGenericErrorToast()
-//                    }
-//                }
+
                     }
                 })
         } catch (exception: Exception) {
             Log.d(TAG, "Exception in on event: ${exception.message}")
         }
+    }
 
+    private fun resetRequest(event: AccessibilityEvent) {
+        if (event.packageName != null && event.className != null) {
+            val componentName =
+                ComponentName(event.packageName.toString(), event.className.toString())
+            val activityInfo = tryGetActivity(componentName)
+            if (activityInfo != null) {
+                val currentActivity = componentName.flattenToShortString()
+                Log.e(TAG, "Current Activity: $currentActivity")
+            }
+        }
+    }
 
+    private fun tryGetActivity(componentName: ComponentName): ActivityInfo? {
+        return try {
+            packageManager.getActivityInfo(componentName, 0)
+        } catch (e: PackageManager.NameNotFoundException) {
+            null
+        }
     }
 
     private fun incrementPushCount() {
@@ -195,7 +212,8 @@ class ReaderService : AccessibilityService() {
                 if (this == PLAYSTORE_INIT) {
                     NotificationManager.createPlayStorePushNotification(
                         this@ReaderService,
-                        "Enjoying ${application.getString(R.string.app_name)}?", "We've served over $this hits. " +
+                        "Enjoying ${application.getString(R.string.app_name)}?",
+                        "We've served over $this hits. " +
                                 "Please spread the word by giving us a honest rating at the PlayStore"
                     )
                 }
