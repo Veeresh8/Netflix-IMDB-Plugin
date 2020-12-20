@@ -5,9 +5,9 @@ import com.droid.netflixIMDB.Payload
 
 class NetflixReader : Reader() {
 
-    private val NETFLIX_TITLE_ID = "com.netflix.mediaclient:id/video_details_title"
-    private val NETFLIX_YEAR_ID = "com.netflix.mediaclient:id/video_details_basic_info_year"
-    private val NETFLIX_MOVIE_SERIES_ID = "com.netflix.mediaclient:id/video_details_basic_info_num_seasons_or_duration"
+    private val NETFLIX_TITLE_ID = "com.netflix.mediaclient:id/mini_dp_title"
+    private val NETFLIX_YEAR_ID = "com.netflix.mediaclient:id/mini_dp_year"
+    private val NETFLIX_MOVIE_SERIES_ID = "com.netflix.mediaclient:id/mini_dp_season_num_or_run_time"
 
     override fun payload(node: AccessibilityNodeInfo): Payload {
         val payload = Payload()
@@ -30,10 +30,10 @@ class NetflixReader : Reader() {
             child?.run {
                 var type = text as String?
                 type?.run {
-                    if (toLowerCase().contains("season"))
-                        type = "series"
+                    type = if (toLowerCase().contains("season"))
+                        "series"
                     else
-                        type = null
+                        null
                 }
                 payload.type = type
             }

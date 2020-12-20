@@ -190,20 +190,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val switchYoutube = sheetView.findViewById(R.id.sbYoutube) as SwitchCompat
         val switchNetflix = sheetView.findViewById(R.id.sbNetflix) as SwitchCompat
-        val switchPrime = sheetView.findViewById(R.id.sbPrime) as SwitchCompat
-        val switchHotstar = sheetView.findViewById(R.id.sbHotstar) as SwitchCompat
 
         Prefs.getUserSupportedPackages()?.run {
             switchYoutube.isChecked = this.contains(ReaderConstants.YOUTUBE)
             switchNetflix.isChecked = this.contains(ReaderConstants.NETFLIX)
-            switchPrime.isChecked = this.contains(ReaderConstants.PRIME)
-            switchHotstar.isChecked = this.contains(ReaderConstants.HOTSTAR)
         }
 
         switchYoutube.setOnCheckedChangeListener(this)
         switchNetflix.setOnCheckedChangeListener(this)
-        switchPrime.setOnCheckedChangeListener(this)
-        switchHotstar.setOnCheckedChangeListener(this)
 
         mBottomSheetDialog.setContentView(sheetView)
         mBottomSheetDialog.show()
@@ -291,14 +285,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         btNetflix.setOnClickListener {
             launchAppWithPackageName(this, ReaderConstants.NETFLIX)
-        }
-
-        btHotstar.setOnClickListener {
-            launchAppWithPackageName(this, ReaderConstants.HOTSTAR)
-        }
-
-        btPrime.setOnClickListener {
-            launchAppWithPackageName(this, ReaderConstants.PRIME)
         }
 
         btYoutube.setOnClickListener {
@@ -412,13 +398,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun setTextViews() {
         val youtube = Prefs.getPayloadCount()?.youtube
         val netflix = Prefs.getPayloadCount()?.netflix
-        val prime = Prefs.getPayloadCount()?.prime
-        val hotstar = Prefs.getPayloadCount()?.hotstar
 
         tvYoutubeCount.text = "Youtube Ads Skipped - $youtube"
         tvNetflixCount.text = "Netflix IMDb ratings shown - $netflix"
-        tvPrimeVideoCount.text = "Prime Video IMDb ratings shown  - $prime"
-        tvHotstartCount2.text = "Hotstar IMDb ratings shown  - $hotstar"
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -502,27 +484,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     Prefs.removePackage(ReaderConstants.YOUTUBE)
                 }
             }
-            R.id.sbPrime -> {
-                if (isChecked) {
-                    Prefs.addPackage(ReaderConstants.PRIME)
-                } else {
-                    Prefs.removePackage(ReaderConstants.PRIME)
-                }
-            }
 
             R.id.sbNetflix -> {
                 if (isChecked) {
                     Prefs.addPackage(ReaderConstants.NETFLIX)
                 } else {
                     Prefs.removePackage(ReaderConstants.NETFLIX)
-                }
-            }
-
-            R.id.sbHotstar -> {
-                if (isChecked) {
-                    Prefs.addPackage(ReaderConstants.HOTSTAR)
-                } else {
-                    Prefs.removePackage(ReaderConstants.HOTSTAR)
                 }
             }
         }

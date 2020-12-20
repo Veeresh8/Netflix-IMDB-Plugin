@@ -78,6 +78,7 @@ class RatingViewRenderer {
         closeBuyButton = mBuyView?.findViewById(R.id.ivBuyClose) as ImageView
         ivNavToApp = mBuyView?.findViewById(R.id.ivNavToApp) as ImageView
         tvBuyTitle.isSelected = true
+        tvTitle.isSelected = true
 
         closeBuyButton.setOnClickListener {
             removeBuyView()
