@@ -9,6 +9,11 @@
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
     <uses-permission android:name="com.android.vending.BILLING"/>
 
+    <queries>
+        <package android:name="com.netflix.mediaclient" />
+        <package android:name="com.google.android.youtube" />
+    </queries>
+
     <application
             android:name=".Application"
             android:allowBackup="false"
