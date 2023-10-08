@@ -1,22 +1,7 @@
 <resources>
     <string name="app_name_accessibility_service">Youtube Ad Skipper Accessibility Service</string>
-    <string name="accessibility_service_description">Youtube Ad Skipper</string>
-    <string name="overlay_hint">Grant overlay permission</string>
-    <string name="battery_optimization_hint">Add to whitelist (Optional)</string>
-    <string name="accessibility_hint">Enable accessibility settings</string>
-    <string name="header_hint">Please follow the below instructions to get started</string>
-    <string name="open_netflix">Open Netflix</string>
-    <string name="open_hotstar">Open Hotstar</string>
-    <string name="thank_you">This means a lot to us. \n\n Enjoy our unlimited services.</string>
-    <string name="ans_priv_policy">A: No, please read our Privacy Policy for more details</string>
-    <string name="que_active_app">Q: How to activate the app?</string>
-    <string name="que_pri_policy">Q: Do we collect or read any personal information which can be used to identify an
-        individual?
-    </string>
-    <string name="que_acc_serv">Q: I\'ve granted overlay permission and enabled accessibility services, but ads are not
-        skipped or ratings are not shown
-    </string>
-    <string name="ans_acc_serv">A: Add this app to whitelist (More info), also restart accessibility services</string>
-    <string name="ans_activate_app">A: Grant overlay permission and enable accessibility services to activate the app.
-    </string>
+    <string name="accessibility_service_description">Accessibility Service needs to be turned on for the app to function correctly</string>
+    <string name="exhausted_trail_hint">You\'ve exhausted your free usage. Upgrade to premium for unlimited access.</string>
+    <string name="first_ad_skip_hint">Great! We skipped an ad for you.</string>
+    <string name="language_selected_hint">Language</string>
 </resources>

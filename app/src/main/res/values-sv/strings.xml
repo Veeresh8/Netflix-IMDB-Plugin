@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name_accessibility_service">Youtube Ad Skipper tillgänglighetstjänst</string>
+    <string name="accessibility_service_description">Tillgänglighetstjänsten måste vara påslagen för att appen ska fungera korrekt</string>
+    <string name="exhausted_trail_hint">Du har utnyttjat din gratisanvändning. Uppgradera till premium för obegränsad tillgång.</string>
+    <string name="first_ad_skip_hint">Fantastiskt! Vi hoppade över en annons åt dig.</string>
+    <string name="language_selected_hint">Språk</string>
+</resources>

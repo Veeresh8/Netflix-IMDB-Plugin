@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name_accessibility_service">Toegankelijkheidsservice voor YouTube-advertenties</string>
+    <string name="accessibility_service_description">De toegankelijkheidsservice moet zijn ingeschakeld om de app correct te laten functioneren</string>
+    <string name="exhausted_trail_hint">U heeft uw gratis gebruik opgebruikt. Upgrade naar premium voor onbeperkte toegang.</string>
+    <string name="first_ad_skip_hint">Geweldig! We hebben een advertentie voor je overgeslagen.</string>
+    <string name="language_selected_hint">Taal</string>
+</resources>

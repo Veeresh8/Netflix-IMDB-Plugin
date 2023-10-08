@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name_accessibility_service">Barrierefreiheitsdienst von Youtube Ad Skipper</string>
+    <string name="accessibility_service_description">Le service d\'accessibilité doit être activé pour que l\'application fonctionne correctement</string>
+    <string name="exhausted_trail_hint">Ihr kostenloses Kontingent wurde aufgebraucht. Upgrade auf Premium für uneingeschränkten Zugriff</string>
+    <string name="first_ad_skip_hint">Großartig! Wir haben eine Anzeige für dich übersprungen.</string>
+    <string name="language_selected_hint">Sprache</string>
+</resources>

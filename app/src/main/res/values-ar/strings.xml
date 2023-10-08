@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name_accessibility_service">خدمة إمكانية الوصول لإعلانات YouTube Skipper</string>
+    <string name="accessibility_service_description">يجب تشغيل خدمة إمكانية الوصول حتى يعمل التطبيق بشكل صحيح</string>
+    <string name="exhausted_trail_hint">لقد استنفذت استخدامك المجاني. قم بالترقية إلى النسخة المميزة للوصول غير المحدود.</string>
+    <string name="first_ad_skip_hint">رائع! لقد تخطينا إعلانًا من أجلك.</string>
+    <string name="language_selected_hint">لغة</string>
+</resources>

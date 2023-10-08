@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name_accessibility_service">यूट्यूब एड स्किपर एक्सेसिबिलिटी सेवा</string>
+    <string name="accessibility_service_description">ऐप के सही ढंग से काम करने के लिए एक्सेसिबिलिटी सर्विस को चालू करना होगा</string>
+    <string name="exhausted_trail_hint">आपने अपने मुफ़्त उपयोग का सीमा तक उपयोग कर लिया है। असीमित पहुँच के लिए प्रीमियम पर अपग्रेड करें।</string>
+    <string name="first_ad_skip_hint">शानदार! हमने आपके लिए एक विज्ञापन को छोड़ दिया।</string>
+    <string name="language_selected_hint">भाषा</string>
+</resources>

@@ -4,8 +4,7 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="200dp"
-              android:gravity="center"
-              android:background="@color/background">
+              android:gravity="center">
 
     <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottieAnimation"

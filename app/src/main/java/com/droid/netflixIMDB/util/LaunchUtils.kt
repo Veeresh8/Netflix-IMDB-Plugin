@@ -9,7 +9,6 @@ import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
 import com.droid.netflixIMDB.Application
-import com.droid.netflixIMDB.MainActivity
 import com.droid.netflixIMDB.analytics.Analytics
 
 
@@ -65,11 +64,6 @@ object LaunchUtils {
         }
     }
 
-    fun launchOverlayScreen(activity: Activity) {
-        Analytics.postClickEvents(Analytics.ClickTypes.OVERLAY)
-        checkOverlayPermission(activity)
-    }
-
     fun launchAppWithPackageName(activity: Activity, packageName: String) {
         val pm = activity.packageManager
         try {
@@ -79,32 +73,6 @@ object LaunchUtils {
             Log.e(TAG, "Exception launching - ${exception.message}")
             Toast.makeText(activity, "App not installed", Toast.LENGTH_SHORT).show()
         }
-    }
-
-    private fun checkOverlayPermission(activity: Activity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(activity)) {
-            val intent = Intent(
-                Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                Uri.parse("package:${activity.packageName}")
-            )
-            activity.startActivityForResult(intent, MainActivity.CODE_DRAW_OVER_OTHER_APP_PERMISSION)
-        }
-    }
-
-    fun forceLaunchOverlay(activity: Activity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val intent = Intent(
-                Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                Uri.parse("package:${activity.packageName}")
-            )
-            activity.startActivityForResult(intent, MainActivity.CODE_DRAW_OVER_OTHER_APP_PERMISSION)
-        }
-    }
-
-    fun launchMainActivity() {
-        val intent = Intent(Application.instance, MainActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        Application.instance?.startActivity(intent)
     }
 
     fun launchAccessibilityScreen(context: Context) {

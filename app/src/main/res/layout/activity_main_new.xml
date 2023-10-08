@@ -8,8 +8,7 @@
 
     <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/background">
+            android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/rootLayout"
@@ -27,7 +26,6 @@
                     android:layout_marginEnd="32dp"
                     android:alpha="0.8"
                     android:text="Netflix"
-                    android:textColor="@color/netflixRed"
                     android:textSize="12sp"
                     app:layout_constraintEnd_toStartOf="@+id/btYoutube"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -83,7 +81,6 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:elevation="2dp"
-                    app:cardBackgroundColor="@color/cardBackground"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/guideline3">
@@ -227,7 +224,6 @@
                             android:fontFamily="@font/alegreya_sans_sc_extrabold"
                             android:padding="10dp"
                             android:text="Buy Pro"
-                            android:textColor="@color/hotstarYellow"
                             android:textSize="16sp"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -246,7 +242,6 @@
                     android:layout_marginEnd="16dp"
                     android:elevation="2dp"
                     android:visibility="visible"
-                    app:cardBackgroundColor="@color/cardBackground"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -387,7 +382,6 @@
                     android:layout_marginTop="16dp"
                     android:alpha="0.8"
                     android:text="Youtube"
-                    android:textColor="@color/netflixRed"
                     android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -409,7 +403,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:animateLayoutChanges="true"
-            android:background="@color/background"
             android:visibility="gone"
             tools:context=".MainActivity">
 
@@ -430,7 +423,6 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="128dp"
                 android:fontFamily="sans-serif-smallcaps"
-                android:text="@string/thank_you"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
@@ -447,7 +439,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:background="@color/background"
             android:theme="@style/NavigationTheme"
             app:headerLayout="@layout/layout_nav_header"
             app:itemIconTint="@android:color/white"

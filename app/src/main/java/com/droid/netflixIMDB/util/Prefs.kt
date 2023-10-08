@@ -4,35 +4,16 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.droid.netflixIMDB.Application
-import com.droid.netflixIMDB.PayloadCount
 import com.droid.netflixIMDB.R
-import com.droid.netflixIMDB.notifications.NotificationManager
-import com.droid.netflixIMDB.util.ReaderConstants.Companion.MAX_LIMIT
-import com.google.gson.Gson
-
 
 object Prefs {
 
     private var sharedPreferences: SharedPreferences? = null
-    private val TAG: String = javaClass.simpleName
 
-    private const val TITLE_COLOR = "title_color"
-    private const val BACKGROUND_COLOR = "background_color"
-    private const val ICON_COLOR = "icon_color"
-    private const val VIEW_TIMEOUT = "view_timeout"
-    private const val REQUESTS_MADE = "requests_made"
-    private const val PUSH_TOKEN = "push_token"
-    private const val PAYLOAD_COUNT = "payload_count"
+    private const val SKIP_COUNT = "skip_count"
     private const val IS_PREMIUM_USER = "is_premium_user"
     private const val IS_PREMIUM_HINT_SHOWN = "is_premium_hint_shown"
     private const val HAS_SHOWN_YOUTUBE_HINT = "has_shown_youtube_hint"
-    private const val USER_PACKAGES = "user_packages"
-
-    private var titlesRequested: Set<String> = HashSet()
-    private var packagesUserRequested: Set<String> = hashSetOf(
-        ReaderConstants.YOUTUBE,
-        ReaderConstants.HOTSTAR, ReaderConstants.NETFLIX, ReaderConstants.PRIME
-    )
 
     private fun getSharedPrefs(): SharedPreferences? {
         sharedPreferences = Application.instance?.getSharedPreferences(
@@ -40,45 +21,6 @@ object Prefs {
             Context.MODE_PRIVATE
         )
         return sharedPreferences
-    }
-
-    fun addTitle(title: String? = "NULL") {
-        titlesRequested.plus(title)
-    }
-
-    fun addPackage(packageName: String) {
-        packagesUserRequested = packagesUserRequested.plus(packageName)
-        getSharedPrefs()?.run {
-            edit().putStringSet(USER_PACKAGES, packagesUserRequested).apply()
-        }
-    }
-
-    fun removePackage(packageName: String) {
-        packagesUserRequested = packagesUserRequested.minus(packageName)
-        getSharedPrefs()?.run {
-            edit().putStringSet(USER_PACKAGES, packagesUserRequested).apply()
-        }
-    }
-
-    fun initPackages() {
-        getSharedPrefs()?.run {
-            edit().putStringSet(USER_PACKAGES, packagesUserRequested).apply()
-        }
-    }
-
-    fun getUserSupportedPackages(): Set<String>? {
-        return getSharedPrefs()
-            ?.getStringSet(USER_PACKAGES, null)
-    }
-
-    fun getAllTitlesRequested(): Set<String> {
-        return titlesRequested
-    }
-
-    fun setPushToken(token: String) {
-        getSharedPrefs()?.run {
-            edit().putString(PUSH_TOKEN, token).apply()
-        }
     }
 
     fun setIsPremiumUser(isPremium: Boolean) {
@@ -99,136 +41,39 @@ object Prefs {
         }
     }
 
-    fun setTitleColor(color: Int) {
-        getSharedPrefs()?.run {
-            edit().putInt(TITLE_COLOR, color).apply()
-        }
+    fun getIsPremiumUser(): Boolean {
+        return getSharedPrefs()?.getBoolean(IS_PREMIUM_USER, false) ?: false
     }
 
-    fun setBackgroundColor(color: Int) {
-        getSharedPrefs()?.run {
-            edit().putInt(BACKGROUND_COLOR, color).apply()
-        }
-    }
-
-    fun setViewTimeout(timeout: Int) {
-        getSharedPrefs()?.run {
-            edit().putInt(VIEW_TIMEOUT, timeout).apply()
-        }
-    }
-
-    fun incrementRequestMade() {
-        val requestsMade = getRequestsMade()
-        requestsMade?.run {
-            requestsMade
-            getSharedPrefs()?.run {
-                edit().putInt(REQUESTS_MADE, requestsMade + 1).apply()
-            }
-        }
-    }
-
-    fun setIconColor(color: Int) {
-        getSharedPrefs()?.run {
-            edit().putInt(ICON_COLOR, color).apply()
-        }
-    }
-
-    private fun getRequestsMade(): Int? {
-        return getSharedPrefs()
-            ?.getInt(REQUESTS_MADE, 0)
-    }
-
-    fun getIsPremiumUser(): Boolean? {
-        return getSharedPrefs()
-            ?.getBoolean(IS_PREMIUM_USER, false)
-    }
-
-    fun hasShownYoutubeHint(): Boolean? {
-        return getSharedPrefs()
-            ?.getBoolean(HAS_SHOWN_YOUTUBE_HINT, false)
+    fun hasShownYoutubeHint(): Boolean {
+        return getSharedPrefs()?.getBoolean(HAS_SHOWN_YOUTUBE_HINT, false) ?: false
     }
 
     fun getIsPremiumHintShown(): Boolean {
-        return getSharedPrefs()?.getBoolean(IS_PREMIUM_HINT_SHOWN, false)!!
+        return getSharedPrefs()?.getBoolean(IS_PREMIUM_HINT_SHOWN, false) ?: false
     }
 
-    fun getTitleColor(): Int? {
-        return getSharedPrefs()
-            ?.getInt(TITLE_COLOR, 0)
-    }
-
-    fun getBackgroundColor(): Int? {
-        return getSharedPrefs()
-            ?.getInt(BACKGROUND_COLOR, 0)
-    }
-
-    fun getIconColor(): Int? {
-        return getSharedPrefs()
-            ?.getInt(ICON_COLOR, 0)
-    }
-
-    fun getViewTimeout(): Int? {
-        return getSharedPrefs()
-            ?.getInt(VIEW_TIMEOUT, 5)
-    }
-
-    fun getPushToken(): String? {
-        return getSharedPrefs()
-            ?.getString(PUSH_TOKEN, null)
-    }
-
-    fun getPayloadCount(): PayloadCount? {
-        var payloadCount: PayloadCount? = null
-
+    fun getSkipCount(): Int {
         val sharedPrefs = getSharedPrefs()
-        sharedPrefs?.run {
-            payloadCount = if (this.getString(PAYLOAD_COUNT, null) == null) {
-                PayloadCount()
-            } else {
-                val payload = this.getString(PAYLOAD_COUNT, null)
-                Gson().fromJson(payload, PayloadCount::class.java)
-            }
-        }
-
-        return payloadCount
+        return sharedPrefs?.getInt(SKIP_COUNT, 0) ?: 0
     }
 
-    fun savePayloadCount(payloadCount: PayloadCount) {
+    fun incrementSkipCount() {
         val sharedPrefs = getSharedPrefs()
+        val currentSkipCount = getSkipCount() + 1
         sharedPrefs?.run {
-            val json = Gson().toJson(payloadCount)
             this.edit {
-                this.putString(PAYLOAD_COUNT, json)
+                this.putInt(SKIP_COUNT, currentSkipCount)
                 this.commit()
             }
         }
     }
 
-    fun getPayloadTotalCount(): Int {
-        var count = 0
-        val payloadCount = getPayloadCount()
-        payloadCount?.run {
-            count = this.netflix.plus(prime).plus(hotstar).plus(youtube)
-        }
-        return count
-    }
-
     fun hasExceedLimit(): Boolean {
-        val payloadCount = getPayloadTotalCount()
-        val isPremiumUser = getIsPremiumUser()
-        isPremiumUser?.run {
-            if (!this && payloadCount >= MAX_LIMIT) {
-                Application.instance?.let {
-                    NotificationManager.createLauncherPushNotification(
-                        it,
-                        "Enjoying ${Application.instance?.getString(R.string.app_name)}?",
-                        "We've served over $payloadCount hits. " +
-                                "Please go pro to get unlimited hits."
-                    )
-                }
-                return true
-            }
+        if (getIsPremiumUser()) {
+            return false
         }
-        return false
+
+        return getSkipCount() >= ReaderConstants.MAX_LIMIT
     }
 }
