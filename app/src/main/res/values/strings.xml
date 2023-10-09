@@ -4,4 +4,6 @@
     <string name="exhausted_trail_hint">You\'ve exhausted your free usage. Upgrade to premium for unlimited access.</string>
     <string name="first_ad_skip_hint">Great! We skipped an ad for you.</string>
     <string name="language_selected_hint">Language</string>
+    <string name="how_does_it_work">How does it work?</string>
+    <string name="how_does_it_work_sub_header">Once the service is enabled, we will automatically skip Youtube ads for you. Giving you a hands free experience! \n\nNote: This app cannot block Youtube ads but rather skips them.</string>
 </resources>

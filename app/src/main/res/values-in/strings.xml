@@ -5,4 +5,6 @@
     <string name="exhausted_trail_hint">Anda telah menghabiskan kuota penggunaan gratis Anda. Tingkatkan ke premium untuk akses tanpa batas</string>
     <string name="first_ad_skip_hint">Bagus! Kami melewati iklan untuk Anda.</string>
     <string name="language_selected_hint">Bahasa</string>
+    <string name="how_does_it_work">Bagaimana cara kerjanya?</string>
+    <string name="how_does_it_work_sub_header">Setelah layanan diaktifkan, kami akan otomatis melewatkan iklan YouTube untuk Anda. Memberikan pengalaman bebas gangguan! \n\nCatatan: Aplikasi ini tidak dapat memblokir iklan YouTube tetapi melewatinya.</string>
 </resources>

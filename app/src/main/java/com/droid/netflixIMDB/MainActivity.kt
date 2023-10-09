@@ -24,22 +24,15 @@
 //import androidx.drawerlayout.widget.DrawerLayout
 //import com.afollestad.materialdialogs.MaterialDialog
 //import com.airbnb.lottie.LottieAnimationView
-//import com.anjlab.android.iab.v3.BillingProcessor
-//import com.anjlab.android.iab.v3.TransactionDetails
 //import com.droid.netflixIMDB.analytics.Analytics
-//import com.droid.netflixIMDB.notifications.NotificationManager
 //import com.droid.netflixIMDB.util.LaunchUtils
-//import com.droid.netflixIMDB.util.LaunchUtils.forceLaunchOverlay
 //import com.droid.netflixIMDB.util.LaunchUtils.launchAppWithPackageName
 //import com.droid.netflixIMDB.util.LaunchUtils.openPowerSettings
 //import com.droid.netflixIMDB.util.Prefs
 //import com.droid.netflixIMDB.util.ReaderConstants
-//import com.droid.netflixIMDB.util.TextUtils
 //import com.google.android.gms.tasks.OnCompleteListener
 //import com.google.android.material.bottomsheet.BottomSheetDialog
 //import com.google.android.material.navigation.NavigationView
-//import com.google.firebase.iid.FirebaseInstanceId
-//import kotlinx.android.synthetic.main.activity_main_new.*
 //
 //
 //class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,

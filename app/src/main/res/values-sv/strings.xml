@@ -5,4 +5,6 @@
     <string name="exhausted_trail_hint">Du har utnyttjat din gratisanvändning. Uppgradera till premium för obegränsad tillgång.</string>
     <string name="first_ad_skip_hint">Fantastiskt! Vi hoppade över en annons åt dig.</string>
     <string name="language_selected_hint">Språk</string>
+    <string name="how_does_it_work">Hur fungerar det?</string>
+    <string name="how_does_it_work_sub_header">När tjänsten är aktiverad kommer vi automatiskt att hoppa över YouTube-annonserna för dig. Ger dig en handsfree-upplevelse!\n\nObs: Den här appen kan inte blockera YouTube-annonser utan hoppar över dem.</string>
 </resources>

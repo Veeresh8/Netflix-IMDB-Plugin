@@ -5,4 +5,6 @@
     <string name="exhausted_trail_hint">Kihasználta ingyenes használatát. Frissítse a prémium változatra az korlátlan hozzáféréshez.</string>
     <string name="first_ad_skip_hint">Nagyszerű! Kihagytunk egy hirdetést az Ön számára.</string>
     <string name="language_selected_hint">Nyelv</string>
+    <string name="how_does_it_work">Hogyan működik?</string>
+    <string name="how_does_it_work_sub_header">Miután a szolgáltatás engedélyezve lett, automatikusan átugorjuk a YouTube-hirdetéseket önnek. Egy kéz nélküli élményt nyújtunk Önnek!\n\nMegjegyzés: Ez az alkalmazás nem tudja blokkolni a YouTube-hirdetéseket, hanem átugorja azokat.</string>
 </resources>

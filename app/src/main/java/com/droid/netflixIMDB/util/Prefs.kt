@@ -14,6 +14,7 @@ object Prefs {
     private const val IS_PREMIUM_USER = "is_premium_user"
     private const val IS_PREMIUM_HINT_SHOWN = "is_premium_hint_shown"
     private const val HAS_SHOWN_YOUTUBE_HINT = "has_shown_youtube_hint"
+    private const val LANGUAGE_SELECTED = "language_selected"
 
     private fun getSharedPrefs(): SharedPreferences? {
         sharedPreferences = Application.instance?.getSharedPreferences(
@@ -26,6 +27,18 @@ object Prefs {
     fun setIsPremiumUser(isPremium: Boolean) {
         getSharedPrefs()?.run {
             edit().putBoolean(IS_PREMIUM_USER, isPremium).apply()
+        }
+    }
+
+    fun getLanguageSelected(): String? {
+        return getSharedPrefs()?.run {
+            getString(LANGUAGE_SELECTED, null)
+        }
+    }
+
+    fun setLanguageSelected(languageCode: String) {
+        getSharedPrefs()?.run {
+            edit().putString(LANGUAGE_SELECTED, languageCode).apply()
         }
     }
 

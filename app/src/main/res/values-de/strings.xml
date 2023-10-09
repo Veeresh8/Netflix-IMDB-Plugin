@@ -5,4 +5,6 @@
     <string name="exhausted_trail_hint">Ihr kostenloses Kontingent wurde aufgebraucht. Upgrade auf Premium für uneingeschränkten Zugriff</string>
     <string name="first_ad_skip_hint">Großartig! Wir haben eine Anzeige für dich übersprungen.</string>
     <string name="language_selected_hint">Sprache</string>
+    <string name="how_does_it_work">Wie funktioniert das?</string>
+    <string name="how_does_it_work_sub_header">Sobald der Service aktiviert ist, überspringen wir automatisch YouTube-Werbung für Sie. Das ermöglicht Ihnen eine werbefreie Erfahrung!\n\nHinweis: Diese App kann keine YouTube-Werbung blockieren, sondern sie lediglich überspringen.</string>
 </resources>

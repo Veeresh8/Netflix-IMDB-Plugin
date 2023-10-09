@@ -5,4 +5,6 @@
     <string name="exhausted_trail_hint">Você esgotou o uso gratuito. Faça upgrade para premium para acesso ilimitado.</string>
     <string name="first_ad_skip_hint">Ótimo! Poupamos um anúncio para você.</string>
     <string name="language_selected_hint">Língua</string>
+    <string name="how_does_it_work">Como funciona?</string>
+    <string name="how_does_it_work_sub_header">Assim que o serviço for ativado, iremos automaticamente ignorar os anúncios do YouTube para você. Proporcionando uma experiência sem intervenção!\n\nNota: Este aplicativo não pode bloquear os anúncios do YouTube, apenas os ignora.</string>
 </resources>

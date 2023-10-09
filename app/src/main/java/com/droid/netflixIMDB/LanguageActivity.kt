@@ -35,11 +35,14 @@ class LanguageActivity : AppCompatActivity() {
     rvLanguages = findViewById<RecyclerView>(R.id.rvLanguages)
     ivLanguageSelected = findViewById<ImageView>(R.id.ivLanguageSelectionDone)
     tvLanguageHeader = findViewById<TextView>(R.id.tvLanguageHeader)
+
+    ivLanguageSelected.setOnDebouncedClickListener {
+        Dashboard.launch(this)
+    }
   }
 
   private fun initLanguages() {
     languageAdapter = LanguageAdapter { languageSelected ->
-      toast("Clicked ${languageSelected.language.name}")
       val updatedList = buildLanguageList() as ArrayList<LanguageOption>
 
       val languageToUpdate = updatedList.find { it == languageSelected }

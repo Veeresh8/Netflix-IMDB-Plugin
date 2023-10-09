@@ -5,4 +5,6 @@
     <string name="exhausted_trail_hint">您已经用完了免费使用次数。升级到高级版以获取无限访问</string>
     <string name="first_ad_skip_hint">太好了！我们为您跳过了一则广告。</string>
     <string name="language_selected_hint">语言</string>
+    <string name="how_does_it_work">它是如何工作的？</string>
+    <string name="how_does_it_work_sub_header">一旦启用该服务，我们将自动为您跳过YouTube广告。为您提供一种无需操控的体验！\n\n注意：此应用无法阻止YouTube广告，而是跳过它们。</string>
 </resources>

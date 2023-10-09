@@ -5,4 +5,6 @@
     <string name="exhausted_trail_hint">لقد استنفذت استخدامك المجاني. قم بالترقية إلى النسخة المميزة للوصول غير المحدود.</string>
     <string name="first_ad_skip_hint">رائع! لقد تخطينا إعلانًا من أجلك.</string>
     <string name="language_selected_hint">لغة</string>
+    <string name="how_does_it_work">كيف يعمل ذلك؟</string>
+    <string name="how_does_it_work_sub_header">بمجرد تفعيل الخدمة، سنقوم بتخطي إعلانات يوتيوب تلقائيًا بالنسبة لك، مما يمنحك تجربة خالية من الإعلانات! \n\nملاحظة: لا يمكن لهذا التطبيق حظر إعلانات يوتيوب، بل يقوم بتخطيه</string>
 </resources>

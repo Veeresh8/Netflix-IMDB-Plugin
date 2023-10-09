@@ -5,4 +5,6 @@
     <string name="exhausted_trail_hint">Hai esaurito l\'utilizzo gratuito. Passa a premium per un accesso illimitato.</string>
     <string name="first_ad_skip_hint">Fantastico! Abbiamo saltato una pubblicità per te.</string>
     <string name="language_selected_hint">Lingua</string>
+    <string name="how_does_it_work">Come funziona?</string>
+    <string name="how_does_it_work_sub_header">Una volta attivato il servizio, salteremo automaticamente gli annunci su YouTube per te. Ti offriamo un\'esperienza senza interruzioni! \n\nNota: Questa app non può bloccare gli annunci su YouTube, ma li salta.</string>
 </resources>

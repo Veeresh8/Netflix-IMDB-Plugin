@@ -5,4 +5,6 @@
     <string name="exhausted_trail_hint">Έχετε εξαντλήσει τη δωρεάν χρήση σας. Αναβαθμίστε στο premium για απεριόριστη πρόσβαση</string>
     <string name="first_ad_skip_hint">Εξαιρετικό! Παραλείψαμε μια διαφήμιση για εσάς.</string>
     <string name="language_selected_hint">Γλώσσα</string>
+    <string name="how_does_it_work">Πώς λειτουργεί;</string>
+    <string name="how_does_it_work_sub_header">Μόλις ενεργοποιηθεί η υπηρεσία, θα παραλείπουμε αυτόματα τις διαφημίσεις του YouTube για εσάς. Σας προσφέρουμε μια χειρουργική εμπειρία!\n\nΣημείωση: Αυτή η εφαρμογή δεν μπορεί να αποκλείσει τις διαφημίσεις του YouTube, αλλά να τις παραλείπει.</string>
 </resources>

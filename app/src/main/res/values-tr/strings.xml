@@ -5,4 +5,6 @@
     <string name="exhausted_trail_hint">Ücretsiz kullanım hakkınız tükenmiştir. Sınırsız erişim için premium\'a yükseltin.</string>
     <string name="first_ad_skip_hint">Harika! Sizin için bir reklamı atlattık.</string>
     <string name="language_selected_hint">Dil</string>
+    <string name="how_does_it_work">Nasıl çalışır?</string>
+    <string name="how_does_it_work_sub_header">Hizmet etkinleştirildiğinde, YouTube reklamlarını otomatik olarak atlayacağız. Size eller serbest bir deneyim sunuyoruz!\n\nNot: Bu uygulama YouTube reklamlarını engelleyemez, ancak atlar.</string>
 </resources>

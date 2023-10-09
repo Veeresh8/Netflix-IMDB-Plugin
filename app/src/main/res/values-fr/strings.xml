@@ -5,4 +5,6 @@
     <string name="exhausted_trail_hint">Vous avez épuisé votre utilisation gratuite. Passez à la version premium pour un accès illimité.</string>
     <string name="first_ad_skip_hint">Génial ! Nous avons sauté une publicité pour vous.</string>
     <string name="language_selected_hint">Langue</string>
+    <string name="how_does_it_work">Comment ça marche ?</string>
+    <string name="how_does_it_work_sub_header">Une fois le service activé, nous passerons automatiquement les annonces YouTube pour vous. Vous offrant une expérience mains libres !\n\nNote : Cette application ne peut pas bloquer les annonces YouTube, mais les saute.</string>
 </resources>
