@@ -7,4 +7,10 @@
     <string name="language_selected_hint">Língua</string>
     <string name="how_does_it_work">Como funciona?</string>
     <string name="how_does_it_work_sub_header">Assim que o serviço for ativado, iremos automaticamente ignorar os anúncios do YouTube para você. Proporcionando uma experiência sem intervenção!\n\nNota: Este aplicativo não pode bloquear os anúncios do YouTube, apenas os ignora.</string>
+    <string name="start_service">Iniciar Serviço</string>
+    <string name="usage">Uso</string>
+    <string name="upgrade">Atualização</string>
+    <string name="enable">Ativar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="service_running">Serviço em execução</string>
 </resources>

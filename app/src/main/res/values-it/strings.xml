@@ -7,4 +7,10 @@
     <string name="language_selected_hint">Lingua</string>
     <string name="how_does_it_work">Come funziona?</string>
     <string name="how_does_it_work_sub_header">Una volta attivato il servizio, salteremo automaticamente gli annunci su YouTube per te. Ti offriamo un\'esperienza senza interruzioni! \n\nNota: Questa app non può bloccare gli annunci su YouTube, ma li salta.</string>
+    <string name="start_service">Avvia il servizio</string>
+    <string name="usage">Utilizzo</string>
+    <string name="upgrade">Aggiornamento</string>
+    <string name="enable">Abilita</string>
+    <string name="cancel">Annulla</string>
+    <string name="service_running">Servizio in esecuzione</string>
 </resources>

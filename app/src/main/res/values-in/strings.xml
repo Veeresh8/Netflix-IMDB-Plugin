@@ -7,4 +7,10 @@
     <string name="language_selected_hint">Bahasa</string>
     <string name="how_does_it_work">Bagaimana cara kerjanya?</string>
     <string name="how_does_it_work_sub_header">Setelah layanan diaktifkan, kami akan otomatis melewatkan iklan YouTube untuk Anda. Memberikan pengalaman bebas gangguan! \n\nCatatan: Aplikasi ini tidak dapat memblokir iklan YouTube tetapi melewatinya.</string>
+    <string name="start_service">Memulai Layanan</string>
+    <string name="usage">Penggunaan</string>
+    <string name="upgrade">Peningkatan</string>
+    <string name="enable">Aktifkan</string>
+    <string name="cancel">Batal</string>
+    <string name="service_running">Layanan Berjalan</string>
 </resources>

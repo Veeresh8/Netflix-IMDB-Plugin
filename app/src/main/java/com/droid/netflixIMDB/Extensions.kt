@@ -1,10 +1,13 @@
 package com.droid.netflixIMDB
 
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.os.SystemClock
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.view.animation.DecelerateInterpolator
+import android.widget.ProgressBar
 import android.widget.Toast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -31,6 +34,13 @@ fun Context.toastLong(message: String) {
     GlobalScope.launch (Dispatchers.Main.immediate) {
         Toast.makeText(Application.instance, message, Toast.LENGTH_LONG).show()
     }
+}
+
+fun ProgressBar.updateProgressAndAnimate(progress: Int) {
+    val progressAnimator = ObjectAnimator.ofInt(this, "progress", progress)
+    progressAnimator.duration = 500 // animation duration in milliseconds
+    progressAnimator.interpolator = DecelerateInterpolator()
+    progressAnimator.start()
 }
 
 

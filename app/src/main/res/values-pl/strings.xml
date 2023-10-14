@@ -7,4 +7,10 @@
     <string name="language_selected_hint">Język</string>
     <string name="how_does_it_work">Jak to działa?</string>
     <string name="how_does_it_work_sub_header">Po aktywowaniu usługi automatycznie pominiemy reklamy na YouTube dla Ciebie. Zapewnimy Ci wygodne korzystanie bez konieczności interakcji!\n\nUwaga: Ta aplikacja nie blokuje reklam na YouTube, tylko je pomija.</string>
+    <string name="start_service">Uruchom usługę</string>
+    <string name="usage">Użycie</string>
+    <string name="upgrade">Aktualizacja</string>
+    <string name="enable">Włącz</string>
+    <string name="cancel">Anuluj</string>
+    <string name="service_running">Usługa działa</string>
 </resources>

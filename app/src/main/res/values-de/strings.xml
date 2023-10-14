@@ -7,4 +7,10 @@
     <string name="language_selected_hint">Sprache</string>
     <string name="how_does_it_work">Wie funktioniert das?</string>
     <string name="how_does_it_work_sub_header">Sobald der Service aktiviert ist, überspringen wir automatisch YouTube-Werbung für Sie. Das ermöglicht Ihnen eine werbefreie Erfahrung!\n\nHinweis: Diese App kann keine YouTube-Werbung blockieren, sondern sie lediglich überspringen.</string>
+    <string name="start_service">Dienst starten</string>
+    <string name="usage">Verwendung</string>
+    <string name="upgrade">Upgrade</string>
+    <string name="enable">Aktivieren</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="service_running">Dienst läuft</string>
 </resources>

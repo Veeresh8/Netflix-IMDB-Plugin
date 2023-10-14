@@ -7,4 +7,10 @@
     <string name="language_selected_hint">Taal</string>
     <string name="how_does_it_work">Hoe werkt het?</string>
     <string name="how_does_it_work_sub_header">Zodra de service is ingeschakeld, zullen we automatisch YouTube-advertenties voor u overslaan. Hierdoor krijgt u een handsfree-ervaring!\n\nOpmerking: Deze app kan geen YouTube-advertenties blokkeren, maar slaat ze over.</string>
+    <string name="start_service">Start de service</string>
+    <string name="usage">Gebruik</string>
+    <string name="upgrade">Upgraden</string>
+    <string name="enable">Inschakelen</string>
+    <string name="cancel">Annuleren</string>
+    <string name="service_running">Dienst actief</string>
 </resources>

@@ -7,4 +7,10 @@
     <string name="language_selected_hint">Dil</string>
     <string name="how_does_it_work">Nasıl çalışır?</string>
     <string name="how_does_it_work_sub_header">Hizmet etkinleştirildiğinde, YouTube reklamlarını otomatik olarak atlayacağız. Size eller serbest bir deneyim sunuyoruz!\n\nNot: Bu uygulama YouTube reklamlarını engelleyemez, ancak atlar.</string>
+    <string name="start_service">Hizmeti Başlat</string>
+    <string name="usage">Kullanım</string>
+    <string name="upgrade">Yükseltme</string>
+    <string name="enable">Etkinleştir</string>
+    <string name="cancel">İptal</string>
+    <string name="service_running">Hizmet Çalışıyor</string>
 </resources>

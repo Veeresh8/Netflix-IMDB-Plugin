@@ -7,4 +7,10 @@
     <string name="language_selected_hint">لغة</string>
     <string name="how_does_it_work">كيف يعمل ذلك؟</string>
     <string name="how_does_it_work_sub_header">بمجرد تفعيل الخدمة، سنقوم بتخطي إعلانات يوتيوب تلقائيًا بالنسبة لك، مما يمنحك تجربة خالية من الإعلانات! \n\nملاحظة: لا يمكن لهذا التطبيق حظر إعلانات يوتيوب، بل يقوم بتخطيه</string>
+    <string name="start_service">بدء الخدمة</string>
+    <string name="usage">استخدام</string>
+    <string name="upgrade">ترقية</string>
+    <string name="enable">تمكين</string>
+    <string name="cancel">إلغاء</string>
+    <string name="service_running">الخدمة قيد التشغيل</string>
 </resources>

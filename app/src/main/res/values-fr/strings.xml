@@ -7,4 +7,10 @@
     <string name="language_selected_hint">Langue</string>
     <string name="how_does_it_work">Comment ça marche ?</string>
     <string name="how_does_it_work_sub_header">Une fois le service activé, nous passerons automatiquement les annonces YouTube pour vous. Vous offrant une expérience mains libres !\n\nNote : Cette application ne peut pas bloquer les annonces YouTube, mais les saute.</string>
+    <string name="start_service">Démarrer le service</string>
+    <string name="usage">Utilisation</string>
+    <string name="upgrade">Mise à niveau</string>
+    <string name="enable">Activer</string>
+    <string name="cancel">Annuler</string>
+    <string name="service_running">Service en cours</string>
 </resources>

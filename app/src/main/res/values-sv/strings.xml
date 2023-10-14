@@ -7,4 +7,10 @@
     <string name="language_selected_hint">Språk</string>
     <string name="how_does_it_work">Hur fungerar det?</string>
     <string name="how_does_it_work_sub_header">När tjänsten är aktiverad kommer vi automatiskt att hoppa över YouTube-annonserna för dig. Ger dig en handsfree-upplevelse!\n\nObs: Den här appen kan inte blockera YouTube-annonser utan hoppar över dem.</string>
+    <string name="start_service">Starta tjänst</string>
+    <string name="usage">Användning</string>
+    <string name="upgrade">Uppgradering</string>
+    <string name="enable">Aktivera</string>
+    <string name="cancel">Avbryt</string>
+    <string name="service_running">Tjänsten körs</string>
 </resources>

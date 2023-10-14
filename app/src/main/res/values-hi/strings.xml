@@ -7,4 +7,10 @@
     <string name="language_selected_hint">भाषा</string>
     <string name="how_does_it_work">यह कैसे काम करता है?</string>
     <string name="how_does_it_work_sub_header">जब सेवा सक्रिय होती है, हम आपके लिए यूट्यूब के विज्ञापनों को स्वच्छंद रूप से छोड़ देंगे। आपको हैंड्स-फ्री अनुभव प्राप्त होगा!\n\nनोट: इस ऐप के द्वारा यूट्यूब के विज्ञापनों को नहीं ब्लॉक किया जा सकता है, बल्कि उन्हें छोड़ दिया जाता है।</string>
+    <string name="start_service">सेवा शुरू करें</string>
+    <string name="usage">उपयोग</string>
+    <string name="upgrade">अपग्रेड</string>
+    <string name="enable">सक्षम करें</string>
+    <string name="cancel">रद्द करें</string>
+    <string name="service_running">सेवा चल रही है</string>
 </resources>
