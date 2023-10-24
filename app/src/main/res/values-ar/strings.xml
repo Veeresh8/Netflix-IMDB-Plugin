@@ -13,4 +13,7 @@
     <string name="enable">تمكين</string>
     <string name="cancel">إلغاء</string>
     <string name="service_running">الخدمة قيد التشغيل</string>
+    <string name="text_continue">التالي</string>
+    <string name="exhausted_trail_sub_hint">انتهى الخط الأساسي المجاني</string>
+    <string name="click_to_upgrade">انقر للترقية</string>
 </resources>

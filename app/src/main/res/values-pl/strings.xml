@@ -13,4 +13,7 @@
     <string name="enable">Włącz</string>
     <string name="cancel">Anuluj</string>
     <string name="service_running">Usługa działa</string>
+    <string name="text_continue">Następny</string>
+    <string name="exhausted_trail_sub_hint">Darmowy pakiet wyczerpany</string>
+    <string name="click_to_upgrade">Kliknij, aby zaktualizować</string>
 </resources>

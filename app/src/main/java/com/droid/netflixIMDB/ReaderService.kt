@@ -7,8 +7,10 @@ import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import com.droid.netflixIMDB.reader.Reader
 import com.droid.netflixIMDB.reader.YoutubeReader
+import com.droid.netflixIMDB.util.Prefs
 import com.droid.netflixIMDB.util.ReaderConstants
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import java.util.Locale
 
 class ReaderService : AccessibilityService() {
 
@@ -43,7 +45,6 @@ class ReaderService : AccessibilityService() {
 
     override fun onServiceConnected() {
         Log.i(TAG, "Accessibility service connected")
-
         val info = AccessibilityServiceInfo()
         info.eventTypes = AccessibilityEvent.TYPES_ALL_MASK
         info.packageNames = ReaderConstants.supportedPackages.toTypedArray()

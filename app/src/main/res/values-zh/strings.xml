@@ -13,4 +13,7 @@
     <string name="enable">启用</string>
     <string name="cancel">取消</string>
     <string name="service_running">服务运行中</string>
+    <string name="text_continue">下一个</string>
+    <string name="exhausted_trail_sub_hint">免费套餐已用完</string>
+    <string name="click_to_upgrade">单击升级</string>
 </resources>

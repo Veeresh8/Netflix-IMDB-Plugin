@@ -13,4 +13,7 @@
     <string name="enable">Engedélyez</string>
     <string name="cancel">Megszüntet</string>
     <string name="service_running">Szolgáltatás fut</string>
+    <string name="text_continue">Következő</string>
+    <string name="exhausted_trail_sub_hint">Elfogyott a szabad használat</string>
+    <string name="click_to_upgrade">Kattintson az frissítéshez</string>
 </resources>

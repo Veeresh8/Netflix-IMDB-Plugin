@@ -5,9 +5,18 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+
+        <item name="toolbar_color">@color/colorPrimary</item>
+        <item name="white_background">#FFF</item>
+        <item name="background_color">#ffff</item>
+        <item name="primary_text_color">#000</item>
+        <item name="white_text">#FFF</item>
+        <item name="secondary_text_color">#4c4c4c</item>
+
         <item name="md_corner_radius">16dp</item>
-        <item name="md_font_title">@font/alegreya_sans_sc_extrabold</item>
-        <item name="md_font_button">@font/alegreya_sans_sc_extrabold</item>
+        <item name="md_font_title">@font/montserrat_semibold</item>
+        <item name="md_font_body">@font/montserrat</item>
+        <item name="md_font_button">@font/montserrat_bold</item>
     </style>
 
     <style name="Theme.Transparent" parent="AppTheme">

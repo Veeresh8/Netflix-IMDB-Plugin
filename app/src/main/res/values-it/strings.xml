@@ -13,4 +13,7 @@
     <string name="enable">Abilita</string>
     <string name="cancel">Annulla</string>
     <string name="service_running">Servizio in esecuzione</string>
+    <string name="text_continue">Prossimo</string>
+    <string name="exhausted_trail_sub_hint">Limite gratuito esaurito</string>
+    <string name="click_to_upgrade">Clicca per l\'aggiornamento</string>
 </resources>

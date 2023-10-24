@@ -13,4 +13,7 @@
     <string name="enable">Etkinleştir</string>
     <string name="cancel">İptal</string>
     <string name="service_running">Hizmet Çalışıyor</string>
+    <string name="text_continue">Sonraki</string>
+    <string name="exhausted_trail_sub_hint">Ücretsiz seviye tükenmiş</string>
+    <string name="click_to_upgrade">Yükseltmek için tıklayın</string>
 </resources>

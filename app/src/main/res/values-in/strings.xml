@@ -13,4 +13,7 @@
     <string name="enable">Aktifkan</string>
     <string name="cancel">Batal</string>
     <string name="service_running">Layanan Berjalan</string>
+    <string name="text_continue">Berikutnya</string>
+    <string name="exhausted_trail_sub_hint">Kuota gratis habis</string>
+    <string name="click_to_upgrade">Klik untuk meng-upgrade</string>
 </resources>

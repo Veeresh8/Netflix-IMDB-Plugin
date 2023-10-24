@@ -13,4 +13,7 @@
     <string name="enable">Ενεργοποίηση</string>
     <string name="cancel">Ακύρωση</string>
     <string name="service_running">Υπηρεσία εκτελείται</string>
+    <string name="text_continue">Επόμενος</string>
+    <string name="exhausted_trail_sub_hint">Δωρεάν πακέτο εξαντλήθηκε</string>
+    <string name="click_to_upgrade">Κάντε κλικ για αναβάθμιση</string>
 </resources>

@@ -13,4 +13,7 @@
     <string name="enable">Aktivera</string>
     <string name="cancel">Avbryt</string>
     <string name="service_running">Tjänsten körs</string>
+    <string name="text_continue">Nästa</string>
+    <string name="exhausted_trail_sub_hint">Gratisnivån förbrukad</string>
+    <string name="click_to_upgrade">Klicka för uppgradering</string>
 </resources>

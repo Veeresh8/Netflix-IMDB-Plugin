@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         tools:context=".Dashboard">
 
@@ -11,8 +11,8 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="64dp"
-            android:elevation="4dp"
-            android:background="@color/colorPrimary">
+            android:background="?attr/toolbar_color"
+            android:elevation="4dp">
 
         <TextView
                 android:id="@+id/tvAppNameHeader"
@@ -20,10 +20,10 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="16dp"
-                android:fontFamily="@font/alegreya_sans_sc_extrabold"
+                android:fontFamily="@font/montserrat_bold"
                 android:text="@string/app_name"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="@color/white"
+                android:textColor="?attr/white_text"
                 android:textSize="24sp" />
 
 
@@ -40,10 +40,10 @@
 
     <LinearLayout
             android:id="@+id/rlHowDoesItWork"
-            android:layout_below="@+id/toolbar"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"
+            android:orientation="vertical">
 
         <TextView
                 android:id="@+id/tvHowDoesItWorkHeader"
@@ -53,23 +53,23 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"
-                android:fontFamily="@font/alegreya_sans_sc_extrabold"
+                android:fontFamily="@font/montserrat_bold"
                 android:text="@string/how_does_it_work"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="#000"
+                android:textColor="?attr/primary_text_color"
                 android:textSize="18sp" />
 
         <TextView
                 android:id="@+id/tvHowDoesItWorkSubHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_centerVertical="true"
-                android:fontFamily="@font/alegreya_sans_sc_extrabold"
+                android:fontFamily="@font/montserrat_medium"
                 android:text="@string/how_does_it_work_sub_header"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="#4c4c4c"
+                android:textColor="?attr/secondary_text_color"
                 android:textSize="16sp" />
 
     </LinearLayout>
@@ -88,12 +88,12 @@
                 android:id="@+id/tvPlanUsageHint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
-                android:fontFamily="@font/alegreya_sans_sc_extrabold"
+                android:fontFamily="@font/montserrat_medium"
                 android:text="@string/usage"
                 android:textAllCaps="true"
-                android:textColor="#000"
+                android:textColor="?attr/primary_text_color"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -102,9 +102,9 @@
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="8dp"
+                android:progressTint="@color/colorPrimary"
+                app:layout_constraintEnd_toEndOf="@+id/tvPlanUsage"
                 app:layout_constraintStart_toStartOf="@+id/tvPlanUsageHint"
                 app:layout_constraintTop_toBottomOf="@+id/tvPlanUsageHint" />
 
@@ -112,26 +112,30 @@
                 android:id="@+id/tvPlanUsage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:fontFamily="@font/alegreya_sans_sc_extrabold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/usageProgressBar"
-                app:layout_constraintTop_toBottomOf="@+id/usageProgressBar"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:textColor="?attr/secondary_text_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="0 / 15" />
 
         <TextView
                 android:id="@+id/tvUpgrade"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
                 android:drawablePadding="8dp"
-                android:fontFamily="@font/alegreya_sans_sc_extrabold"
+                android:fontFamily="@font/montserrat_medium"
                 android:text="@string/upgrade"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/colorPrimary"
                 app:drawableEndCompat="@drawable/baseline_auto_awesome_24"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="@+id/usageProgressBar"
+                app:layout_constraintTop_toBottomOf="@+id/usageProgressBar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -140,7 +144,7 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/white"
+            android:background="?attr/white_background"
             android:elevation="2dp" />
 
     <Button
@@ -155,7 +159,7 @@
             android:layout_marginBottom="24dp"
             android:background="@drawable/language_press_selected"
             android:elevation="4dp"
-            android:fontFamily="@font/alegreya_sans_sc_extrabold"
+            android:fontFamily="@font/montserrat_bold"
             android:text="@string/start_service"
             android:textAllCaps="true"
             android:textColor="@color/white"
@@ -165,18 +169,18 @@
     <TextView
             android:id="@+id/tvServiceEnabledHint"
             android:layout_width="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
-            android:drawablePadding="8dp"
             android:layout_marginBottom="32dp"
+            android:drawablePadding="8dp"
+            android:elevation="4dp"
             android:fontFamily="@font/alegreya_sans_sc_extrabold"
             android:gravity="center"
-            android:elevation="4dp"
-            android:layout_centerHorizontal="true"
             android:text="@string/service_running"
             android:textColor="@color/colorPrimary"
             android:textSize="22sp"

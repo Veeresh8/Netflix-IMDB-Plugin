@@ -13,4 +13,7 @@
     <string name="enable">सक्षम करें</string>
     <string name="cancel">रद्द करें</string>
     <string name="service_running">सेवा चल रही है</string>
+    <string name="text_continue">अगला</string>
+    <string name="exhausted_trail_sub_hint">मुफ्त टियर खत्म हो गया</string>
+    <string name="click_to_upgrade">अपग्रेड के लिए क्लिक करें</string>
 </resources>

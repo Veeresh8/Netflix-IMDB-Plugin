@@ -2,6 +2,9 @@ package com.droid.netflixIMDB
 
 import android.animation.ObjectAnimator
 import android.content.Context
+import android.content.res.Configuration
+import android.os.Handler
+import android.os.Looper
 import android.os.SystemClock
 import android.view.View
 import android.view.animation.Animation
@@ -9,6 +12,7 @@ import android.view.animation.AnimationUtils
 import android.view.animation.DecelerateInterpolator
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.core.app.NotificationManagerCompat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -22,6 +26,10 @@ fun View.visible() {
 
 fun View.gone() {
     this.visibility = View.GONE
+}
+
+fun Context.areNotificationsEnabled(): Boolean {
+    return NotificationManagerCompat.from(this).areNotificationsEnabled()
 }
 
 fun Context.toast(message: String) {
@@ -41,6 +49,11 @@ fun ProgressBar.updateProgressAndAnimate(progress: Int) {
     progressAnimator.duration = 500 // animation duration in milliseconds
     progressAnimator.interpolator = DecelerateInterpolator()
     progressAnimator.start()
+}
+
+private fun Context.isDarkModeOn(): Boolean {
+    val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+    return currentNightMode == Configuration.UI_MODE_NIGHT_YES
 }
 
 

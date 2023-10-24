@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name_accessibility_service">Youtube Ad Skipper Accessibility Service</string>
-    <string name="accessibility_service_description">Accessibility Service needs to be turned on for the app to function correctly</string>
+    <string name="accessibility_service_description">Accessibility Service needs to be turned on for the app to function correctly.</string>
     <string name="exhausted_trail_hint">You\'ve exhausted your free usage. Upgrade to premium for unlimited access.</string>
     <string name="first_ad_skip_hint">Great! We skipped an ad for you.</string>
     <string name="language_selected_hint">Language</string>
@@ -12,4 +12,7 @@
     <string name="enable">Enable</string>
     <string name="cancel">Cancel</string>
     <string name="service_running">Service Running</string>
+    <string name="text_continue">Next</string>
+    <string name="exhausted_trail_sub_hint">Free tier exhausted</string>
+    <string name="click_to_upgrade">Click to upgrade</string>
 </resources>

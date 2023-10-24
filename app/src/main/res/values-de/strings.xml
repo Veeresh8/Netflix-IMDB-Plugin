@@ -13,4 +13,7 @@
     <string name="enable">Aktivieren</string>
     <string name="cancel">Abbrechen</string>
     <string name="service_running">Dienst läuft</string>
+    <string name="text_continue">Nächster</string>
+    <string name="exhausted_trail_sub_hint">Kostenloses Kontingent aufgebraucht</string>
+    <string name="click_to_upgrade">Klicken Sie, um aufzurüsten</string>
 </resources>

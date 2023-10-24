@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -8,6 +8,7 @@
         tools:context=".LanguageActivity">
 
     <RelativeLayout
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="72dp"
             android:background="@color/colorPrimary">
@@ -18,28 +19,46 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="32dp"
-                android:fontFamily="@font/alegreya_sans_sc_extrabold"
+                android:fontFamily="@font/montserrat_bold"
                 android:text="@string/language_selected_hint"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@color/white"
-                android:textSize="32sp" />
-
-
-        <ImageView
-                android:id="@+id/ivLanguageSelectionDone"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="32dp"
-                android:src="@drawable/baseline_arrow_circle_right_48" />
+                android:textSize="24sp" />
 
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvLanguages"
+            android:layout_below="@+id/toolbar"
+            android:paddingBottom="8dp"
+            android:layout_above="@+id/btnSelectedLanguage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:listitem="@layout/item_language" />
 
-</LinearLayout>
+    <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:elevation="2dp" />
+
+    <Button
+            android:id="@+id/btnSelectedLanguage"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/language_press_selected"
+            android:elevation="4dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/text_continue"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:visibility="visible" />
+</RelativeLayout>
