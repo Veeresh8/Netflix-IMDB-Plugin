@@ -39,6 +39,7 @@ class Dashboard : AppCompatActivity() {
     private lateinit var btnStartService: Button
     private lateinit var tvPlanUsage: TextView
     private lateinit var tvUpgrade: TextView
+    private lateinit var tvShowAdSkipHintImage: TextView
     private lateinit var usageProgressBar: ProgressBar
 
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
@@ -58,6 +59,8 @@ class Dashboard : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        ContextUtils.setAppLocale(this, Prefs.getLanguageSelected())
+
         setContentView(R.layout.activity_dashboard)
 
         initUi()
@@ -76,6 +79,7 @@ class Dashboard : AppCompatActivity() {
         tvServiceEnabledHint = findViewById<TextView>(R.id.tvServiceEnabledHint)
         tvPlanUsage = findViewById<TextView>(R.id.tvPlanUsage)
         tvUpgrade = findViewById<TextView>(R.id.tvUpgrade)
+        tvShowAdSkipHintImage = findViewById<TextView>(R.id.tvShowAdSkipHintImage)
         usageProgressBar = findViewById<ProgressBar>(R.id.usageProgressBar)
         tvHowDoesItWorkHeader.paintFlags =
             tvHowDoesItWorkHeader.paintFlags or Paint.UNDERLINE_TEXT_FLAG
@@ -84,6 +88,10 @@ class Dashboard : AppCompatActivity() {
 
         btnStartService.setOnDebouncedClickListener {
             showAccessibilityServiceDialog()
+        }
+
+        tvShowAdSkipHintImage.setOnDebouncedClickListener {
+            ImageShowerActivity.launch(this)
         }
     }
 

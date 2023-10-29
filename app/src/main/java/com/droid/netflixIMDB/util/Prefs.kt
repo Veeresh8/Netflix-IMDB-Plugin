@@ -31,10 +31,10 @@ object Prefs {
         }
     }
 
-    fun getLanguageSelected(): String? {
+    fun getLanguageSelected(): String {
         return getSharedPrefs()?.run {
             getString(LANGUAGE_SELECTED, "us")
-        }
+        } ?: "us"
     }
 
     fun setLanguageSelected(languageCode: String) {

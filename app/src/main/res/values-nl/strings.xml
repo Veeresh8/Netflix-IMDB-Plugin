@@ -16,4 +16,5 @@
     <string name="text_continue">Volgende</string>
     <string name="exhausted_trail_sub_hint">Gratis laaglimiet verbruikt</string>
     <string name="click_to_upgrade">Klik om te upgraden</string>
+    <string name="see_image">Bekijk afbeelding</string>
 </resources>

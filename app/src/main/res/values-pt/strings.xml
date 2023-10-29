@@ -16,4 +16,5 @@
     <string name="text_continue">Próximo</string>
     <string name="exhausted_trail_sub_hint">Limite gratuito esgotado</string>
     <string name="click_to_upgrade">Clique para atualizar</string>
+    <string name="see_image">Ver imagem</string>
 </resources>

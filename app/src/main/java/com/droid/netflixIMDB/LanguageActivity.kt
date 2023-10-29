@@ -28,8 +28,11 @@ class LanguageActivity : AppCompatActivity() {
     private lateinit var tvLanguageHeader: TextView
     private lateinit var languageAdapter: LanguageAdapter
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        ContextUtils.setAppLocale(this, Prefs.getLanguageSelected())
+
         setContentView(R.layout.activity_language)
 
         if (Prefs.shouldShowLanguageSelection()) {
@@ -65,10 +68,8 @@ class LanguageActivity : AppCompatActivity() {
 
             languageAdapter.submitList(updatedList)
 
+            ContextUtils.setAppLocale(this, languageSelected.language.languageCode)
 
-            val appLocale = LocaleListCompat.forLanguageTags(languageSelected.language.languageCode)
-            AppCompatDelegate.setApplicationLocales(appLocale)
-            Prefs.setLanguageSelected(languageSelected.language.languageCode)
             tvLanguageHeader.text = this.resources.getString(R.string.language_selected_hint)
             btnSelectedLanguage.text = this.resources.getString(R.string.text_continue)
         }
@@ -102,7 +103,7 @@ class LanguageActivity : AppCompatActivity() {
                 tvLanguageName.text = languageOption.language.name
                 ivFlag.setImageResource(World.getFlagOf(languageOption.language.languageCode))
 
-                if (languageOption.language.languageCode == Prefs.getLanguageSelected()) {
+                if (languageOption.isSelected) {
                     rootLanguage.isSelected = true
                     tvLanguageName.isSelected = true
                     ivCheck.visible()

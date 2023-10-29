@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
+        android:theme="@style/Theme.MaterialComponents.DayNight"
         android:layout_height="wrap_content">
 
     <TextView
@@ -12,7 +13,7 @@
             android:layout_margin="8dp"
             android:fontFamily="@font/montserrat_semibold"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/language_text_color_selector"
+            android:textColor="?android:attr/textColorPrimary"
             tools:text="Swedish" />
 
     <TextView
@@ -26,7 +27,7 @@
             android:alpha="0.8"
             android:fontFamily="@font/montserrat_semibold"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:textColor="@color/language_text_color_selector"
+            android:textColor="?android:attr/textColorSecondary"
             tools:text="Swedish" />
 
 </RelativeLayout>

@@ -43,6 +43,11 @@ android {
             applicationId "com.droid.netflixIMDB"
         }
     }
+    bundle {
+        language {
+            enableSplit = false
+        }
+    }
 }
 
 dependencies {

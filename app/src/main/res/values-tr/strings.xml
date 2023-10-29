@@ -16,4 +16,5 @@
     <string name="text_continue">Sonraki</string>
     <string name="exhausted_trail_sub_hint">Ücretsiz seviye tükenmiş</string>
     <string name="click_to_upgrade">Yükseltmek için tıklayın</string>
+    <string name="see_image">Resmi gör</string>
 </resources>

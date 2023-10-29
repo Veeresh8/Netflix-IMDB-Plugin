@@ -16,4 +16,5 @@
     <string name="text_continue">Nästa</string>
     <string name="exhausted_trail_sub_hint">Gratisnivån förbrukad</string>
     <string name="click_to_upgrade">Klicka för uppgradering</string>
+    <string name="see_image">Se bild</string>
 </resources>

@@ -11,10 +11,8 @@ import android.os.Build
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import androidx.core.app.Person
-import com.droid.netflixIMDB.Application
 import com.droid.netflixIMDB.Dashboard
 import com.droid.netflixIMDB.R
-import com.droid.netflixIMDB.util.LaunchUtils
 import java.util.UUID
 
 object NotificationManager {
@@ -48,7 +46,7 @@ object NotificationManager {
             "${context.getString(R.string.app_name)} youtube ad skipper notification channel"
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val importance = NotificationManager.IMPORTANCE_HIGH
             val mChannel = NotificationChannel(
                 channelId, context.getString(R.string.app_name), importance
             )
@@ -77,6 +75,7 @@ object NotificationManager {
             .setCustomBigContentView(notificationWithoutImage)
             .setGroup(UUID.randomUUID().toString())
             .setVibrate(longArrayOf(1000, 1000))
+            .setPriority(NotificationCompat.PRIORITY_MAX)
             .setContentText(body)
 
         mBuilder.setContentIntent(getBuyIntent(context, BUY_PREMIUM_NOTIFICATION_ID))
@@ -90,25 +89,6 @@ object NotificationManager {
         launchIntent.putExtra("notification_id", notificationID)
         return PendingIntent.getActivity(
             context, 0, launchIntent, PendingIntent.FLAG_IMMUTABLE
-        )
-    }
-
-    private fun getPlayStoreIntent(context: Context): PendingIntent {
-        val launchIntent = LaunchUtils.getPlaystoreIntent()
-        return PendingIntent.getActivity(
-            context, System.currentTimeMillis().toInt(), launchIntent, PendingIntent.FLAG_IMMUTABLE
-        )
-    }
-
-    private fun getIgnoreIntent(context: Context, notificationID: Int): PendingIntent {
-        val ignoreIntent = Intent(context, NotificationActionReceiver::class.java)
-        ignoreIntent.putExtra("notification_cancel_id", notificationID)
-
-        return PendingIntent.getBroadcast(
-            context,
-            System.currentTimeMillis().toInt(),
-            ignoreIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT
         )
     }
 
@@ -127,9 +107,5 @@ object NotificationManager {
             }
         }
         return false
-    }
-
-    fun getNotificationManager(): NotificationManager? {
-        return Application.instance?.getSystemService(NOTIFICATION_SERVICE) as NotificationManager?
     }
 }

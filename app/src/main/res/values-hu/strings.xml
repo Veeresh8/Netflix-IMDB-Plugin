@@ -16,4 +16,5 @@
     <string name="text_continue">Következő</string>
     <string name="exhausted_trail_sub_hint">Elfogyott a szabad használat</string>
     <string name="click_to_upgrade">Kattintson az frissítéshez</string>
+    <string name="see_image">Képet néz</string>
 </resources>

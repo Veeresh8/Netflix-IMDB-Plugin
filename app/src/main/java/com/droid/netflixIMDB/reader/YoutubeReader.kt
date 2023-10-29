@@ -5,6 +5,7 @@ import android.os.CountDownTimer
 import android.util.Log
 import android.view.accessibility.AccessibilityNodeInfo
 import com.droid.netflixIMDB.Application
+import com.droid.netflixIMDB.ContextUtils
 import com.droid.netflixIMDB.R
 import com.droid.netflixIMDB.areNotificationsEnabled
 import com.droid.netflixIMDB.notifications.NotificationManager
@@ -26,6 +27,7 @@ class YoutubeReader : Reader() {
         nodeTitle.forEach { child ->
             child?.run {
                 if (this.isClickable && this.isVisibleToUser) {
+                    ContextUtils.setAppLocale(context, Prefs.getLanguageSelected().toString())
 
                     if (Prefs.hasExceedLimit()) {
                         if (context.areNotificationsEnabled()) {

@@ -3,6 +3,7 @@ package com.droid.netflixIMDB
 import android.accessibilityservice.AccessibilityService
 import android.accessibilityservice.AccessibilityServiceInfo
 import android.content.Intent
+import android.content.res.Resources
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import com.droid.netflixIMDB.reader.Reader

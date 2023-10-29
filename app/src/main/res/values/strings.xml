@@ -15,4 +15,5 @@
     <string name="text_continue">Next</string>
     <string name="exhausted_trail_sub_hint">Free tier exhausted</string>
     <string name="click_to_upgrade">Click to upgrade</string>
+    <string name="see_image">See image</string>
 </resources>
