@@ -17,4 +17,7 @@
     <string name="exhausted_trail_sub_hint">Ücretsiz seviye tükenmiş</string>
     <string name="click_to_upgrade">Yükseltmek için tıklayın</string>
     <string name="see_image">Resmi gör</string>
+    <string name="change_language">Dil Değiştir</string>
+    <string name="boost_service">Hizmeti Artır</string>
+    <string name="report_problem">Sorun Bildir</string>
 </resources>

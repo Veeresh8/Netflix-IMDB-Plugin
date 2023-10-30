@@ -17,4 +17,7 @@
     <string name="exhausted_trail_sub_hint">मुफ्त टियर खत्म हो गया</string>
     <string name="click_to_upgrade">अपग्रेड के लिए क्लिक करें</string>
     <string name="see_image">चित्र देखें</string>
+    <string name="change_language">भाषा बदलें</string>
+    <string name="boost_service">सेवा को बढ़ावा दें</string>
+    <string name="report_problem">समस्या रिपोर्ट करें</string>
 </resources>

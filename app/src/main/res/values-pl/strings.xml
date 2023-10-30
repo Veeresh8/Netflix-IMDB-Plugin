@@ -17,4 +17,7 @@
     <string name="exhausted_trail_sub_hint">Darmowy pakiet wyczerpany</string>
     <string name="click_to_upgrade">Kliknij, aby zaktualizować</string>
     <string name="see_image">Zobacz obraz</string>
+    <string name="change_language">Zmień język</string>
+    <string name="boost_service">Wzmacnij usługę</string>
+    <string name="report_problem">Zgłoś problem</string>
 </resources>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_accessibility_service">Barrierefreiheitsdienst von Youtube Ad Skipper</string>
-    <string name="accessibility_service_description">Le service d\'accessibilité doit être activé pour que l\'application fonctionne correctement</string>
+    <string name="app_name_accessibility_service">YouTube-Werbung-Überspringen-Zugänglichkeitsdienst</string>
+    <string name="accessibility_service_description">Die Barrierefreiheitsdienste müssen aktiviert sein, damit die App ordnungsgemäß funktioniert</string>
     <string name="exhausted_trail_hint">Ihr kostenloses Kontingent wurde aufgebraucht. Upgrade auf Premium für uneingeschränkten Zugriff</string>
     <string name="first_ad_skip_hint">Großartig! Wir haben eine Anzeige für dich übersprungen.</string>
     <string name="language_selected_hint">Sprache</string>
@@ -17,4 +17,7 @@
     <string name="exhausted_trail_sub_hint">Kostenloses Kontingent aufgebraucht</string>
     <string name="click_to_upgrade">Klicken Sie, um aufzurüsten</string>
     <string name="see_image">Bild anzeigen</string>
+    <string name="change_language">Sprache ändern</string>
+    <string name="boost_service">Service verbessern</string>
+    <string name="report_problem">Problem melden</string>
 </resources>

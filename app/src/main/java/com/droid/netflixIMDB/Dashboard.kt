@@ -11,6 +11,8 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
@@ -24,6 +26,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.droid.netflixIMDB.util.LaunchUtils
 import com.droid.netflixIMDB.util.Prefs
 import com.droid.netflixIMDB.util.ReaderConstants
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.skydoves.balloon.ArrowPositionRules
 import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.BalloonAnimation
@@ -39,6 +42,7 @@ class Dashboard : AppCompatActivity() {
     private lateinit var btnStartService: Button
     private lateinit var tvPlanUsage: TextView
     private lateinit var tvUpgrade: TextView
+    private lateinit var ivInfo: ImageView
     private lateinit var tvShowAdSkipHintImage: TextView
     private lateinit var usageProgressBar: ProgressBar
 
@@ -79,6 +83,7 @@ class Dashboard : AppCompatActivity() {
         tvServiceEnabledHint = findViewById<TextView>(R.id.tvServiceEnabledHint)
         tvPlanUsage = findViewById<TextView>(R.id.tvPlanUsage)
         tvUpgrade = findViewById<TextView>(R.id.tvUpgrade)
+        ivInfo = findViewById<ImageView>(R.id.ivInfo)
         tvShowAdSkipHintImage = findViewById<TextView>(R.id.tvShowAdSkipHintImage)
         usageProgressBar = findViewById<ProgressBar>(R.id.usageProgressBar)
         tvHowDoesItWorkHeader.paintFlags =
@@ -93,6 +98,27 @@ class Dashboard : AppCompatActivity() {
         tvShowAdSkipHintImage.setOnDebouncedClickListener {
             ImageShowerActivity.launch(this)
         }
+
+        ivInfo.setOnDebouncedClickListener {
+            openSettingsBottomMenu()
+        }
+    }
+
+    private fun openSettingsBottomMenu() {
+        val bottomSheetDialog = BottomSheetDialog(this)
+        bottomSheetDialog.setContentView(R.layout.settings_bottom_sheet)
+
+        bottomSheetDialog.findViewById<LinearLayout>(R.id.llChangeLanguage)?.setOnDebouncedClickListener {
+            LanguageActivity.launch(this, true)
+            bottomSheetDialog.show()
+        }
+
+        bottomSheetDialog.findViewById<LinearLayout>(R.id.llBoostService)?.setOnDebouncedClickListener {
+            LaunchUtils.openIgnoreBatteryOptimisations(this)
+            bottomSheetDialog.show()
+        }
+
+        bottomSheetDialog.show()
     }
 
     override fun onResume() {

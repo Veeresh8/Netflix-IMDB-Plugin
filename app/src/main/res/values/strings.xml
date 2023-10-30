@@ -16,4 +16,7 @@
     <string name="exhausted_trail_sub_hint">Free tier exhausted</string>
     <string name="click_to_upgrade">Click to upgrade</string>
     <string name="see_image">See image</string>
+    <string name="change_language">Change Language</string>
+    <string name="boost_service">Boost Service</string>
+    <string name="report_problem">Report Problem</string>
 </resources>

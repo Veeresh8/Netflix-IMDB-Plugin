@@ -17,4 +17,7 @@
     <string name="exhausted_trail_sub_hint">免费套餐已用完</string>
     <string name="click_to_upgrade">单击升级</string>
     <string name="see_image">查看图像</string>
+    <string name="change_language">更改语言</string>
+    <string name="boost_service">提升服务</string>
+    <string name="report_problem">报告问题</string>
 </resources>

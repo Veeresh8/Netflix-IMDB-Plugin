@@ -17,4 +17,7 @@
     <string name="exhausted_trail_sub_hint">Kuota gratis habis</string>
     <string name="click_to_upgrade">Klik untuk meng-upgrade</string>
     <string name="see_image">Lihat gambar</string>
+    <string name="change_language">Ubah Bahasa</string>
+    <string name="boost_service">Tingkatkan Layanan</string>
+    <string name="report_problem">Laporkan Masalah</string>
 </resources>

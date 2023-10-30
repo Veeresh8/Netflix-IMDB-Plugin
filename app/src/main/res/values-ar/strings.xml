@@ -17,4 +17,7 @@
     <string name="exhausted_trail_sub_hint">انتهى الخط الأساسي المجاني</string>
     <string name="click_to_upgrade">انقر للترقية</string>
     <string name="see_image">انظر إلى الصورة</string>
+    <string name="change_language">تغيير اللغة</string>
+    <string name="boost_service">" تعزيز الخدمة"</string>
+    <string name="report_problem">الإبلاغ عن مشكلة</string>
 </resources>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_accessibility_service">Toegankelijkheidsservice voor YouTube-advertenties</string>
+    <string name="app_name_accessibility_service">Service d\'accessibilité pour le saut des annonces YouTube</string>
     <string name="accessibility_service_description">Le service d\'accessibilité doit être activé pour que l\'application fonctionne correctement</string>
     <string name="exhausted_trail_hint">Vous avez épuisé votre utilisation gratuite. Passez à la version premium pour un accès illimité.</string>
     <string name="first_ad_skip_hint">Génial ! Nous avons sauté une publicité pour vous.</string>
@@ -17,4 +17,7 @@
     <string name="exhausted_trail_sub_hint">Limite gratuite épuisée</string>
     <string name="click_to_upgrade">Cliquez pour la mise à niveau</string>
     <string name="see_image">Voir l\'image</string>
+    <string name="change_language">Changer de langue</string>
+    <string name="boost_service">Améliorer le service</string>
+    <string name="report_problem">Signaler un problème</string>
 </resources>

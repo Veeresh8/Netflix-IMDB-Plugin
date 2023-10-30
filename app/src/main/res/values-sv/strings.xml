@@ -17,4 +17,7 @@
     <string name="exhausted_trail_sub_hint">Gratisnivån förbrukad</string>
     <string name="click_to_upgrade">Klicka för uppgradering</string>
     <string name="see_image">Se bild</string>
+    <string name="change_language">Ändra språk</string>
+    <string name="boost_service">Förbättra tjänsten</string>
+    <string name="report_problem">Rapportera problem</string>
 </resources>

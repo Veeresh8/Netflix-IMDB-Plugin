@@ -17,4 +17,7 @@
     <string name="exhausted_trail_sub_hint">Δωρεάν πακέτο εξαντλήθηκε</string>
     <string name="click_to_upgrade">Κάντε κλικ για αναβάθμιση</string>
     <string name="see_image">Δείτε την εικόνα</string>
+    <string name="change_language">Αλλαγή γλώσσας</string>
+    <string name="boost_service">Ενίσχυση υπηρεσίας</string>
+    <string name="report_problem">Αναφορά προβλήματος</string>
 </resources>

@@ -17,4 +17,7 @@
     <string name="exhausted_trail_sub_hint">Gratis laaglimiet verbruikt</string>
     <string name="click_to_upgrade">Klik om te upgraden</string>
     <string name="see_image">Bekijk afbeelding</string>
+    <string name="change_language">Taal wijzigen</string>
+    <string name="boost_service">Service verbeteren</string>
+    <string name="report_problem">Probleem melden</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.droid.netflixIMDB
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -28,6 +29,16 @@ class LanguageActivity : AppCompatActivity() {
     private lateinit var tvLanguageHeader: TextView
     private lateinit var languageAdapter: LanguageAdapter
 
+    companion object {
+
+        const val ARG_CHOOSE_LANGUAGE = "ARG_CHOOSE_LANGUAGE"
+        fun launch(context: Context, chooseLanguageAgain: Boolean = false) {
+            val intent = Intent(context, LanguageActivity::class.java)
+            intent.putExtra(ARG_CHOOSE_LANGUAGE, chooseLanguageAgain)
+            context.startActivity(intent)
+        }
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +46,9 @@ class LanguageActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_language)
 
-        if (Prefs.shouldShowLanguageSelection()) {
+        val chooseLanguageAgain = intent.getBooleanExtra(ARG_CHOOSE_LANGUAGE, false)
+
+        if (Prefs.shouldShowLanguageSelection() || chooseLanguageAgain) {
             initUi()
             initLanguages()
         } else {
@@ -147,7 +160,7 @@ class LanguageActivity : AppCompatActivity() {
     private fun buildLanguageList(isFirstFetch: Boolean = false): List<LanguageOption> {
         val languageOption = arrayListOf<LanguageOption>()
         Language.values().forEachIndexed { index, language ->
-            if (index == 0 && isFirstFetch) {
+            if (Prefs.getLanguageSelected() == language.languageCode && isFirstFetch) {
                 val option = LanguageOption(index, language).copy(isSelected = true)
                 languageOption.add(option)
             } else {

@@ -17,4 +17,7 @@
     <string name="exhausted_trail_sub_hint">Límite gratuito agotado</string>
     <string name="click_to_upgrade">Clic para actualizar</string>
     <string name="see_image">Ver imagen</string>
+    <string name="change_language">Cambiar Idioma</string>
+    <string name="boost_service">Mejorar el servicio</string>
+    <string name="report_problem">Informar un problema</string>
 </resources>
