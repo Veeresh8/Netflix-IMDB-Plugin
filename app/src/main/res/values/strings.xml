@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name_accessibility_service">Youtube Ad Skipper Accessibility Service</string>
+    <string name="app_name_accessibility_service">Ad Skipper Accessibility Service</string>
     <string name="accessibility_service_description">Accessibility Service needs to be turned on for the app to function correctly.</string>
     <string name="exhausted_trail_hint">You\'ve exhausted your free usage. Upgrade to premium for unlimited access.</string>
     <string name="first_ad_skip_hint">Great! We skipped an ad for you.</string>
     <string name="language_selected_hint">Language</string>
     <string name="how_does_it_work">How does it work?</string>
-    <string name="how_does_it_work_sub_header">Once the service is enabled, we will automatically skip Youtube ads for you. Giving you a hands free experience! \n\nNote: This app cannot block Youtube ads but rather skips them.</string>
+    <string name="how_does_it_work_sub_header">This app is customized to exclusively bypass YouTube ads that present a \"Skip\" option after a 5-second countdown. \n\nIt\'s essential to note that this app is designed to interact with ads of this particular kind.</string>
     <string name="start_service">Start Service</string>
     <string name="usage">Usage</string>
     <string name="upgrade">Upgrade</string>
@@ -19,4 +19,8 @@
     <string name="change_language">Change Language</string>
     <string name="boost_service">Boost Service</string>
     <string name="report_problem">Report Problem</string>
+    <string name="premium_user">Premium User</string>
+
+    <string name="infinity" translatable="false">&#8734;</string>
+    <string name="open_youtube">Open YouTube</string>
 </resources>

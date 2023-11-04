@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_accessibility_service">Toegankelijkheidsservice voor YouTube-advertenties</string>
+    <string name="app_name_accessibility_service">Toegankelijkheidsservice voor het overslaan van advertenties</string>
     <string name="accessibility_service_description">De toegankelijkheidsservice moet zijn ingeschakeld om de app correct te laten functioneren</string>
     <string name="exhausted_trail_hint">U heeft uw gratis gebruik opgebruikt. Upgrade naar premium voor onbeperkte toegang.</string>
     <string name="first_ad_skip_hint">Geweldig! We hebben een advertentie voor je overgeslagen.</string>
     <string name="language_selected_hint">Taal</string>
     <string name="how_does_it_work">Hoe werkt het?</string>
-    <string name="how_does_it_work_sub_header">Zodra de service is ingeschakeld, zullen we automatisch YouTube-advertenties voor u overslaan. Hierdoor krijgt u een handsfree-ervaring!\n\nOpmerking: Deze app kan geen YouTube-advertenties blokkeren, maar slaat ze over.</string>
+    <string name="how_does_it_work_sub_header">Deze app is exclusief aangepast om YouTube-advertenties te omzeilen die na een aftelling van 5 seconden de optie \"Overslaan\" weergeven.\n\nHet is belangrijk op te merken dat deze app is ontworpen om met dit specifieke soort advertenties te communiceren.</string>
     <string name="start_service">Start de service</string>
     <string name="usage">Gebruik</string>
     <string name="upgrade">Upgraden</string>
@@ -20,4 +20,6 @@
     <string name="change_language">Taal wijzigen</string>
     <string name="boost_service">Service verbeteren</string>
     <string name="report_problem">Probleem melden</string>
+    <string name="premium_user">Premium Gebruiker</string>
+    <string name="open_youtube">Open YouTube</string>
 </resources>

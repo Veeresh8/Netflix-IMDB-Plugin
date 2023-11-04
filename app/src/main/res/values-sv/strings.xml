@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_accessibility_service">Youtube Ad Skipper tillgänglighetstjänst</string>
+    <string name="app_name_accessibility_service">Tillgänglighetstjänst för reklamskippning</string>
     <string name="accessibility_service_description">Tillgänglighetstjänsten måste vara påslagen för att appen ska fungera korrekt</string>
     <string name="exhausted_trail_hint">Du har utnyttjat din gratisanvändning. Uppgradera till premium för obegränsad tillgång.</string>
     <string name="first_ad_skip_hint">Fantastiskt! Vi hoppade över en annons åt dig.</string>
     <string name="language_selected_hint">Språk</string>
     <string name="how_does_it_work">Hur fungerar det?</string>
-    <string name="how_does_it_work_sub_header">När tjänsten är aktiverad kommer vi automatiskt att hoppa över YouTube-annonserna för dig. Ger dig en handsfree-upplevelse!\n\nObs: Den här appen kan inte blockera YouTube-annonser utan hoppar över dem.</string>
+    <string name="how_does_it_work_sub_header">Den här appen är anpassad för att exklusivt hoppa över YouTube-annonser som visar en \"Hoppa över\" -alternativ efter en 5 sekunders nedräkning.\n\nDet är viktigt att notera att den här appen är utformad för att interagera med annonser av detta särskilda slag.</string>
     <string name="start_service">Starta tjänst</string>
     <string name="usage">Användning</string>
     <string name="upgrade">Uppgradering</string>
@@ -20,4 +20,6 @@
     <string name="change_language">Ändra språk</string>
     <string name="boost_service">Förbättra tjänsten</string>
     <string name="report_problem">Rapportera problem</string>
+    <string name="premium_user">Premiumanvändare</string>
+    <string name="open_youtube">Öppna YouTube</string>
 </resources>

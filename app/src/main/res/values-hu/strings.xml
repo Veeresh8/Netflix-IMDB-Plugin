@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_accessibility_service">Youtube Ad Skipper akadálymentesítési szolgáltatás</string>
+    <string name="app_name_accessibility_service">Hirdetésmegkerülési hozzáférhetőségi szolgáltatás</string>
     <string name="accessibility_service_description">Az alkalmazás megfelelő működéséhez a Kisegítő lehetőségek szolgáltatást be kell kapcsolni</string>
     <string name="exhausted_trail_hint">Kihasználta ingyenes használatát. Frissítse a prémium változatra az korlátlan hozzáféréshez.</string>
     <string name="first_ad_skip_hint">Nagyszerű! Kihagytunk egy hirdetést az Ön számára.</string>
     <string name="language_selected_hint">Nyelv</string>
     <string name="how_does_it_work">Hogyan működik?</string>
-    <string name="how_does_it_work_sub_header">Miután a szolgáltatás engedélyezve lett, automatikusan átugorjuk a YouTube-hirdetéseket önnek. Egy kéz nélküli élményt nyújtunk Önnek!\n\nMegjegyzés: Ez az alkalmazás nem tudja blokkolni a YouTube-hirdetéseket, hanem átugorja azokat.</string>
+    <string name="how_does_it_work_sub_header">Ez az alkalmazás kizárólag azoknak a YouTube-hirdetéseknek a kikerülésére lett szabva, amelyek egy 5 másodperces visszaszámlálás után mutatják a \"Kihagyás\" opciót.\n\nFontos megjegyezni, hogy ez az alkalmazás kifejezetten ennek a különleges típusú hirdetésnek a kezelésére lett tervezve.</string>
     <string name="start_service">Szolgáltatás indítása</string>
     <string name="usage">Használat</string>
     <string name="upgrade">Frissítés</string>
@@ -20,4 +20,6 @@
     <string name="change_language">Nyelv megváltoztatása</string>
     <string name="boost_service">Szolgáltatás fokozása</string>
     <string name="report_problem">Probléma jelentése</string>
+    <string name="premium_user">Prémium Felhasználó</string>
+    <string name="open_youtube">Nyissa meg a YouTube-ot</string>
 </resources>

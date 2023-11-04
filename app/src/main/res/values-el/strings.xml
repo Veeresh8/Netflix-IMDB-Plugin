@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_accessibility_service">Υπηρεσία προσβασιμότητας στο YouTube Ad Skipper</string>
+    <string name="app_name_accessibility_service">Υπηρεσία προσβασιμότητας για την παράκαμψη διαφημίσεων</string>
     <string name="accessibility_service_description">Η Υπηρεσία Προσβασιμότητας πρέπει να είναι ενεργοποιημένη για να λειτουργεί σωστά η εφαρμογή</string>
     <string name="exhausted_trail_hint">Έχετε εξαντλήσει τη δωρεάν χρήση σας. Αναβαθμίστε στο premium για απεριόριστη πρόσβαση</string>
     <string name="first_ad_skip_hint">Εξαιρετικό! Παραλείψαμε μια διαφήμιση για εσάς.</string>
     <string name="language_selected_hint">Γλώσσα</string>
     <string name="how_does_it_work">Πώς λειτουργεί;</string>
-    <string name="how_does_it_work_sub_header">Μόλις ενεργοποιηθεί η υπηρεσία, θα παραλείπουμε αυτόματα τις διαφημίσεις του YouTube για εσάς. Σας προσφέρουμε μια χειρουργική εμπειρία!\n\nΣημείωση: Αυτή η εφαρμογή δεν μπορεί να αποκλείσει τις διαφημίσεις του YouTube, αλλά να τις παραλείπει.</string>
+    <string name="how_does_it_work_sub_header">Αυτή η εφαρμογή προσαρμόζεται αποκλειστικά για την παράκαμψη διαφημίσεων στο YouTube που παρουσιάζουν την επιλογή \"Παράλειψη\" μετά από αντίστροφη μέτρηση 5 δευτερολέπτων.\n\nΕίναι σημαντικό να σημειωθεί ότι αυτή η εφαρμογή είναι σχεδιασμένη για να αλληλεπιδρά με διαφημίσεις αυτού του συγκεκριμένου είδους.</string>
     <string name="start_service">Εκκίνηση υπηρεσίας</string>
     <string name="usage">Χρήση</string>
     <string name="upgrade">Αναβάθμιση</string>
@@ -20,4 +20,6 @@
     <string name="change_language">Αλλαγή γλώσσας</string>
     <string name="boost_service">Ενίσχυση υπηρεσίας</string>
     <string name="report_problem">Αναφορά προβλήματος</string>
+    <string name="premium_user">Χρήστης Premium</string>
+    <string name="open_youtube">Ανοίξτε το YouTube</string>
 </resources>

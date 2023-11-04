@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_accessibility_service">خدمة إمكانية الوصول لإعلانات YouTube Skipper</string>
+    <string name="app_name_accessibility_service">خدمة إمكانية الوصول لتخطي الإعلانات</string>
     <string name="accessibility_service_description">يجب تشغيل خدمة إمكانية الوصول حتى يعمل التطبيق بشكل صحيح</string>
     <string name="exhausted_trail_hint">لقد استنفذت استخدامك المجاني. قم بالترقية إلى النسخة المميزة للوصول غير المحدود.</string>
     <string name="first_ad_skip_hint">رائع! لقد تخطينا إعلانًا من أجلك.</string>
     <string name="language_selected_hint">لغة</string>
     <string name="how_does_it_work">كيف يعمل ذلك؟</string>
-    <string name="how_does_it_work_sub_header">بمجرد تفعيل الخدمة، سنقوم بتخطي إعلانات يوتيوب تلقائيًا بالنسبة لك، مما يمنحك تجربة خالية من الإعلانات! \n\nملاحظة: لا يمكن لهذا التطبيق حظر إعلانات يوتيوب، بل يقوم بتخطيه</string>
+    <string name="how_does_it_work_sub_header">هذا التطبيق مخصص حصراً لتجاوز إعلانات يوتيوب التي تعرض خيار \"تخطي\" بعد عداد عكسي لمدة 5 ثواني.\n\nمن الضروري أن نلاحظ أن هذا التطبيق مصمم للتفاعل مع الإعلانات من هذا النوع الخاص.</string>
     <string name="start_service">بدء الخدمة</string>
     <string name="usage">استخدام</string>
     <string name="upgrade">ترقية</string>
@@ -20,4 +20,6 @@
     <string name="change_language">تغيير اللغة</string>
     <string name="boost_service">" تعزيز الخدمة"</string>
     <string name="report_problem">الإبلاغ عن مشكلة</string>
+    <string name="premium_user">مستخدم مميز</string>
+    <string name="open_youtube">افتح يوتيوب</string>
 </resources>

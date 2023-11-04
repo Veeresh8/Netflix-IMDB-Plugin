@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_accessibility_service">Service d\'accessibilité pour le saut des annonces YouTube</string>
+    <string name="app_name_accessibility_service">Service d\'accessibilité pour le saut de publicités</string>
     <string name="accessibility_service_description">Le service d\'accessibilité doit être activé pour que l\'application fonctionne correctement</string>
     <string name="exhausted_trail_hint">Vous avez épuisé votre utilisation gratuite. Passez à la version premium pour un accès illimité.</string>
     <string name="first_ad_skip_hint">Génial ! Nous avons sauté une publicité pour vous.</string>
     <string name="language_selected_hint">Langue</string>
     <string name="how_does_it_work">Comment ça marche ?</string>
-    <string name="how_does_it_work_sub_header">Une fois le service activé, nous passerons automatiquement les annonces YouTube pour vous. Vous offrant une expérience mains libres !\n\nNote : Cette application ne peut pas bloquer les annonces YouTube, mais les saute.</string>
+    <string name="how_does_it_work_sub_header">Cette application est personnalisée pour exclusivement contourner les publicités YouTube qui présentent une option \"Passer\" après un décompte de 5 secondes.\n\nIl est essentiel de noter que cette application est conçue pour interagir avec des publicités de ce type particulier.</string>
     <string name="start_service">Démarrer le service</string>
     <string name="usage">Utilisation</string>
     <string name="upgrade">Mise à niveau</string>
@@ -20,4 +20,6 @@
     <string name="change_language">Changer de langue</string>
     <string name="boost_service">Améliorer le service</string>
     <string name="report_problem">Signaler un problème</string>
+    <string name="premium_user">Utilisateur Premium</string>
+    <string name="open_youtube">Ouvrir YouTube</string>
 </resources>

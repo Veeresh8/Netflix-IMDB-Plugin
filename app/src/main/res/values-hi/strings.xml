@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_accessibility_service">यूट्यूब एड स्किपर एक्सेसिबिलिटी सेवा</string>
+    <string name="app_name_accessibility_service">विज्ञापन स्किपर पहुँचन सेवा</string>
     <string name="accessibility_service_description">ऐप के सही ढंग से काम करने के लिए एक्सेसिबिलिटी सर्विस को चालू करना होगा</string>
     <string name="exhausted_trail_hint">आपने अपने मुफ़्त उपयोग का सीमा तक उपयोग कर लिया है। असीमित पहुँच के लिए प्रीमियम पर अपग्रेड करें।</string>
     <string name="first_ad_skip_hint">शानदार! हमने आपके लिए एक विज्ञापन को छोड़ दिया।</string>
     <string name="language_selected_hint">भाषा</string>
     <string name="how_does_it_work">यह कैसे काम करता है?</string>
-    <string name="how_does_it_work_sub_header">जब सेवा सक्रिय होती है, हम आपके लिए यूट्यूब के विज्ञापनों को स्वच्छंद रूप से छोड़ देंगे। आपको हैंड्स-फ्री अनुभव प्राप्त होगा!\n\nनोट: इस ऐप के द्वारा यूट्यूब के विज्ञापनों को नहीं ब्लॉक किया जा सकता है, बल्कि उन्हें छोड़ दिया जाता है।</string>
+    <string name="how_does_it_work_sub_header">इस एप्लिकेशन को समय पर 5-सेकंड डाउन काउंट के बाद \"स्किप\" विकल्प प्रस्तुत करने वाले यूट्यूब विज्ञापनों को केवल छोड़ने के लिए विशेष रूप से अनुकूलित किया गया है।\n\nइसे ध्यान में रखना महत्वपूर्ण है कि इस ऐप का डिज़ाइन इस विशेष प्रकार के विज्ञापनों के साथ संवाद करने के लिए किया गया है.</string>
     <string name="start_service">सेवा शुरू करें</string>
     <string name="usage">उपयोग</string>
     <string name="upgrade">अपग्रेड</string>
@@ -20,4 +20,6 @@
     <string name="change_language">भाषा बदलें</string>
     <string name="boost_service">सेवा को बढ़ावा दें</string>
     <string name="report_problem">समस्या रिपोर्ट करें</string>
+    <string name="premium_user">प्रीमियम उपयोगकर्ता</string>
+    <string name="open_youtube">YouTube खोल</string>
 </resources>

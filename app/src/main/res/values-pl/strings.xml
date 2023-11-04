@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_accessibility_service">Usługa dostępności Skippera reklam YouTube</string>
+    <string name="app_name_accessibility_service">Usługa dostępności do pomijania reklam</string>
     <string name="accessibility_service_description">Usługa ułatwień dostępu musi być włączona, aby aplikacja działała poprawnie</string>
     <string name="exhausted_trail_hint">Wyczerpałeś darmowy limit. Przejdź na premium, aby uzyskać nieograniczony dostęp.</string>
     <string name="first_ad_skip_hint">Świetnie! Pominięto reklamę dla ciebie.</string>
     <string name="language_selected_hint">Język</string>
     <string name="how_does_it_work">Jak to działa?</string>
-    <string name="how_does_it_work_sub_header">Po aktywowaniu usługi automatycznie pominiemy reklamy na YouTube dla Ciebie. Zapewnimy Ci wygodne korzystanie bez konieczności interakcji!\n\nUwaga: Ta aplikacja nie blokuje reklam na YouTube, tylko je pomija.</string>
+    <string name="how_does_it_work_sub_header">Ta aplikacja została dostosowana wyłącznie do pomijania reklam na YouTube, które prezentują opcję \"Pomiń\" po odliczeniu 5 sekund.\n\nWażne jest zaznaczyć, że ta aplikacja jest przeznaczona do współpracy z reklamami tego konkretnego rodzaju.</string>
     <string name="start_service">Uruchom usługę</string>
     <string name="usage">Użycie</string>
     <string name="upgrade">Aktualizacja</string>
@@ -20,4 +20,6 @@
     <string name="change_language">Zmień język</string>
     <string name="boost_service">Wzmacnij usługę</string>
     <string name="report_problem">Zgłoś problem</string>
+    <string name="premium_user">Użytkownik Premium</string>
+    <string name="open_youtube">Otwórz YouTube</string>
 </resources>

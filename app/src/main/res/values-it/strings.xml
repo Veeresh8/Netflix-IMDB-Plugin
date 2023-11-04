@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_accessibility_service">Servizio di accessibilità per skipper annunci YouTube</string>
+    <string name="app_name_accessibility_service">Servizio di Accessibilità per il Salto delle Pubblicità</string>
     <string name="accessibility_service_description">Il servizio di accessibilità deve essere attivato affinché l\'app funzioni correttamente</string>
     <string name="exhausted_trail_hint">Hai esaurito l\'utilizzo gratuito. Passa a premium per un accesso illimitato.</string>
     <string name="first_ad_skip_hint">Fantastico! Abbiamo saltato una pubblicità per te.</string>
     <string name="language_selected_hint">Lingua</string>
     <string name="how_does_it_work">Come funziona?</string>
-    <string name="how_does_it_work_sub_header">Una volta attivato il servizio, salteremo automaticamente gli annunci su YouTube per te. Ti offriamo un\'esperienza senza interruzioni! \n\nNota: Questa app non può bloccare gli annunci su YouTube, ma li salta.</string>
+    <string name="how_does_it_work_sub_header">Questa app è personalizzata per evitare esclusivamente gli annunci pubblicitari di YouTube che presentano l\'opzione \"Salta\" dopo un conto alla rovescia di 5 secondi.\n\nÈ essenziale notare che questa app è progettata per interagire con annunci di questo tipo particolare.</string>
     <string name="start_service">Avvia il servizio</string>
     <string name="usage">Utilizzo</string>
     <string name="upgrade">Aggiornamento</string>
@@ -20,4 +20,6 @@
     <string name="change_language">Cambia lingua</string>
     <string name="boost_service">Potenzia il servizio</string>
     <string name="report_problem">Segnala problema</string>
+    <string name="premium_user">Utente Premium</string>
+    <string name="open_youtube">Apri YouTube</string>
 </resources>

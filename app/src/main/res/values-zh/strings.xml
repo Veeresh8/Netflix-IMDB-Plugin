@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_accessibility_service">YouTube 广告船长无障碍服务</string>
+    <string name="app_name_accessibility_service">广告跳过辅助服务</string>
     <string name="accessibility_service_description">需要打开辅助功能服务才能使应用程序正常运行</string>
     <string name="exhausted_trail_hint">您已经用完了免费使用次数。升级到高级版以获取无限访问</string>
     <string name="first_ad_skip_hint">太好了！我们为您跳过了一则广告。</string>
     <string name="language_selected_hint">语言</string>
     <string name="how_does_it_work">它是如何工作的？</string>
-    <string name="how_does_it_work_sub_header">一旦启用该服务，我们将自动为您跳过YouTube广告。为您提供一种无需操控的体验！\n\n注意：此应用无法阻止YouTube广告，而是跳过它们。</string>
+    <string name="how_does_it_work_sub_header">本应用程序专为跳过5秒倒计时后显示“跳过”选项的YouTube广告而定制。\n\n值得注意的是，此应用程序专为与此类广告互动而设计。</string>
     <string name="start_service">启动服务</string>
     <string name="usage">用法</string>
     <string name="upgrade">升级</string>
@@ -20,4 +20,6 @@
     <string name="change_language">更改语言</string>
     <string name="boost_service">提升服务</string>
     <string name="report_problem">报告问题</string>
+    <string name="premium_user">付费用户</string>
+    <string name="open_youtube">打开YouTube</string>
 </resources>

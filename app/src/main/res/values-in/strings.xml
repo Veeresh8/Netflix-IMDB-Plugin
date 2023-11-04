@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_accessibility_service">Layanan Aksesibilitas Skipper Iklan Youtube</string>
+    <string name="app_name_accessibility_service">Layanan Aksesibilitas untuk Melewati Iklan</string>
     <string name="accessibility_service_description">Layanan Aksesibilitas perlu diaktifkan agar aplikasi berfungsi dengan benar</string>
     <string name="exhausted_trail_hint">Anda telah menghabiskan kuota penggunaan gratis Anda. Tingkatkan ke premium untuk akses tanpa batas</string>
     <string name="first_ad_skip_hint">Bagus! Kami melewati iklan untuk Anda.</string>
     <string name="language_selected_hint">Bahasa</string>
     <string name="how_does_it_work">Bagaimana cara kerjanya?</string>
-    <string name="how_does_it_work_sub_header">Setelah layanan diaktifkan, kami akan otomatis melewatkan iklan YouTube untuk Anda. Memberikan pengalaman bebas gangguan! \n\nCatatan: Aplikasi ini tidak dapat memblokir iklan YouTube tetapi melewatinya.</string>
+    <string name="how_does_it_work_sub_header">Aplikasi ini disesuaikan secara khusus untuk menghindari iklan YouTube yang menampilkan opsi \"Lewati\" setelah hitungan mundur 5 detik.\n\nPenting untuk dicatat bahwa aplikasi ini dirancang untuk berinteraksi dengan iklan jenis tertentu ini.</string>
     <string name="start_service">Memulai Layanan</string>
     <string name="usage">Penggunaan</string>
     <string name="upgrade">Peningkatan</string>
@@ -20,4 +20,6 @@
     <string name="change_language">Ubah Bahasa</string>
     <string name="boost_service">Tingkatkan Layanan</string>
     <string name="report_problem">Laporkan Masalah</string>
+    <string name="premium_user">Pengguna Premium</string>
+    <string name="open_youtube">Buka YouTube</string>
 </resources>

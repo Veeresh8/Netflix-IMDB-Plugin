@@ -118,7 +118,7 @@ class LanguageActivity : AppCompatActivity() {
 
                 if (languageOption.isSelected) {
                     rootLanguage.isSelected = true
-                    tvLanguageName.isSelected = true
+                     tvLanguageName.isSelected = true
                     ivCheck.visible()
                 } else {
                     ivCheck.gone()

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_accessibility_service">Serviço de acessibilidade do YouTube Ad Skipper</string>
+    <string name="app_name_accessibility_service">Serviço de Acessibilidade para Saltar Anúncios</string>
     <string name="accessibility_service_description">O serviço de acessibilidade precisa estar ativado para que o aplicativo funcione corretamente</string>
     <string name="exhausted_trail_hint">Você esgotou o uso gratuito. Faça upgrade para premium para acesso ilimitado.</string>
     <string name="first_ad_skip_hint">Ótimo! Poupamos um anúncio para você.</string>
     <string name="language_selected_hint">Língua</string>
     <string name="how_does_it_work">Como funciona?</string>
-    <string name="how_does_it_work_sub_header">Assim que o serviço for ativado, iremos automaticamente ignorar os anúncios do YouTube para você. Proporcionando uma experiência sem intervenção!\n\nNota: Este aplicativo não pode bloquear os anúncios do YouTube, apenas os ignora.</string>
+    <string name="how_does_it_work_sub_header">Este aplicativo foi personalizado exclusivamente para ignorar anúncios do YouTube que apresentam a opção \"Pular\" após uma contagem regressiva de 5 segundos.\n\nÉ importante notar que este aplicativo foi projetado para interagir com anúncios deste tipo específico.</string>
     <string name="start_service">Iniciar Serviço</string>
     <string name="usage">Uso</string>
     <string name="upgrade">Atualização</string>
@@ -20,4 +20,6 @@
     <string name="change_language">Alterar Idioma</string>
     <string name="boost_service">Impulsionar o serviço</string>
     <string name="report_problem">Relatar Problema</string>
+    <string name="premium_user">Usuário Premium</string>
+    <string name="open_youtube">Abrir o YouTube</string>
 </resources>

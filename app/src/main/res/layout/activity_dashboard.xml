@@ -74,8 +74,8 @@
                 android:id="@+id/tvShowAdSkipHintImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:drawablePadding="8dp"
                 android:fontFamily="@font/montserrat_medium"
@@ -88,13 +88,14 @@
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
+            android:id="@+id/statusLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rlHowDoesItWork"
             android:layout_marginStart="16dp"
             android:layout_marginTop="64dp"
             android:layout_marginEnd="16dp"
+            android:animateLayoutChanges="true"
             android:background="@android:drawable/editbox_background_normal">
 
         <TextView
@@ -144,7 +145,26 @@
                 android:text="@string/upgrade"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/colorPrimary"
+                android:visibility="visible"
                 app:drawableEndCompat="@drawable/baseline_auto_awesome_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/usageProgressBar"
+                app:layout_constraintTop_toBottomOf="@+id/usageProgressBar" />
+
+        <TextView
+                android:id="@+id/tvPremiumHint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:drawablePadding="8dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="@string/premium_user"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/colorPrimary"
+                android:visibility="gone"
+                app:drawableStartCompat="@drawable/baseline_stars_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/usageProgressBar"
@@ -176,28 +196,26 @@
             android:text="@string/start_service"
             android:textAllCaps="true"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:visibility="visible" />
 
-    <TextView
-            android:id="@+id/tvServiceEnabledHint"
-            android:layout_width="wrap_content"
+    <Button
+            android:id="@+id/btnYoutube"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="32dp"
-            android:drawablePadding="8dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/language_press_selected"
             android:elevation="4dp"
-            android:fontFamily="@font/alegreya_sans_sc_extrabold"
-            android:gravity="center"
-            android:text="@string/service_running"
-            android:textColor="@color/colorPrimary"
-            android:textSize="22sp"
-            android:visibility="gone"
-            app:drawableStartCompat="@drawable/baseline_check_24" />
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/open_youtube"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:visibility="gone" />
 
 </RelativeLayout>

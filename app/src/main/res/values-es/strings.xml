@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_accessibility_service">Servicio de accesibilidad de Youtube Ad Skipper</string>
+    <string name="app_name_accessibility_service">Servicio de Accesibilidad para Saltar Anuncios</string>
     <string name="accessibility_service_description">El servicio de accesibilidad debe estar activado para que la aplicación funcione correctamente</string>
     <string name="exhausted_trail_hint">Has agotado tu uso gratuito. Actualiza a premium para acceso ilimitado.</string>
     <string name="first_ad_skip_hint">¡Genial! Hemos saltado un anuncio para ti.</string>
     <string name="language_selected_hint">Idioma</string>
     <string name="how_does_it_work">¿Cómo funciona?</string>
-    <string name="how_does_it_work_sub_header">Una vez activado el servicio, saltaremos automáticamente los anuncios de YouTube para ti. ¡Ofreciéndote una experiencia manos libres!\n\nNota: Esta aplicación no puede bloquear los anuncios de YouTube, sino que los salta.</string>
+    <string name="how_does_it_work_sub_header">Esta aplicación está personalizada exclusivamente para omitir anuncios de YouTube que presentan la opción \"Saltar\" después de una cuenta regresiva de 5 segundos.\n\nEs importante destacar que esta aplicación está diseñada para interactuar con anuncios de este tipo en particular.</string>
     <string name="start_service">Iniciar Servicio</string>
     <string name="usage">Uso</string>
     <string name="upgrade">Actualización</string>
@@ -20,4 +20,6 @@
     <string name="change_language">Cambiar Idioma</string>
     <string name="boost_service">Mejorar el servicio</string>
     <string name="report_problem">Informar un problema</string>
+    <string name="premium_user">Usuario Premium</string>
+    <string name="open_youtube">Abrir YouTube</string>
 </resources>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_accessibility_service">YouTube-Werbung-Überspringen-Zugänglichkeitsdienst</string>
+    <string name="app_name_accessibility_service">Werbeanzeigen-Skipper-Zugänglichkeitsdienst</string>
     <string name="accessibility_service_description">Die Barrierefreiheitsdienste müssen aktiviert sein, damit die App ordnungsgemäß funktioniert</string>
     <string name="exhausted_trail_hint">Ihr kostenloses Kontingent wurde aufgebraucht. Upgrade auf Premium für uneingeschränkten Zugriff</string>
     <string name="first_ad_skip_hint">Großartig! Wir haben eine Anzeige für dich übersprungen.</string>
     <string name="language_selected_hint">Sprache</string>
     <string name="how_does_it_work">Wie funktioniert das?</string>
-    <string name="how_does_it_work_sub_header">Sobald der Service aktiviert ist, überspringen wir automatisch YouTube-Werbung für Sie. Das ermöglicht Ihnen eine werbefreie Erfahrung!\n\nHinweis: Diese App kann keine YouTube-Werbung blockieren, sondern sie lediglich überspringen.</string>
+    <string name="how_does_it_work_sub_header">Diese App ist speziell darauf ausgerichtet, YouTube-Werbeanzeigen zu umgehen, die nach einem 5-sekündigen Countdown die Option \"Überspringen\" anzeigen.\n\nEs ist wichtig zu beachten, dass diese App darauf ausgelegt ist, mit Anzeigen dieses bestimmten Typs zu interagieren.</string>
     <string name="start_service">Dienst starten</string>
     <string name="usage">Verwendung</string>
     <string name="upgrade">Upgrade</string>
@@ -20,4 +20,6 @@
     <string name="change_language">Sprache ändern</string>
     <string name="boost_service">Service verbessern</string>
     <string name="report_problem">Problem melden</string>
+    <string name="premium_user">Premium-Benutzer</string>
+    <string name="open_youtube">YouTube öffnen</string>
 </resources>
