@@ -104,6 +104,8 @@ class Dashboard : AppCompatActivity() {
                     tvPremiumHint.visible()
                     Prefs.setIsPremiumUser(true)
                     checkUsage()
+
+                    Application.mixpanel.track("Purchase Successful")
                 }
             }
         }
