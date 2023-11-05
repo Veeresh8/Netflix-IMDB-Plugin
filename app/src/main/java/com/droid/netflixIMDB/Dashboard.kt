@@ -53,7 +53,7 @@ class Dashboard : AppCompatActivity() {
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
     private var dialog: MaterialDialog? = null
 
-    val billingViewModel by viewModels<BillingViewModel>()
+    private val billingViewModel by viewModels<BillingViewModel>()
 
     private val TAG = "Dashboard"
 
@@ -83,27 +83,27 @@ class Dashboard : AppCompatActivity() {
 
         requestPermissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
-
-        initBilling()
     }
 
     private fun initBilling() {
         billingViewModel.billingConnectionState.observe(this) { hasLoaded ->
-            Log.e(TAG, "Billing init: $hasLoaded")
+            Log.i(TAG, "Billing init: $hasLoaded")
         }
 
         billingViewModel.destinationScreen.observe(this) {
             when (it) {
                 BillingViewModel.DestinationScreen.SUBSCRIPTIONS_OPTIONS_SCREEN -> {
-                    toast("Normal user")
+                    Log.e(TAG, "SUBSCRIPTIONS_OPTIONS_SCREEN")
                     Prefs.setIsPremiumUser(false)
+                    checkUsage()
                 }
 
                 BillingViewModel.DestinationScreen.BASIC_RENEWABLE_PROFILE -> {
-                    toast("Premium user")
+                    Log.e(TAG, "BASIC_RENEWABLE_PROFILE")
                     tvUpgrade.gone()
                     tvPremiumHint.visible()
                     Prefs.setIsPremiumUser(true)
+                    checkUsage()
                 }
             }
         }
@@ -139,16 +139,29 @@ class Dashboard : AppCompatActivity() {
 
         btnStartService = findViewById<Button>(R.id.btnStartService)
 
-        btnStartService.setOnDebouncedClickListener { showAccessibilityServiceDialog() }
+        btnStartService.setOnDebouncedClickListener {
+            showAccessibilityServiceDialog()
+            Application.mixpanel.track("clicked start service")
+        }
 
-        btnYoutube.setOnDebouncedClickListener { LaunchUtils.launchAppWithPackageName(this, "com.google.android.youtube") }
+        btnYoutube.setOnDebouncedClickListener {
+            LaunchUtils.launchAppWithPackageName(this, "com.google.android.youtube")
+            Application.mixpanel.track("clicked open youtube")
+        }
 
-        tvShowAdSkipHintImage.setOnDebouncedClickListener { ImageShowerActivity.launch(this) }
+        tvShowAdSkipHintImage.setOnDebouncedClickListener {
+            ImageShowerActivity.launch(this)
+            Application.mixpanel.track("clicked see image hint")
+        }
 
-        ivInfo.setOnDebouncedClickListener { openSettingsBottomMenu() }
+        ivInfo.setOnDebouncedClickListener {
+            openSettingsBottomMenu()
+            Application.mixpanel.track("clicked settings")
+        }
 
         tvUpgrade.setOnDebouncedClickListener {
             launchPurchaseScreen()
+            Application.mixpanel.track("clicked upgrade")
         }
     }
 
@@ -159,13 +172,22 @@ class Dashboard : AppCompatActivity() {
         bottomSheetDialog
             .findViewById<LinearLayout>(R.id.llChangeLanguage)
             ?.setOnDebouncedClickListener {
+                Application.mixpanel.track("clicked change language")
                 LanguageActivity.launch(this, true)
                 bottomSheetDialog.show()
             }
 
         bottomSheetDialog.findViewById<LinearLayout>(R.id.llBoostService)
             ?.setOnDebouncedClickListener {
+                Application.mixpanel.track("clicked boost service")
                 LaunchUtils.openIgnoreBatteryOptimisations(this)
+                bottomSheetDialog.show()
+            }
+
+        bottomSheetDialog.findViewById<LinearLayout>(R.id.llReportProblem)
+            ?.setOnDebouncedClickListener {
+                Application.mixpanel.track("clicked report problem")
+                LaunchUtils.sendFeedbackIntent(this)
                 bottomSheetDialog.show()
             }
 
@@ -176,6 +198,7 @@ class Dashboard : AppCompatActivity() {
         super.onResume()
         checkAccessibilitySettings()
         checkUsage()
+        initBilling()
     }
 
     @SuppressLint("SetTextI18n")
@@ -194,6 +217,9 @@ class Dashboard : AppCompatActivity() {
         if (Prefs.getSkipCount() >= ReaderConstants.MAX_LIMIT) {
             showUpgradeHint()
         }
+
+        Application.mixpanel.track("Usage: ${tvPlanUsage.text.toString()}")
+        Application.mixpanel.track("IsPremium User: ${Prefs.getIsPremiumUser()}")
     }
 
     private fun showAccessibilityServiceDialog() {
@@ -211,8 +237,12 @@ class Dashboard : AppCompatActivity() {
                 .positiveButton(text = enableString) {
                     LaunchUtils.launchAccessibilityScreen(this)
                     dialog?.dismiss()
+                    Application.mixpanel.track("clicked enabled acc service")
                 }
-                .negativeButton(text = cancelString) { dialog?.dismiss() }
+                .negativeButton(text = cancelString) {
+                    dialog?.dismiss()
+                    Application.mixpanel.track("clicked cancel on acc service")
+                }
 
         dialog?.show()
     }
@@ -224,7 +254,9 @@ class Dashboard : AppCompatActivity() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 checkNotificationPermission()
             }
+            Application.mixpanel.track("onResume: acc service is enabled")
         } else {
+            Application.mixpanel.track("onResume: acc service is disable")
             btnYoutube.gone()
             btnStartService.visible()
 
@@ -275,7 +307,10 @@ class Dashboard : AppCompatActivity() {
             ) !=
             PackageManager.PERMISSION_GRANTED
         ) {
+            Application.mixpanel.track("granted push notification permission")
             requestPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+        } else {
+            Application.mixpanel.track("declined push notification permission")
         }
     }
 

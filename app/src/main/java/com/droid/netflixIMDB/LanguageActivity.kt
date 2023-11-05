@@ -11,14 +11,13 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.os.LocaleListCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.blongho.country_data.World
 import com.droid.netflixIMDB.util.Prefs
+import org.json.JSONObject
 
 
 class LanguageActivity : AppCompatActivity() {
@@ -64,6 +63,7 @@ class LanguageActivity : AppCompatActivity() {
         btnSelectedLanguage.setOnDebouncedClickListener {
             Dashboard.launch(this)
             Prefs.setHasSelectedLanguageScreen()
+            Application.mixpanel.track("language_selected: ${Prefs.getLanguageSelected()}")
         }
     }
 

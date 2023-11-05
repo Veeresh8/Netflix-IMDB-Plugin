@@ -11,7 +11,6 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <queries>
-        <package android:name="com.netflix.mediaclient" />
         <package android:name="com.google.android.youtube" />
     </queries>
 
@@ -26,29 +25,24 @@
             tools:replace="android:allowBackup">
         <activity
                 android:name=".ImageShowerActivity"
-                android:exported="false" />
-
-
-
+                android:exported="false"
+                android:screenOrientation="portrait" />
         <activity
                 android:name=".Dashboard"
                 android:configChanges="uiMode"
-                android:exported="false" />
+                android:exported="false"
+                android:screenOrientation="portrait" />
         <activity
                 android:name=".LanguageActivity"
                 android:configChanges="uiMode"
-                android:exported="true">
+                android:exported="true"
+                android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- <activity -->
-        <!-- android:name=".MainActivity" -->
-        <!-- android:exported="true" -->
-        <!-- android:launchMode="singleTop" -->
-        <!-- android:screenOrientation="portrait"/> -->
-        <!--  -->
+        </activity>
         <service
                 android:name=".ReaderService"
                 android:exported="true"
@@ -57,17 +51,9 @@
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
-
             <meta-data
                     android:name="android.accessibilityservice"
                     android:resource="@xml/accessibility_service_config" />
-        </service>
-        <service
-                android:name=".notifications.PushNotificationService"
-                android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
         </service>
 
         <meta-data

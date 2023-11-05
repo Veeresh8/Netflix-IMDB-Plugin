@@ -10,12 +10,7 @@ import android.os.PowerManager
 import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.content.ContextCompat.startActivity
 import com.droid.netflixIMDB.Application
-import com.droid.netflixIMDB.R
-import com.droid.netflixIMDB.analytics.Analytics
-import com.droid.netflixIMDB.toast
 
 
 object LaunchUtils {
@@ -61,39 +56,6 @@ object LaunchUtils {
         return true
     }
 
-    fun shareAppIntent(context: Context) {
-        try {
-            val sendIntent = Intent()
-            sendIntent.action = Intent.ACTION_SEND
-            sendIntent.putExtra(
-                Intent.EXTRA_TEXT,
-                "Hey, check out this app: https://play.google.com/store/apps/details?id=com.droid.netflixIMDB"
-            )
-            sendIntent.type = "text/plain"
-            context.startActivity(sendIntent)
-        } catch (exception: Exception) {
-            Log.e(TAG, "Exception launching share intent - ${exception.message}")
-        }
-    }
-
-    fun openPlayStore(context: Context) {
-        try {
-            context.startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse("market://details?id=${Application.instance?.packageName}")
-                )
-            )
-        } catch (exception: Exception) {
-            context.startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse("https://play.google.com/store/apps/details?id=${Application.instance?.packageName}")
-                )
-            )
-        }
-    }
-
     fun launchAppWithPackageName(activity: Activity, packageName: String) {
         val pm = activity.packageManager
         try {
@@ -106,61 +68,10 @@ object LaunchUtils {
     }
 
     fun launchAccessibilityScreen(context: Context) {
-        Analytics.postClickEvents(Analytics.ClickTypes.ACC_SERV)
         try {
             val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
             context.startActivity(intent)
         } catch (exception: java.lang.Exception) {
-            Log.e(TAG, "Exception launching - ${exception.message}")
-        }
-    }
-
-    fun getPlaystoreIntent(): Intent {
-        return try {
-            Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=${Application.instance?.packageName}"))
-        } catch (exception: Exception) {
-            Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse("https://play.google.com/store/apps/details?id=${Application.instance?.packageName}")
-            )
-        }
-    }
-
-    fun openPrivacyPolicy(context: Context) {
-        try {
-            context.startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse("https://sites.google.com/view/netfliximdbplugin/privacy-policy")
-                )
-            )
-        } catch (exception: Exception) {
-            Log.e(TAG, "Exception launching - ${exception.message}")
-        }
-    }
-
-    fun openDontKillMyApp(context: Context) {
-        try {
-            context.startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse("https://dontkillmyapp.com")
-                )
-            )
-        } catch (exception: Exception) {
-            Log.e(TAG, "Exception launching - ${exception.message}")
-        }
-    }
-
-    fun openPowerSettings(context: Context) {
-        Analytics.postClickEvents(Analytics.ClickTypes.WHITELIST)
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                val intent = Intent()
-                intent.action = Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS
-                context.startActivity(intent)
-            }
-        } catch (exception: Exception) {
             Log.e(TAG, "Exception launching - ${exception.message}")
         }
     }

@@ -3,15 +3,12 @@ package com.droid.netflixIMDB
 import android.accessibilityservice.AccessibilityService
 import android.accessibilityservice.AccessibilityServiceInfo
 import android.content.Intent
-import android.content.res.Resources
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import com.droid.netflixIMDB.reader.Reader
 import com.droid.netflixIMDB.reader.YoutubeReader
-import com.droid.netflixIMDB.util.Prefs
 import com.droid.netflixIMDB.util.ReaderConstants
-import com.google.firebase.crashlytics.FirebaseCrashlytics
-import java.util.Locale
+import org.json.JSONObject
 
 class ReaderService : AccessibilityService() {
 
@@ -80,7 +77,7 @@ class ReaderService : AccessibilityService() {
             }
 
         } catch (exception: Exception) {
-            FirebaseCrashlytics.getInstance().recordException(exception)
+            Application.mixpanel.track("reader_exception", JSONObject(exception.toString()))
             Log.d(TAG, "Exception in on event: ${exception.message}")
         }
     }
