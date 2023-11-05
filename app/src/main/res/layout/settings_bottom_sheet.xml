@@ -37,6 +37,7 @@
             android:id="@+id/llBoostService"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
         <ImageView
@@ -55,10 +56,21 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
+                android:layout_weight=".8"
                 android:fontFamily="@font/montserrat_semibold"
                 android:text="@string/boost_service"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/language_text_color_selector" />
+
+        <ImageView
+                android:id="@+id/ivCheck"
+                android:visibility="gone"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/baseline_check_24" />
+
     </LinearLayout>
 
     <LinearLayout

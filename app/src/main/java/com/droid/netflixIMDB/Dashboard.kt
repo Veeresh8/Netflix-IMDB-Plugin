@@ -33,6 +33,7 @@ import com.skydoves.balloon.ArrowPositionRules
 import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.BalloonAnimation
 import com.skydoves.balloon.BalloonSizeSpec
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -40,6 +41,8 @@ import kotlinx.coroutines.launch
 
 class Dashboard : AppCompatActivity() {
 
+    private var hintJob: Job? = null
+    private var balloon: Balloon? = null
     private lateinit var tvHowDoesItWorkHeader: TextView
     private lateinit var btnStartService: Button
     private lateinit var btnYoutube: Button
@@ -171,27 +174,35 @@ class Dashboard : AppCompatActivity() {
         val bottomSheetDialog = BottomSheetDialog(this)
         bottomSheetDialog.setContentView(R.layout.settings_bottom_sheet)
 
+        val check = bottomSheetDialog.findViewById<ImageView>(R.id.ivCheck)
+
         bottomSheetDialog
             .findViewById<LinearLayout>(R.id.llChangeLanguage)
             ?.setOnDebouncedClickListener {
                 Application.mixpanel.track("clicked change language")
                 LanguageActivity.launch(this, true)
-                bottomSheetDialog.show()
+                bottomSheetDialog.dismiss()
             }
 
         bottomSheetDialog.findViewById<LinearLayout>(R.id.llBoostService)
             ?.setOnDebouncedClickListener {
                 Application.mixpanel.track("clicked boost service")
                 LaunchUtils.openIgnoreBatteryOptimisations(this)
-                bottomSheetDialog.show()
+                bottomSheetDialog.dismiss()
             }
 
         bottomSheetDialog.findViewById<LinearLayout>(R.id.llReportProblem)
             ?.setOnDebouncedClickListener {
                 Application.mixpanel.track("clicked report problem")
                 LaunchUtils.sendFeedbackIntent(this)
-                bottomSheetDialog.show()
+                bottomSheetDialog.dismiss()
             }
+
+        if (LaunchUtils.isIgnoringBatteryOptimizations(this)) {
+            check?.visible()
+        } else {
+            check?.gone()
+        }
 
         bottomSheetDialog.show()
     }
@@ -317,15 +328,17 @@ class Dashboard : AppCompatActivity() {
     }
 
     private fun showUpgradeHint() {
-        if (Prefs.getIsPremiumUser()) {
-            return
-        }
+        hintJob?.cancel()
+        hintJob = lifecycleScope.launch {
+            delay(1500)
 
-        lifecycleScope.launch {
-            delay(2000)
+            if (Prefs.getIsPremiumUser() || balloon?.isShowing == true) {
+                return@launch
+            }
+
             val exhaustedHint = getString(R.string.exhausted_trail_hint)
 
-            val balloon =
+            balloon =
                 Balloon.Builder(this@Dashboard)
                     .setWidth(BalloonSizeSpec.WRAP)
                     .setHeight(BalloonSizeSpec.WRAP)
@@ -343,7 +356,7 @@ class Dashboard : AppCompatActivity() {
                     .setBalloonAnimation(BalloonAnimation.FADE)
                     .setLifecycleOwner(this@Dashboard)
                     .build()
-            balloon.showAlignBottom(tvUpgrade)
+            balloon?.showAlignBottom(tvUpgrade)
         }
     }
 }

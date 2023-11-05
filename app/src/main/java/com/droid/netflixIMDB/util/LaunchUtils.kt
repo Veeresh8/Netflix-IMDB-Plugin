@@ -11,24 +11,52 @@ import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
 import com.droid.netflixIMDB.Application
+import com.google.android.gms.ads.identifier.AdvertisingIdClient
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 object LaunchUtils {
 
     private val TAG: String = this.javaClass.simpleName
 
+    @OptIn(DelicateCoroutinesApi::class)
     fun sendFeedbackIntent(context: Context) {
-        try {
-            val emailIntent = Intent(
-                Intent.ACTION_SENDTO, Uri.fromParts(
-                    "mailto", "parallelstudiosinc@gmail.com", null
-                )
-            )
-            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Feedback")
-            emailIntent.putExtra(Intent.EXTRA_TEXT, "")
-            context.startActivity(Intent.createChooser(emailIntent, "Send Feedback"))
-        } catch (exception: Exception) {
-            Log.e(TAG, "Exception launching feedback intent - ${exception.message}")
+        GlobalScope.launch(Dispatchers.IO) {
+            val advertId = getAdvertisingId()
+
+            withContext(Dispatchers.Main) {
+                try {
+                    val emailIntent = Intent(Intent.ACTION_SENDTO)
+                    emailIntent.data = Uri.parse("mailto:") // This sets the URI for sending emails
+
+                    emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf("parallelstudiosinc@gmail.com")) // Replace with the recipient's email address
+                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Ad Skipper Feedback")
+                    emailIntent.putExtra(Intent.EXTRA_TEXT, """
+                        Device ID - $advertId
+                        
+                        
+                        
+                    """.trimIndent())
+
+                    context.startActivity(emailIntent)
+
+                } catch (exception: Exception) {
+                    Log.e(TAG, "Exception launching feedback intent - ${exception.message}")
+                }
+            }
+        }
+    }
+
+    fun getAdvertisingId(): String? {
+        return try {
+            val adInfo = Application.instance?.let { AdvertisingIdClient.getAdvertisingIdInfo(it) }
+            adInfo?.id
+        } catch (exception: java.lang.Exception) {
+            null
         }
     }
 
@@ -47,8 +75,9 @@ object LaunchUtils {
         }
     }
 
-    private fun isIgnoringBatteryOptimizations(context: Context): Boolean {
-        val pwrm = context.applicationContext.getSystemService(Context.POWER_SERVICE) as PowerManager
+    fun isIgnoringBatteryOptimizations(context: Context): Boolean {
+        val pwrm =
+            context.applicationContext.getSystemService(Context.POWER_SERVICE) as PowerManager
         val name = context.applicationContext.packageName
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             return pwrm.isIgnoringBatteryOptimizations(name)
