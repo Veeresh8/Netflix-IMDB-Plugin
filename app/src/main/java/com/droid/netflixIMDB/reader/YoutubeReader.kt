@@ -30,9 +30,13 @@ class YoutubeReader : Reader() {
                     ContextUtils.setAppLocale(context, Prefs.getLanguageSelected().toString())
 
                     if (Prefs.hasExceedLimit()) {
+                        Application.mixpanel.track("exceeded limit: ${Prefs.getSkipCount()}")
+
                         if (context.areNotificationsEnabled()) {
+                            Application.mixpanel.track("notifications enabled, showing premium hint")
                             NotificationManager.createPremiumPushNotification(context)
                         } else {
+                            Application.mixpanel.track("notifications disabled, showing toast hint")
                             context.toastLong(context.getString(R.string.exhausted_trail_hint))
                         }
                         Log.i(TAG, "Exceeded max events, user is not premium")
@@ -48,6 +52,7 @@ class YoutubeReader : Reader() {
                     startTimer()
 
                     if (!Prefs.hasShownYoutubeHint()) {
+                        Application.mixpanel.track("showed first time skip hint")
                         context.toastLong(context.getString(R.string.first_ad_skip_hint))
                         Prefs.setHasShownYoutubeHint(true)
                     }
