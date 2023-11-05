@@ -29,6 +29,8 @@ class YoutubeReader : Reader() {
                 if (this.isClickable && this.isVisibleToUser) {
                     ContextUtils.setAppLocale(context, Prefs.getLanguageSelected().toString())
 
+                    Application.mixpanel.track("Skipped ad successfully")
+
                     if (Prefs.hasExceedLimit()) {
                         Application.mixpanel.track("exceeded limit: ${Prefs.getSkipCount()}")
 
