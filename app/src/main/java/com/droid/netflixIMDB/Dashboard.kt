@@ -41,6 +41,7 @@ import kotlinx.coroutines.launch
 
 class Dashboard : AppCompatActivity() {
 
+    private var startedPurchase = false
     private var hintJob: Job? = null
     private var balloon: Balloon? = null
     private lateinit var tvHowDoesItWorkHeader: TextView
@@ -85,7 +86,13 @@ class Dashboard : AppCompatActivity() {
         onBackPressedDispatcher.addCallback(callback)
 
         requestPermissionLauncher =
-            registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
+            registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+                if (it) {
+                    Application.mixpanel.track("PERMISSION: granted push notification permission")
+                } else {
+                    Application.mixpanel.track("PERMISSION: declined push notification permission")
+                }
+            }
     }
 
     private fun initBilling() {
@@ -108,7 +115,10 @@ class Dashboard : AppCompatActivity() {
                     Prefs.setIsPremiumUser(true)
                     checkUsage()
 
-                    Application.mixpanel.track("Purchase Successful")
+                    if (startedPurchase) {
+                        Application.mixpanel.track("Purchase Successful")
+                        startedPurchase = false
+                    }
                 }
             }
         }
@@ -117,6 +127,7 @@ class Dashboard : AppCompatActivity() {
     private fun launchPurchaseScreen() {
         lifecycleScope.launch {
             billingViewModel.productsForSaleFlows.collectLatest {
+                startedPurchase = true
                 val productDetails = it.basicProductDetails
                 productDetails?.let { product ->
                     billingViewModel.buy(
@@ -146,27 +157,27 @@ class Dashboard : AppCompatActivity() {
 
         btnStartService.setOnDebouncedClickListener {
             showAccessibilityServiceDialog()
-            Application.mixpanel.track("clicked start service")
+            Application.mixpanel.track("CLICK: start service")
         }
 
         btnYoutube.setOnDebouncedClickListener {
             LaunchUtils.launchAppWithPackageName(this, "com.google.android.youtube")
-            Application.mixpanel.track("clicked open youtube")
+            Application.mixpanel.track("CLICK: open youtube")
         }
 
         tvShowAdSkipHintImage.setOnDebouncedClickListener {
             ImageShowerActivity.launch(this)
-            Application.mixpanel.track("clicked see image hint")
+            Application.mixpanel.track("CLICK: see image hint")
         }
 
         ivInfo.setOnDebouncedClickListener {
             openSettingsBottomMenu()
-            Application.mixpanel.track("clicked settings")
+            Application.mixpanel.track("CLICK: settings")
         }
 
         tvUpgrade.setOnDebouncedClickListener {
             launchPurchaseScreen()
-            Application.mixpanel.track("clicked upgrade")
+            Application.mixpanel.track("CLICK: upgrade")
         }
     }
 
@@ -179,21 +190,21 @@ class Dashboard : AppCompatActivity() {
         bottomSheetDialog
             .findViewById<LinearLayout>(R.id.llChangeLanguage)
             ?.setOnDebouncedClickListener {
-                Application.mixpanel.track("clicked change language")
+                Application.mixpanel.track("CLICK: change language")
                 LanguageActivity.launch(this, true)
                 bottomSheetDialog.dismiss()
             }
 
         bottomSheetDialog.findViewById<LinearLayout>(R.id.llBoostService)
             ?.setOnDebouncedClickListener {
-                Application.mixpanel.track("clicked boost service")
+                Application.mixpanel.track("CLICK: boost service")
                 LaunchUtils.openIgnoreBatteryOptimisations(this)
                 bottomSheetDialog.dismiss()
             }
 
         bottomSheetDialog.findViewById<LinearLayout>(R.id.llReportProblem)
             ?.setOnDebouncedClickListener {
-                Application.mixpanel.track("clicked report problem")
+                Application.mixpanel.track("CLICK: report problem")
                 LaunchUtils.sendFeedbackIntent(this)
                 bottomSheetDialog.dismiss()
             }
@@ -212,6 +223,22 @@ class Dashboard : AppCompatActivity() {
         checkAccessibilitySettings()
         checkUsage()
         initBilling()
+        logAnalytics()
+    }
+
+    private fun logAnalytics() {
+        Application.mixpanel.track(
+            """
+            IsPremium: ${Prefs.getIsPremiumUser()}
+            Usage: ${tvPlanUsage.text}
+            Service Running: ${
+                AccessibilityUtils.isAccessibilityServiceEnabled(
+                    this,
+                    ReaderService::class.java
+                )
+            }
+        """.trimIndent()
+        )
     }
 
     @SuppressLint("SetTextI18n")
@@ -221,18 +248,22 @@ class Dashboard : AppCompatActivity() {
         } else {
             ReaderConstants.MAX_LIMIT
         }
+
         tvPlanUsage.text = "${Prefs.getSkipCount()} / $limitSuffix"
 
-        usageProgressBar.updateProgressAndAnimate(
-            (Prefs.getSkipCount() * 100) / ReaderConstants.MAX_LIMIT
-        )
+        if (Prefs.getIsPremiumUser()) {
+            usageProgressBar.updateProgressAndAnimate(
+                100
+            )
+        } else {
+            usageProgressBar.updateProgressAndAnimate(
+                (Prefs.getSkipCount() * 100) / ReaderConstants.MAX_LIMIT
+            )
+        }
 
         if (Prefs.getSkipCount() >= ReaderConstants.MAX_LIMIT) {
             showUpgradeHint()
         }
-
-        Application.mixpanel.track("Usage: ${tvPlanUsage.text.toString()}")
-        Application.mixpanel.track("IsPremium User: ${Prefs.getIsPremiumUser()}")
     }
 
     private fun showAccessibilityServiceDialog() {
@@ -250,11 +281,11 @@ class Dashboard : AppCompatActivity() {
                 .positiveButton(text = enableString) {
                     LaunchUtils.launchAccessibilityScreen(this)
                     dialog?.dismiss()
-                    Application.mixpanel.track("clicked enabled acc service")
+                    Application.mixpanel.track("CLICK: enabled acc service")
                 }
                 .negativeButton(text = cancelString) {
                     dialog?.dismiss()
-                    Application.mixpanel.track("clicked cancel on acc service")
+                    Application.mixpanel.track("CLICK: cancel on acc service")
                 }
 
         dialog?.show()
@@ -267,9 +298,7 @@ class Dashboard : AppCompatActivity() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 checkNotificationPermission()
             }
-            Application.mixpanel.track("onResume: acc service is enabled")
         } else {
-            Application.mixpanel.track("onResume: acc service is disable")
             btnYoutube.gone()
             btnStartService.visible()
 
@@ -320,10 +349,7 @@ class Dashboard : AppCompatActivity() {
             ) !=
             PackageManager.PERMISSION_GRANTED
         ) {
-            Application.mixpanel.track("granted push notification permission")
             requestPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
-        } else {
-            Application.mixpanel.track("declined push notification permission")
         }
     }
 
