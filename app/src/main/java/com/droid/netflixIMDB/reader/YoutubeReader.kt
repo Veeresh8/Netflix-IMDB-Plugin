@@ -27,6 +27,8 @@ class YoutubeReader : Reader() {
         nodeTitle.forEach { child ->
             child?.run {
                 if (this.isClickable && this.isVisibleToUser) {
+                    isTimerRunning = true
+
                     ContextUtils.setAppLocale(context, Prefs.getLanguageSelected().toString())
 
                     Application.mixpanel.track("Skipped ad successfully")
@@ -44,8 +46,6 @@ class YoutubeReader : Reader() {
                         Log.i(TAG, "Exceeded max events, user is not premium")
                         return
                     }
-
-                    isTimerRunning = true
 
                     this.performAction(AccessibilityNodeInfo.ACTION_CLICK)
 

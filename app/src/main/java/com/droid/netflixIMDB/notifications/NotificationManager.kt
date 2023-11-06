@@ -11,6 +11,7 @@ import android.os.Build
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import androidx.core.app.Person
+import com.droid.netflixIMDB.Application
 import com.droid.netflixIMDB.Dashboard
 import com.droid.netflixIMDB.R
 import java.util.UUID
@@ -21,6 +22,7 @@ object NotificationManager {
 
     fun createPremiumPushNotification(context: Context) {
         if (isNotificationBeingShown(context, BUY_PREMIUM_NOTIFICATION_ID)) {
+            Application.mixpanel.track("PREMIUM NOTIFICATION: already being shown")
             return
         }
 
@@ -82,6 +84,7 @@ object NotificationManager {
         val notification = mBuilder.build()
 
         mNotificationManager.notify(BUY_PREMIUM_NOTIFICATION_ID, notification)
+        Application.mixpanel.track("PREMIUM NOTIFICATION: shown to user")
     }
 
     private fun getBuyIntent(context: Context, notificationID: Int): PendingIntent {
