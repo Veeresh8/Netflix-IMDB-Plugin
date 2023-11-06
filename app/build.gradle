@@ -17,8 +17,8 @@ android {
         applicationId "com.droid.netflixIMDB"
         minSdkVersion 21
         targetSdkVersion 34
-        versionCode 31
-        versionName "3.1"
+        versionCode 32
+        versionName "3.2"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField 'String', 'BILLING_KEY', properties['billing_key']
@@ -48,13 +48,6 @@ android {
             enableSplit = false
         }
     }
-    buildTypes {
-        release {
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
 }
 
 dependencies {
@@ -82,6 +75,10 @@ dependencies {
     implementation 'com.mixpanel.android:mixpanel-android:7.3.2'
 
     implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1'
+
+    def appCenterSdkVersion = '4.4.5'
+    implementation "com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}"
+    implementation "com.microsoft.appcenter:appcenter-crashes:${appCenterSdkVersion}"
 }
 
 apply plugin: 'com.google.gms.google-services'
