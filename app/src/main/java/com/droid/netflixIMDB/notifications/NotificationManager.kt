@@ -22,7 +22,7 @@ object NotificationManager {
 
     fun createPremiumPushNotification(context: Context) {
         if (isNotificationBeingShown(context, BUY_PREMIUM_NOTIFICATION_ID)) {
-            Application.mixpanel.track("PREMIUM NOTIFICATION: already being shown")
+            Application.mixpanel.track("Buy Premium notification already being shown")
             return
         }
 
@@ -84,7 +84,7 @@ object NotificationManager {
         val notification = mBuilder.build()
 
         mNotificationManager.notify(BUY_PREMIUM_NOTIFICATION_ID, notification)
-        Application.mixpanel.track("PREMIUM NOTIFICATION: shown to user")
+        Application.mixpanel.track("Buy Premium notification shown")
     }
 
     private fun getBuyIntent(context: Context, notificationID: Int): PendingIntent {

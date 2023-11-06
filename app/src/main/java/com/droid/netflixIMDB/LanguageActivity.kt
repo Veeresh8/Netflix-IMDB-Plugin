@@ -63,7 +63,7 @@ class LanguageActivity : AppCompatActivity() {
         btnSelectedLanguage.setOnDebouncedClickListener {
             Dashboard.launch(this)
             Prefs.setHasSelectedLanguageScreen()
-            Application.mixpanel.track("language_selected: ${Prefs.getLanguageSelected()}")
+            Application.mixpanel.track("Language: ${Prefs.getLanguageSelected()}")
         }
     }
 

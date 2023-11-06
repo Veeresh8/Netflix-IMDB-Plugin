@@ -88,9 +88,9 @@ class Dashboard : AppCompatActivity() {
         requestPermissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestPermission()) {
                 if (it) {
-                    Application.mixpanel.track("PERMISSION: granted push notification permission")
+                    Application.mixpanel.track("Granted push notification permission")
                 } else {
-                    Application.mixpanel.track("PERMISSION: declined push notification permission")
+                    Application.mixpanel.track("Declined push notification permission")
                 }
             }
     }
@@ -157,27 +157,27 @@ class Dashboard : AppCompatActivity() {
 
         btnStartService.setOnDebouncedClickListener {
             showAccessibilityServiceDialog()
-            Application.mixpanel.track("CLICK: start service")
+            Application.mixpanel.track("Clicked: start service")
         }
 
         btnYoutube.setOnDebouncedClickListener {
             LaunchUtils.launchAppWithPackageName(this, "com.google.android.youtube")
-            Application.mixpanel.track("CLICK: open youtube")
+            Application.mixpanel.track("Clicked: open youtube")
         }
 
         tvShowAdSkipHintImage.setOnDebouncedClickListener {
             ImageShowerActivity.launch(this)
-            Application.mixpanel.track("CLICK: see image hint")
+            Application.mixpanel.track("Clicked: see image hint")
         }
 
         ivInfo.setOnDebouncedClickListener {
             openSettingsBottomMenu()
-            Application.mixpanel.track("CLICK: settings")
+            Application.mixpanel.track("Clicked: settings")
         }
 
         tvUpgrade.setOnDebouncedClickListener {
             launchPurchaseScreen()
-            Application.mixpanel.track("CLICK: upgrade")
+            Application.mixpanel.track("Clicked: upgrade")
         }
     }
 
@@ -190,21 +190,21 @@ class Dashboard : AppCompatActivity() {
         bottomSheetDialog
             .findViewById<LinearLayout>(R.id.llChangeLanguage)
             ?.setOnDebouncedClickListener {
-                Application.mixpanel.track("CLICK: change language")
+                Application.mixpanel.track("Clicked: change language")
                 LanguageActivity.launch(this, true)
                 bottomSheetDialog.dismiss()
             }
 
         bottomSheetDialog.findViewById<LinearLayout>(R.id.llBoostService)
             ?.setOnDebouncedClickListener {
-                Application.mixpanel.track("CLICK: boost service")
+                Application.mixpanel.track("Clicked: boost service")
                 LaunchUtils.openIgnoreBatteryOptimisations(this)
                 bottomSheetDialog.dismiss()
             }
 
         bottomSheetDialog.findViewById<LinearLayout>(R.id.llReportProblem)
             ?.setOnDebouncedClickListener {
-                Application.mixpanel.track("CLICK: report problem")
+                Application.mixpanel.track("Clicked: report problem")
                 LaunchUtils.sendFeedbackIntent(this)
                 bottomSheetDialog.dismiss()
             }
@@ -229,7 +229,7 @@ class Dashboard : AppCompatActivity() {
     private fun logAnalytics() {
         Application.mixpanel.track(
             """
-            IsPremium: ${Prefs.getIsPremiumUser()}
+            Premium User: ${Prefs.getIsPremiumUser()}
             Usage: ${tvPlanUsage.text}
             Service Running: ${
                 AccessibilityUtils.isAccessibilityServiceEnabled(
@@ -281,11 +281,11 @@ class Dashboard : AppCompatActivity() {
                 .positiveButton(text = enableString) {
                     LaunchUtils.launchAccessibilityScreen(this)
                     dialog?.dismiss()
-                    Application.mixpanel.track("CLICK: enabled acc service")
+                    Application.mixpanel.track("Clicked: enabled acc service dialog")
                 }
                 .negativeButton(text = cancelString) {
                     dialog?.dismiss()
-                    Application.mixpanel.track("CLICK: cancel on acc service")
+                    Application.mixpanel.track("Clicked: cancel on acc service dialog")
                 }
 
         dialog?.show()

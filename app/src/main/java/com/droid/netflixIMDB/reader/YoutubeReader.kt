@@ -28,33 +28,29 @@ class YoutubeReader : Reader() {
             child?.run {
                 if (this.isClickable && this.isVisibleToUser) {
                     isTimerRunning = true
-
-                    ContextUtils.setAppLocale(context, Prefs.getLanguageSelected().toString())
-
-                    Application.mixpanel.track("Skipped ad successfully")
+                    ContextUtils.setAppLocale(context, Prefs.getLanguageSelected())
 
                     if (Prefs.hasExceedLimit()) {
-                        Application.mixpanel.track("exceeded limit: ${Prefs.getSkipCount()}")
+                        Application.mixpanel.track("Free Limit Reached: ${Prefs.getSkipCount()}")
 
                         if (context.areNotificationsEnabled()) {
-                            Application.mixpanel.track("notifications enabled, showing premium hint")
+                            Application.mixpanel.track("Notifications enabled, showing premium hint")
                             NotificationManager.createPremiumPushNotification(context)
                         } else {
-                            Application.mixpanel.track("notifications disabled, showing toast hint")
+                            Application.mixpanel.track("Notifications disabled, showing toast hint")
                             context.toastLong(context.getString(R.string.exhausted_trail_hint))
                         }
-                        Log.i(TAG, "Exceeded max events, user is not premium")
                         return
                     }
 
                     this.performAction(AccessibilityNodeInfo.ACTION_CLICK)
-
+                    Application.mixpanel.track("Skipped ad successfully")
                     Prefs.incrementSkipCount()
 
                     startTimer()
 
                     if (!Prefs.hasShownYoutubeHint()) {
-                        Application.mixpanel.track("showed first time skip hint")
+                        Application.mixpanel.track("Showed first time skip hint")
                         context.toastLong(context.getString(R.string.first_ad_skip_hint))
                         Prefs.setHasShownYoutubeHint(true)
                     }
