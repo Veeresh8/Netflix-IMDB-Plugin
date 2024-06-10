@@ -22,4 +22,5 @@
     <string name="report_problem">Signaler un problème</string>
     <string name="premium_user">Utilisateur Premium</string>
     <string name="open_youtube">Ouvrir YouTube</string>
+    <string name="watch_ad_hint">Regardez une publicité pour gagner 15 sauts gratuits supplémentaires !</string>
 </resources>

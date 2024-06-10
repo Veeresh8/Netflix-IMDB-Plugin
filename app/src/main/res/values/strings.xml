@@ -23,4 +23,5 @@
 
     <string name="infinity" translatable="false">&#8734;</string>
     <string name="open_youtube">Open YouTube</string>
+    <string name="watch_ad_hint">Watch an ad to earn 15 additional free skips!</string>
 </resources>

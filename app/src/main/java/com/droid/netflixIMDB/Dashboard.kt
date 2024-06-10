@@ -28,6 +28,12 @@ import com.droid.netflixIMDB.payments.BillingViewModel
 import com.droid.netflixIMDB.util.LaunchUtils
 import com.droid.netflixIMDB.util.Prefs
 import com.droid.netflixIMDB.util.ReaderConstants
+import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.rewarded.RewardedAd
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.skydoves.balloon.ArrowPositionRules
 import com.skydoves.balloon.Balloon
@@ -53,6 +59,7 @@ class Dashboard : AppCompatActivity() {
     private lateinit var ivInfo: ImageView
     private lateinit var tvShowAdSkipHintImage: TextView
     private lateinit var usageProgressBar: ProgressBar
+    private var rewardedAd: RewardedAd? = null
 
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
     private var dialog: MaterialDialog? = null
@@ -93,6 +100,61 @@ class Dashboard : AppCompatActivity() {
                     Application.mixpanel.track("Declined push notification permission")
                 }
             }
+
+        loadRewardedAdVideo()
+    }
+
+    private fun loadRewardedAdVideo() {
+        val testAdUnit = "ca-app-pub-3940256099942544/5224354917"
+        val prodAdUnit = "ca-app-pub-2664611290118817/4109181417"
+
+        val adRequest = AdRequest.Builder().build()
+        RewardedAd.load(this,prodAdUnit, adRequest, object : RewardedAdLoadCallback() {
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+                adError.toString().let { Log.d(TAG, it) }
+                rewardedAd = null
+            }
+
+            override fun onAdLoaded(ad: RewardedAd) {
+                Log.d(TAG, "Ad was loaded.")
+                rewardedAd = ad
+
+                rewardedAd?.fullScreenContentCallback = object: FullScreenContentCallback() {
+                    override fun onAdClicked() {
+                        // Called when a click is recorded for an ad.
+                        Log.d(TAG, "Ad was clicked.")
+                        Application.mixpanel.track("Ad was clicked")
+                    }
+
+                    override fun onAdDismissedFullScreenContent() {
+                        // Called when ad is dismissed.
+                        // Set the ad reference to null so you don't show the ad a second time.
+                        Log.d(TAG, "Ad dismissed fullscreen content.")
+                        Application.mixpanel.track("Ad dismissed fullscreen content")
+                        rewardedAd = null
+                    }
+
+                    override fun onAdFailedToShowFullScreenContent(adError: AdError) {
+                        // Called when ad fails to show.
+                        Log.e(TAG, "Ad failed to show fullscreen content.")
+                        Application.mixpanel.track("Ad failed to show fullscreen content: ${adError.message}")
+                        rewardedAd = null
+                    }
+
+                    override fun onAdImpression() {
+                        // Called when an impression is recorded for an ad.
+                        Log.d(TAG, "Ad recorded an impression.")
+                        Application.mixpanel.track("Ad recorded an impression")
+                    }
+
+                    override fun onAdShowedFullScreenContent() {
+                        // Called when ad is shown.
+                        Log.d(TAG, "Ad showed fullscreen content.")
+                        Application.mixpanel.track("Ad showed fullscreen content")
+                    }
+                }
+            }
+        })
     }
 
     private fun initBilling() {
@@ -176,9 +238,44 @@ class Dashboard : AppCompatActivity() {
         }
 
         tvUpgrade.setOnDebouncedClickListener {
-            launchPurchaseScreen()
-            Application.mixpanel.track("Clicked: upgrade")
+            if (Prefs.hasExceedLimit()) {
+                Application.mixpanel.track("Clicked: upgrade with ads menu")
+                openPurchaseBottomMenu()
+            } else {
+                launchPurchaseScreen()
+                Application.mixpanel.track("Clicked: upgrade")
+            }
         }
+    }
+
+    private fun openPurchaseBottomMenu() {
+        val bottomSheetDialog = BottomSheetDialog(this)
+        bottomSheetDialog.setContentView(R.layout.purchase_bottom_sheet)
+
+        bottomSheetDialog
+            .findViewById<LinearLayout>(R.id.llRewardAds)?.setOnDebouncedClickListener {
+                Application.mixpanel.track("Reward Ad Clicked")
+
+                rewardedAd?.let { ad -> ad.show(this) { rewardItem ->
+                    Prefs.resetSkipCount()
+                    checkUsage()
+                }
+                } ?: run {
+                    Log.d(TAG, "The rewarded ad wasn't ready yet.")
+                    Application.mixpanel.track("Reward Ad Failed, The rewarded ad wasn't ready yet.")
+                }
+
+                bottomSheetDialog.dismiss()
+            }
+
+        bottomSheetDialog
+            .findViewById<LinearLayout>(R.id.llUpgrade)?.setOnDebouncedClickListener {
+                launchPurchaseScreen()
+                Application.mixpanel.track("Clicked: upgrade")
+                bottomSheetDialog.dismiss()
+            }
+
+        bottomSheetDialog.show()
     }
 
     private fun openSettingsBottomMenu() {

@@ -23,6 +23,18 @@
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning"
             tools:replace="android:allowBackup">
+
+        <!-- Dev Ad Unit ID -->
+<!--        <meta-data-->
+<!--                android:name="com.google.android.gms.ads.APPLICATION_ID"-->
+<!--                android:value="ca-app-pub-3940256099942544~3347511713"/>-->
+
+        <!-- Prod Ad Unit ID -->
+        <meta-data
+                android:name="com.google.android.gms.ads.APPLICATION_ID"
+                android:value="ca-app-pub-2664611290118817~3328235179"/>
+
+
         <activity
                 android:name=".ImageShowerActivity"
                 android:exported="false"

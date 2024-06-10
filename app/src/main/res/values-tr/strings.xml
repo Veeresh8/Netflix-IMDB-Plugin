@@ -22,4 +22,5 @@
     <string name="report_problem">Sorun Bildir</string>
     <string name="premium_user">Premium Kullanıcı</string>
     <string name="open_youtube">YouTube\'u aç</string>
+    <string name="watch_ad_hint">15 ek ücretsiz geçiş hakkı kazanmak için reklamı izleyin!</string>
 </resources>

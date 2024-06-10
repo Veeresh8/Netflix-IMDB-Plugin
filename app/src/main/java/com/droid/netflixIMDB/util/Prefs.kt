@@ -94,6 +94,16 @@ object Prefs {
         }
     }
 
+    fun resetSkipCount() {
+        val sharedPrefs = getSharedPrefs()
+        sharedPrefs?.run {
+            this.edit {
+                this.putInt(SKIP_COUNT, 0)
+                this.commit()
+            }
+        }
+    }
+
     fun hasExceedLimit(): Boolean {
         if (getIsPremiumUser()) {
             return false

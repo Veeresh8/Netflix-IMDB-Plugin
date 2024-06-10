@@ -22,4 +22,5 @@
     <string name="report_problem">报告问题</string>
     <string name="premium_user">付费用户</string>
     <string name="open_youtube">打开YouTube</string>
+    <string name="watch_ad_hint">观看广告即可获得15次额外的免费跳过机会！</string>
 </resources>

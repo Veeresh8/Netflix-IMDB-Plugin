@@ -17,8 +17,8 @@ android {
         applicationId "com.droid.netflixIMDB"
         minSdkVersion 21
         targetSdkVersion 34
-        versionCode 33
-        versionName "3.3"
+        versionCode 34
+        versionName "3.4"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField 'String', 'BILLING_KEY', properties['billing_key']
@@ -79,6 +79,8 @@ dependencies {
     def appCenterSdkVersion = '4.4.5'
     implementation "com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}"
     implementation "com.microsoft.appcenter:appcenter-crashes:${appCenterSdkVersion}"
+
+    implementation 'com.google.android.gms:play-services-ads:23.1.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
