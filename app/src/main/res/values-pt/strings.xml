@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name_accessibility_service">Serviço de Acessibilidade para Saltar Anúncios</string>
     <string name="accessibility_service_description">O serviço de acessibilidade precisa estar ativado para que o aplicativo funcione corretamente</string>
-    <string name="exhausted_trail_hint">Você esgotou o uso gratuito. Faça upgrade para premium para acesso ilimitado.</string>
+    <string name="exhausted_trail_hint">Você esgotou seu uso gratuito. Assista a um anúncio para ganhar 15 pulos gratuitos adicionais!</string>
     <string name="first_ad_skip_hint">Ótimo! Poupamos um anúncio para você.</string>
     <string name="language_selected_hint">Língua</string>
     <string name="how_does_it_work">Como funciona?</string>

@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name_accessibility_service">Layanan Aksesibilitas untuk Melewati Iklan</string>
     <string name="accessibility_service_description">Layanan Aksesibilitas perlu diaktifkan agar aplikasi berfungsi dengan benar</string>
-    <string name="exhausted_trail_hint">Anda telah menghabiskan kuota penggunaan gratis Anda. Tingkatkan ke premium untuk akses tanpa batas</string>
+    <string name="exhausted_trail_hint">Penggunaan gratis Anda telah habis. Tonton iklan untuk mendapatkan 15 lompatan gratis tambahan!</string>
     <string name="first_ad_skip_hint">Bagus! Kami melewati iklan untuk Anda.</string>
     <string name="language_selected_hint">Bahasa</string>
     <string name="how_does_it_work">Bagaimana cara kerjanya?</string>

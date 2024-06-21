@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name_accessibility_service">Reklam Atlama Erişilebilirlik Hizmeti</string>
     <string name="accessibility_service_description">Uygulamanın düzgün çalışması için Erişilebilirlik Hizmetinin açık olması gerekir</string>
-    <string name="exhausted_trail_hint">Ücretsiz kullanım hakkınız tükenmiştir. Sınırsız erişim için premium\'a yükseltin.</string>
+    <string name="exhausted_trail_hint">Ücretsiz kullanım hakkınızı tükettiniz. 15 ek ücretsiz atlama kazanmak için reklam izleyin!</string>
     <string name="first_ad_skip_hint">Harika! Sizin için bir reklamı atlattık.</string>
     <string name="language_selected_hint">Dil</string>
     <string name="how_does_it_work">Nasıl çalışır?</string>

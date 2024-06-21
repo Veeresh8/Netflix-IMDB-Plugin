@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name_accessibility_service">Hirdetésmegkerülési hozzáférhetőségi szolgáltatás</string>
     <string name="accessibility_service_description">Az alkalmazás megfelelő működéséhez a Kisegítő lehetőségek szolgáltatást be kell kapcsolni</string>
-    <string name="exhausted_trail_hint">Kihasználta ingyenes használatát. Frissítse a prémium változatra az korlátlan hozzáféréshez.</string>
+    <string name="exhausted_trail_hint">Kimerítette az ingyenes használatát. Nézzen meg egy hirdetést, hogy 15 további ingyenes átugrást kapjon!</string>
     <string name="first_ad_skip_hint">Nagyszerű! Kihagytunk egy hirdetést az Ön számára.</string>
     <string name="language_selected_hint">Nyelv</string>
     <string name="how_does_it_work">Hogyan működik?</string>

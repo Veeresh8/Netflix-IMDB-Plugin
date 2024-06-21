@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name_accessibility_service">Υπηρεσία προσβασιμότητας για την παράκαμψη διαφημίσεων</string>
     <string name="accessibility_service_description">Η Υπηρεσία Προσβασιμότητας πρέπει να είναι ενεργοποιημένη για να λειτουργεί σωστά η εφαρμογή</string>
-    <string name="exhausted_trail_hint">Έχετε εξαντλήσει τη δωρεάν χρήση σας. Αναβαθμίστε στο premium για απεριόριστη πρόσβαση</string>
+    <string name="exhausted_trail_hint">Έχετε εξαντλήσει τη δωρεάν χρήση σας. Παρακολουθήστε μια διαφήμιση για να κερδίσετε 15 επιπλέον δωρεάν παραλείψεις!</string>
     <string name="first_ad_skip_hint">Εξαιρετικό! Παραλείψαμε μια διαφήμιση για εσάς.</string>
     <string name="language_selected_hint">Γλώσσα</string>
     <string name="how_does_it_work">Πώς λειτουργεί;</string>

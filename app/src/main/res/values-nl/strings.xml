@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name_accessibility_service">Toegankelijkheidsservice voor het overslaan van advertenties</string>
     <string name="accessibility_service_description">De toegankelijkheidsservice moet zijn ingeschakeld om de app correct te laten functioneren</string>
-    <string name="exhausted_trail_hint">U heeft uw gratis gebruik opgebruikt. Upgrade naar premium voor onbeperkte toegang.</string>
+    <string name="exhausted_trail_hint">Je hebt je gratis gebruik verbruikt. Kijk naar een advertentie om 15 extra gratis over te slaan te verdienen!</string>
     <string name="first_ad_skip_hint">Geweldig! We hebben een advertentie voor je overgeslagen.</string>
     <string name="language_selected_hint">Taal</string>
     <string name="how_does_it_work">Hoe werkt het?</string>

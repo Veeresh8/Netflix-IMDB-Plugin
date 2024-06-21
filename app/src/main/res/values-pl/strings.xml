@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name_accessibility_service">Usługa dostępności do pomijania reklam</string>
     <string name="accessibility_service_description">Usługa ułatwień dostępu musi być włączona, aby aplikacja działała poprawnie</string>
-    <string name="exhausted_trail_hint">Wyczerpałeś darmowy limit. Przejdź na premium, aby uzyskać nieograniczony dostęp.</string>
+    <string name="exhausted_trail_hint">Wyczerpałeś swoje darmowe użycie. Obejrzyj reklamę, aby zdobyć 15 dodatkowych darmowych pominięć!</string>
     <string name="first_ad_skip_hint">Świetnie! Pominięto reklamę dla ciebie.</string>
     <string name="language_selected_hint">Język</string>
     <string name="how_does_it_work">Jak to działa?</string>

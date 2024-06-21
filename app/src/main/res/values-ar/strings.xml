@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name_accessibility_service">خدمة إمكانية الوصول لتخطي الإعلانات</string>
     <string name="accessibility_service_description">يجب تشغيل خدمة إمكانية الوصول حتى يعمل التطبيق بشكل صحيح</string>
-    <string name="exhausted_trail_hint">لقد استنفذت استخدامك المجاني. قم بالترقية إلى النسخة المميزة للوصول غير المحدود.</string>
+    <string name="exhausted_trail_hint">لقد استنفدت استخدامك المجاني. شاهد إعلانًا لكسب 15 تخطي مجاني إضافي!</string>
     <string name="first_ad_skip_hint">رائع! لقد تخطينا إعلانًا من أجلك.</string>
     <string name="language_selected_hint">لغة</string>
     <string name="how_does_it_work">كيف يعمل ذلك؟</string>

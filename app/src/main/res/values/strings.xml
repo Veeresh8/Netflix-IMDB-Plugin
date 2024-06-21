@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name_accessibility_service">Ad Skipper Accessibility Service</string>
     <string name="accessibility_service_description">Accessibility Service needs to be turned on for the app to function correctly.</string>
-    <string name="exhausted_trail_hint">You\'ve exhausted your free usage. Upgrade to premium for unlimited access.</string>
+    <string name="exhausted_trail_hint">You\'ve exhausted your free usage. Watch an ad to earn 15 additional free skips!</string>
     <string name="first_ad_skip_hint">Great! We skipped an ad for you.</string>
     <string name="language_selected_hint">Language</string>
     <string name="how_does_it_work">How does it work?</string>
