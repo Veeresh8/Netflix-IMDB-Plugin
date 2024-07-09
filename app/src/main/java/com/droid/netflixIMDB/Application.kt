@@ -5,9 +5,6 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.blongho.country_data.World
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.initialization.InitializationStatus
-import com.microsoft.appcenter.AppCenter
-import com.microsoft.appcenter.analytics.Analytics
-import com.microsoft.appcenter.crashes.Crashes
 import com.mixpanel.android.mpmetrics.MixpanelAPI
 
 
@@ -27,11 +24,6 @@ class Application : Application() {
 
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         World.init(applicationContext)
-
-        AppCenter.start(
-            this, "4cf6d42d-64c9-4f64-a3c4-46826ffe3679",
-            Analytics::class.java, Crashes::class.java
-        )
 
         Thread {
             MobileAds.initialize(this) { initializationStatus: InitializationStatus? ->

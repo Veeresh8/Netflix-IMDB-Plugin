@@ -35,6 +35,7 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.play.core.review.ReviewManagerFactory
 import com.skydoves.balloon.ArrowPositionRules
 import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.BalloonAnimation
@@ -60,6 +61,7 @@ class Dashboard : AppCompatActivity() {
     private lateinit var tvShowAdSkipHintImage: TextView
     private lateinit var usageProgressBar: ProgressBar
     private var rewardedAd: RewardedAd? = null
+    private lateinit var reviewManager: InAppReviewManager
 
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
     private var dialog: MaterialDialog? = null
@@ -102,6 +104,23 @@ class Dashboard : AppCompatActivity() {
             }
 
         loadRewardedAdVideo()
+
+        reviewManager = InAppReviewManager(this)
+        if (reviewManager.shouldShowReview()) {
+            val manager = ReviewManagerFactory.create(this)
+            val request = manager.requestReviewFlow()
+            request.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val reviewInfo = task.result
+                    val flow = manager.launchReviewFlow(this, reviewInfo)
+                    flow.addOnCompleteListener { _ ->
+                        Application.mixpanel.track("Reviewed app")
+                    }
+                } else {
+                    Application.mixpanel.track("Failed to request review: ${task.exception}")
+                }
+            }
+        }
     }
 
     private fun loadRewardedAdVideo() {
